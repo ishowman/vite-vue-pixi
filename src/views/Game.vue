@@ -5,8 +5,8 @@
 <script lang="ts" setup>
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
-import preBg from '@/assets/index/bg.png';
-import bgUrl from '@/assets/img/bg.png';
+// import preBg from '@/assets/index/bg.png';
+// import bgUrl from '@/assets/img/bg.png';
 import outerBg from '@/assets/img/outer-bg.png';
 import infoUrl from '@/assets/img/info.png';
 import coinUrl from '@/assets/img/coin.png';
@@ -78,7 +78,7 @@ onMounted(() => {
 
   //加载素材图片
   app.loader
-    .add(`bg`, bgUrl)
+    .add(`bg`, `/bg_caodi.webp`)
     .add(`coin`, coinUrl)
     .add(`stone`, stoneUrl)
     .add(`prize`, prizeUrl)
@@ -89,7 +89,7 @@ onMounted(() => {
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
-    app.loader.add(`horse${i}`, `/horse/ld${i}.png`);
+    app.loader.add(`horse${i}`, `/blueHorse/ld${i}.png`);
   }
 
   app.loader.load((_loader, _resources) => {
@@ -276,8 +276,14 @@ onMounted(() => {
         let y = randomInt(-(canvasHeight + speed), -1.5 * canvasHeight);
 
         //随机y坐标在画布范围内
-        // let y = randomInt(2, app.stage.height - 2 - blob.height);
-        let x = randomInt(10 + gap, app.stage.width - blob.width - gap);
+        const minX = 80;
+        let xAreas = [
+          minX / 2 + 10,
+          (canvasWidth - minX) / 2,
+          canvasWidth - minX - 10,
+        ];
+        // let x = randomInt(10 + gap, app.stage.width - blob.width - gap);
+        let x = xAreas[randomInt(0, 2)];
 
         //设置车辆位置
         blob.x = x;
@@ -363,12 +369,13 @@ onMounted(() => {
       }
       hitRecords.push(lastHit);
       //判断是否血量归零
-      if (hp < 3) {
+      if (hp < 1) {
         //抛出游戏结束
         state = end;
         message.text = `
        获得分数： ${score}
       `;
+        runningHorse.interactive = false;
       }
       runningHorse.invl = 20; //设置无敌时间
     }
