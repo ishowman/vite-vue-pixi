@@ -6,8 +6,10 @@
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
 import preBg from '@/assets/index/bg.png';
-import playBtn from '@/assets/index/play-btn.png';
-console.log('playBtn', playBtn);
+import bgUrl from '@/assets/img/bg.png';
+import outerBg from '@/assets/img/outer-bg.png';
+import infoUrl from '@/assets/img/info.png';
+
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
@@ -66,22 +68,25 @@ onMounted(() => {
   hp = 3; //初始化HP
   let shouldAddScore = true;
   const horseCourt = 20;
+
+  const contentX = 10;
+  const contentY = 50;
+
   //加载素材图片
   app.loader
-    // .add(`bg`, '@assets/img/bg.png')
+    .add(`bg`, bgUrl)
     // .add(`coin`, '@assets/img/coin.png')
     // .add(`stone`, '@assets/img/stone.png')
     // .add(`prize`, 'img/prize.png')
     // .add(`myHorse`, 'img/myHorse.png')
-    // .add(`outerBg`, 'img/outer-bg.png')
-    .add(`preBg`, preBg)
-    .add(`playBtn`, preBg);
+    .add(`outerBg`, outerBg)
+    // .add(`preBg`, preBg)
+    // .add(`playBtn`, preBg)
+    .add(`info`, infoUrl);
 
-  // .add(`info`, 'img/info.png');
-
-  // for (let i = 1; i <= horseCourt; i++) {
-  //   app.loader.add(`horse${i}`, `horse/ld${i}.png`);
-  // }
+  for (let i = 1; i <= horseCourt; i++) {
+    app.loader.add(`horse${i}`, `src/assets/horse/ld${i}.png`);
+  }
 
   app.loader.load((_loader, _resources) => {
     resources = _resources;
@@ -89,59 +94,65 @@ onMounted(() => {
   });
 
   function setup(resources) {
+    /* preScene */
+    // let preScene = new Container();
+    // app.stage.addChild(preScene);
+
+    // let preBg = new Sprite(resources.preBg.texture);
+    // preBg.width = canvasWidth;
+    // preBg.height = canvasHeight;
+    // preScene.addChild(preBg);
+
+    // let playBtn = new Sprite(resources.playBtn.texture);
+    // playBtn.width = canvasWidth - 20;
+    // playBtn.height = 400;
+    // playBtn.y = canvasHeight - 660;
+    // playBtn.x = 20;
+    // playBtn.interactive = true; //响应交互
+    // playBtn.on('pointerdown', () => {
+    //   preScene.visible = false;
+    //   gameScene.visible = true;
+    // });
+
+    // preScene.addChild(playBtn);
+
     //设置游戏场景容器
-    // gameScene = new Container();
+    gameScene = new Container();
     // gameScene.visible = false;
-    // gameScene.sortableChildren = true;
-    // app.stage.addChild(gameScene);
+    gameScene.sortableChildren = true;
+    app.stage.addChild(gameScene);
     //设置背景
-    // outerBg = new Sprite(resources.outerBg.texture);
-    // outerBg.width = canvasWidth;
-    // outerBg.height = canvasHeight;
-    // outerBg.zIndex = 9;
-    // gameScene.addChild(outerBg);
+    let outerBgSprite = new Sprite(resources.outerBg.texture);
+    outerBgSprite.width = canvasWidth;
+    outerBgSprite.height = canvasHeight;
+    outerBgSprite.zIndex = 9;
+    gameScene.addChild(outerBgSprite);
 
-    let preScene = new Container();
-    app.stage.addChild(preScene);
+    bg = new TilingSprite(resources.bg.texture);
 
-    let preBg = new Sprite(resources.preBg.texture);
-    preBg.width = canvasWidth;
-    preBg.height = canvasHeight;
-    preScene.addChild(preBg);
-
-    let playBtn = new Sprite(resources.playBtn.texture);
-    playBtn.width = canvasWidth - 20;
-    playBtn.height = 400;
-    playBtn.y = canvasHeight - 660;
-    playBtn.x = 20;
-    playBtn.interactive = true; //响应交互
-    playBtn.on('pointerdown', () => {
-      // preScene.visible = false;
-      // gameScene.visible = true;
-      router.push({ name: 'Home' });
-    });
-
-    preScene.addChild(playBtn);
-
-    // bg = new TilingSprite(resources.bg.texture);
-    // bg.x = gap / 2;
-    // bg.y = 140;
+    bg.x = contentX;
+    bg.y = contentY;
     // bg.width = canvasWidth - gap;
-    // bg.height = canvasHeight - 160;
-    // bg.tileScale.set(0.8, 1);
+    bg.width = canvasWidth - contentX * 2;
 
-    // gameScene.addChild(bg);
+    // bg.height = canvasHeight - 160;
+    bg.height = canvasHeight;
+
+    bg.tileScale.set(0.55, 0.65);
+    // bg.tileScale.set( (canvasWidth- contentX*2)*2/1170, canvasHeight*2/2340);
+
+    gameScene.addChild(bg);
 
     // // 分数
-    // infoBar = new Sprite(resources.info.texture);
-    // infoBar.x = gap / 2;
-    // infoBar.y = 80;
+    let infoBar = new Sprite(resources.info.texture);
+    infoBar.x = contentX;
+    infoBar.y = 10;
 
-    // infoBar.width = canvasWidth - gap;
-    // infoBar.height = 200;
-    // infoBar.zIndex = 99;
+    infoBar.width = canvasWidth - contentX * 2;
+    infoBar.height = 100;
+    infoBar.zIndex = 99;
 
-    // gameScene.addChild(infoBar);
+    gameScene.addChild(infoBar);
 
     // // hp info
     // hpInfo = new Text(`HP:${hp}`, { fontSize: '50px', fill: '#d6ac5a' });
@@ -157,48 +168,50 @@ onMounted(() => {
     // scoreInfo.zIndex = 100;
     // gameScene.addChild(scoreInfo);
 
-    // runningHorse = new AnimatedSprite(
-    //   new Array(horseCourt).fill(0).map((item, i) => {
-    //     return resources[`horse${i + 1}`].texture;
-    //   })
-    // );
-    // runningHorse.animationSpeed = 0.3;
+    runningHorse = new AnimatedSprite(
+      new Array(horseCourt).fill(0).map((item, i) => {
+        return resources[`horse${i + 1}`].texture;
+      })
+    );
+    runningHorse.animationSpeed = 0.3;
     // runningHorse.width = 250; //自己的车宽度
     // runningHorse.height = 500; //高度
-    // runningHorse.vy = 0; //y轴加速度
-    // runningHorse.vx = 0; //x轴加速度
-    // runningHorse.invl = 0; //初始化无敌时间
+    runningHorse.width = 120; //自己的车宽度
+    runningHorse.height = 260; //高度
+    runningHorse.vy = 0; //y轴加速度
+    runningHorse.vx = 0; //x轴加速度
+    runningHorse.invl = 0; //初始化无敌时间
 
-    // runningHorse.position.set(
-    //   (canvasWidth - runningHorse.width) / 2,
-    //   canvasHeight - runningHorse.height - gap / 2
-    // ); //自己的车的初始位置
+    runningHorse.position.set(
+      (canvasWidth - runningHorse.width) / 2,
+      canvasHeight - runningHorse.height - gap / 2
+    ); //自己的车的初始位置
 
-    // runningHorse.loop = true;
-    // runningHorse.gotoAndPlay(0);
+    runningHorse.loop = true;
+    runningHorse.gotoAndPlay(0);
 
-    // runningHorse.interactive = true;
+    runningHorse.interactive = true;
 
-    // runningHorse.on('touchstart', (event) => {
-    //   dragFlag = true;
-    //   startPoint = { x: event.data.global.x, y: event.data.global.y };
-    // });
+    runningHorse.on('touchstart', (event) => {
+      dragFlag = true;
+      startPoint = { x: event.data.global.x, y: event.data.global.y };
+    });
 
-    // runningHorse.on('touchmove', (event) => {
-    //   if (dragFlag) {
-    //     const dx = event.data.global.x - startPoint.x;
-    //     // const dy = event.data.global.y - startPoint.y;
-    //     runningHorse.x += dx;
-    //     // mycarSprite.y += dy;
-    //     startPoint = { x: event.data.global.x, y: event.data.global.y };
-    //   }
-    // });
+    runningHorse.on('touchmove', (event) => {
+      if (dragFlag) {
+        const dx = event.data.global.x - startPoint.x;
+        // const dy = event.data.global.y - startPoint.y;
+        runningHorse.x += dx;
+        // mycarSprite.y += dy;
+        startPoint = { x: event.data.global.x, y: event.data.global.y };
+      }
+    });
 
-    // runningHorse.on('touchend', (event) => {
-    //   dragFlag = false;
-    // });
+    runningHorse.on('touchend', (event) => {
+      dragFlag = false;
+    });
 
-    // gameScene.addChild(runningHorse);
+    gameScene.addChild(runningHorse);
 
     // //一个存地方车辆的数组
     // blobs = [];
@@ -290,7 +303,7 @@ onMounted(() => {
   }
   function play(delta) {
     //背景移动
-    // bg.tilePosition.y += 10;
+    bg.tilePosition.y += 10;
     //移动赛车
     // runningHorse.x += runningHorse.vx;
     // runningHorse.y += runningHorse.vy;
