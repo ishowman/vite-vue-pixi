@@ -48,7 +48,7 @@ onMounted(() => {
   let startPoint = {};
   let hitRecords = [];
   let lastHit = {};
-  let initalSpeed = 15;
+  let initalSpeed = 12;
   let speed = initalSpeed;
 
   const gap = 50;
@@ -89,7 +89,7 @@ onMounted(() => {
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
-    app.loader.add(`horse${i}`, `src/assets/horse/ld${i}.png`);
+    app.loader.add(`horse${i}`, `/horse/ld${i}.png`);
   }
 
   app.loader.load((_loader, _resources) => {
@@ -266,8 +266,8 @@ onMounted(() => {
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
       //创建敌车
       let blob = new Sprite(resources[blobsArr[randomInt(0, 4)]].texture);
-      blob.width = 80;
-      blob.height = 80;
+      blob.width = 70;
+      blob.height = 70;
       blob.ts = new Date().getTime();
       let EMCarIsHit = true;
       while (EMCarIsHit) {
@@ -337,7 +337,7 @@ onMounted(() => {
     //去除已经行驶到画布外的敌军车辆
     removeEmCar();
     //加分
-    //如果分数大于200则每1000分场景车辆+1，最多八辆
+    //如果分数大于30则每1000分场景车辆+1，最多6辆
     if (score > 30) {
       numberOfBlobs = 2 + Math.floor(score / 50);
       speed = initalSpeed + Math.floor(score / 50);
@@ -370,7 +370,7 @@ onMounted(() => {
        获得分数： ${score}
       `;
       }
-      runningHorse.invl = 30; //设置无敌时间
+      runningHorse.invl = 20; //设置无敌时间
     }
   }
   //移除已经行驶到画布外围的敌方车辆
@@ -464,8 +464,9 @@ onMounted(() => {
     }
 
     if (hit && r2.texture.textureCacheIds.length) {
-      shouldAddScore =
-        r2.ts === lastHit.ts && lastHit.url === r2.texture.textureCacheIds[0];
+      shouldAddScore = !(
+        r2.ts === lastHit.ts && lastHit.url === r2.texture.textureCacheIds[0]
+      );
 
       lastHit = {
         url: r2.texture.textureCacheIds[0],
