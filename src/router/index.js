@@ -15,6 +15,10 @@ const router = createRouter({
       component: Game,
       name: 'Game',
     },
+    {
+      path: '/:catchAll(.*)',
+      redirect: '/',
+    },
   ],
 });
 export default router;
