@@ -13,6 +13,8 @@ import coinUrl from '@/assets/img/coin.png';
 import stoneUrl from '@/assets/img/stone.png';
 import prizeUrl from '@/assets/img/prize.png';
 
+// import badgeBg from 'badge/组 40.png';
+
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
@@ -85,7 +87,7 @@ onMounted(() => {
     // .add(`myHorse`, 'img/myHorse.png')
     .add(`outerBg`, outerBg)
     // .add(`preBg`, preBg)
-    // .add(`playBtn`, preBg)
+    .add(`badgeBg`, 'badge/组 40.png')
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
@@ -223,38 +225,50 @@ onMounted(() => {
     gameOverScene = new Container();
     app.stage.addChild(gameOverScene);
 
-    // gameOverScene.x = 100;
-    // gameOverScene.y = 400;
-    // gameOverScene.width = canvasWidth - 200;
-    gameOverScene.width = canvasWidth;
+    gameOverScene.x = canvasWidth * 0.13;
+    gameOverScene.y = canvasHeight * 0.18;
+    gameOverScene.width = canvasWidth - canvasWidth * 0.13 * 2;
+    // gameOverScene.width = canvasWidth;
 
-    // gameOverScene.height = canvasHeight - 500;
-    gameOverScene.height = canvasHeight;
+    // gameOverScene.height = canvasHeight - 300;
+    gameOverScene.height =
+      (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2);
 
-    // const gameOverBg = new Sprite(resources.preBg.texture);
-    // gameOverBg.width = canvasWidth - 200;
-    // gameOverBg.height = canvasHeight - 500;
-    // gameOverScene.addChild(gameOverBg);
+    const gameOverBg = new Sprite(resources.badgeBg.texture);
+    gameOverBg.width = canvasWidth - canvasWidth * 0.13 * 2;
+    gameOverBg.height = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2);
+    gameOverScene.addChild(gameOverBg);
 
     // //先让游戏结束场景隐藏
-    // gameOverScene.visible = false;
+    gameOverScene.visible = false;
 
     // //设置一个默认字体
     let style = new TextStyle({
       wordWrap: true,
       align: 'center',
       fill: '#d6ac5a',
-      fontSize: 30,
+      // fontSize: 30,
     });
-    message = new Text('', style);
-    message.y = canvasHeight / 2 - 50;
-    message.x = canvasWidth / 2;
+    message = new Text(`得分`, style);
+    message.width = 60;
+    message.height = 35;
+
+    message.y = canvasHeight * 0.53;
+    message.x = canvasWidth / 2 - 50;
     //字体中心点用于居中
     message.anchor.set(0.5, 0.5);
     gameOverScene.addChild(message);
 
-    //一个存地方车辆的数组
-    // blobs = [];
+    let scoreText = new Text(`20`, style);
+    scoreText.width = 70;
+    scoreText.height = 70;
+
+    scoreText.y = canvasHeight * 0.53 + 50;
+    scoreText.x = canvasWidth / 2 - 50;
+
+    //字体中心点用于居中
+    scoreText.anchor.set(0.5, 0.5);
+    gameOverScene.addChild(scoreText);
 
     state = play;
     app.ticker.add((delta) => gameLoop(delta));
@@ -402,8 +416,9 @@ onMounted(() => {
         //抛出游戏结束
         state = end;
         message.text = `
-       获得分数： ${score}
-      `;
+            得分
+          ${score}
+        `;
         runningHorse.interactive = false;
       }
       runningHorse.invl = 5; //设置无敌时间
