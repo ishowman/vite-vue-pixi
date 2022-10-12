@@ -72,7 +72,7 @@ onMounted(() => {
   score = 0; //初始化分数
   hp = 3; //初始化HP
   let shouldAddScore = true;
-  let scoreInfo, hpInfo;
+  let scoreInfo, hpInfo, scoreText;
   const horseCourt = 20;
 
   const contentX = 10;
@@ -259,7 +259,7 @@ onMounted(() => {
     message.anchor.set(0.5, 0.5);
     gameOverScene.addChild(message);
 
-    let scoreText = new Text(`20`, style);
+    scoreText = new Text(`20`, style);
     scoreText.width = 70;
     scoreText.height = 70;
 
