@@ -27,5 +27,25 @@ function play() {
   left: 9%;
   right: 9%;
   width: 82%;
+  animation-name: scaleAnimation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  transition-timing-function: ease-in-out;
+}
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.08);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.08);
+  }
 }
 </style>
