@@ -17,7 +17,7 @@ function play() {
 <style scoped>
 #home {
   background-image: url('@/assets/index/bg.png');
-  background-size: cover;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
 }
