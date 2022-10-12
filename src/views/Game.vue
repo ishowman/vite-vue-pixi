@@ -330,7 +330,7 @@ onMounted(() => {
       height: canvasHeight,
     });
     //设置敌人
-    creatEMCar(resources);
+    // creatEMCar(resources);
     let explorerHit = false;
     //移动敌人
     blobs.forEach(function (blob) {
