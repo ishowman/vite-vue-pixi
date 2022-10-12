@@ -48,7 +48,7 @@ onMounted(() => {
   let startPoint = {};
   let hitRecords = [];
   let lastHit = {};
-  let initalSpeed = 15;
+  let initalSpeed = 10;
   let speed = initalSpeed;
 
   const gap = 50;
@@ -339,7 +339,7 @@ onMounted(() => {
     //背景移动
     bg.tilePosition.y += bgSpeed;
     bgSpeed += 0.1;
-    if (bgSpeed >= 25) bgSpeed = 25;
+    if (bgSpeed >= 20) bgSpeed = 20;
 
     //移动赛车
     // runningHorse.x += runningHorse.vx;
@@ -372,6 +372,7 @@ onMounted(() => {
     if (score > 30) {
       numberOfBlobs = 2 + Math.floor(score / 50);
       speed = initalSpeed + Math.floor(score / 30);
+      if (speed >= 20) speed = 20;
       if (numberOfBlobs > 6) {
         numberOfBlobs = 6;
       }
@@ -380,7 +381,7 @@ onMounted(() => {
     if (explorerHit && runningHorse.invl === 0) {
       if (['coin'].includes(lastHit.url) && shouldAddScore) {
         score += 10;
-      } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
+      } else if (['prize'].includes(lastHit.url) && shouldAddScore) {
         score += 15;
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
         //车子图片变更为爆炸
@@ -405,7 +406,7 @@ onMounted(() => {
       `;
         runningHorse.interactive = false;
       }
-      runningHorse.invl = 20; //设置无敌时间
+      runningHorse.invl = 5; //设置无敌时间
     }
   }
   //移除已经行驶到画布外围的敌方车辆
