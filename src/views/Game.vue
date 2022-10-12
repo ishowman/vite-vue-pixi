@@ -48,7 +48,7 @@ onMounted(() => {
   let startPoint = {};
   let hitRecords = [];
   let lastHit = {};
-  let initalSpeed = 12;
+  let initalSpeed = 15;
   let speed = initalSpeed;
 
   const gap = 50;
@@ -259,15 +259,36 @@ onMounted(() => {
     state = play;
     app.ticker.add((delta) => gameLoop(delta));
   }
+  let blobWidth = 62;
   function creatEMCar(resources) {
     //设置敌人
-    //根据最大 blob 数生成：理论上石头概率接近 1/5
-    const blobsArr = ['stone', 'coin', 'prize', 'coin', 'prize'];
+    //根据最大 blob 数生成：理论上 1 人 2 石 3 奖 4 金币
+    const blobsArr = [
+      'stone',
+      'coin',
+      'prize',
+      'coin',
+      'prize',
+      'coin',
+      'prize',
+      'coin',
+      'stone',
+    ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
+      const randomBlob = blobsArr[randomInt(0, 4)];
       //创建敌车
-      let blob = new Sprite(resources[blobsArr[randomInt(0, 4)]].texture);
-      blob.width = 70;
-      blob.height = 70;
+      let blob = new Sprite(resources[randomBlob].texture);
+      blob.width = blobWidth;
+      if (randomBlob === 'stone') {
+        blob.height = (blobWidth / 238) * 120;
+      }
+      if (randomBlob === 'coin') {
+        blob.height = (blobWidth / 230) * 231;
+      }
+
+      if (randomBlob === 'prize') {
+        blob.height = (blobWidth / 186) * 312;
+      }
       blob.ts = new Date().getTime();
       let EMCarIsHit = true;
       while (EMCarIsHit) {
@@ -276,7 +297,7 @@ onMounted(() => {
         let y = randomInt(-(canvasHeight + speed), -1.5 * canvasHeight);
 
         //随机y坐标在画布范围内
-        const minX = 80;
+        const minX = 70;
         let xAreas = [
           minX / 2 + 10,
           (canvasWidth - minX) / 2,
@@ -313,9 +334,13 @@ onMounted(() => {
     //更新游戏场景:
     state(delta);
   }
+  let bgSpeed = 1;
   function play(delta) {
     //背景移动
-    bg.tilePosition.y += 10;
+    bg.tilePosition.y += bgSpeed;
+    bgSpeed += 0.1;
+    if (bgSpeed >= 25) bgSpeed = 25;
+
     //移动赛车
     // runningHorse.x += runningHorse.vx;
     // runningHorse.y += runningHorse.vy;
@@ -330,7 +355,7 @@ onMounted(() => {
       height: canvasHeight,
     });
     //设置敌人
-    // creatEMCar(resources);
+    creatEMCar(resources);
     let explorerHit = false;
     //移动敌人
     blobs.forEach(function (blob) {
@@ -346,27 +371,30 @@ onMounted(() => {
     //如果分数大于30则每1000分场景车辆+1，最多6辆
     if (score > 30) {
       numberOfBlobs = 2 + Math.floor(score / 50);
-      speed = initalSpeed + Math.floor(score / 50);
+      speed = initalSpeed + Math.floor(score / 30);
       if (numberOfBlobs > 6) {
         numberOfBlobs = 6;
       }
     }
     //如果发生碰撞且在无敌时间之外
     if (explorerHit && runningHorse.invl === 0) {
-      if (['coin', 'prize'].includes(lastHit.url) && shouldAddScore) {
+      if (['coin'].includes(lastHit.url) && shouldAddScore) {
         score += 10;
-        scoreInfo.text = `${score}`;
+      } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
+        score += 15;
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
         //车子图片变更为爆炸
         // mycarSprite.texture = resources["img/boom.png"].texture;
         //减血
-        if (score > 0) score -= 1;
+        if (score > 20) score -= 20;
         hp--;
         speed = initalSpeed;
-        // document.getElementById('hp').innerHTML = String(hp);
+        bgSpeed = 1;
         hpInfo.text = `HP:${hp}`;
-        scoreInfo.text = `${score}`;
+        // scoreInfo.text = `${score}`;
       }
+      scoreInfo.text = `${score}`;
+
       hitRecords.push(lastHit);
       //判断是否血量归零
       if (hp < 1) {
