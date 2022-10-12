@@ -9,6 +9,9 @@ import preBg from '@/assets/index/bg.png';
 import bgUrl from '@/assets/img/bg.png';
 import outerBg from '@/assets/img/outer-bg.png';
 import infoUrl from '@/assets/img/info.png';
+import coinUrl from '@/assets/img/coin.png';
+import stoneUrl from '@/assets/img/stone.png';
+import prizeUrl from '@/assets/img/prize.png';
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
@@ -57,7 +60,7 @@ onMounted(() => {
     message,
     bg,
     mycarSprite,
-    blobs,
+    blobs = [],
     numberOfBlobs,
     score,
     hp,
@@ -67,6 +70,7 @@ onMounted(() => {
   score = 0; //初始化分数
   hp = 3; //初始化HP
   let shouldAddScore = true;
+  let scoreInfo, hpInfo;
   const horseCourt = 20;
 
   const contentX = 10;
@@ -75,9 +79,9 @@ onMounted(() => {
   //加载素材图片
   app.loader
     .add(`bg`, bgUrl)
-    // .add(`coin`, '@assets/img/coin.png')
-    // .add(`stone`, '@assets/img/stone.png')
-    // .add(`prize`, 'img/prize.png')
+    .add(`coin`, coinUrl)
+    .add(`stone`, stoneUrl)
+    .add(`prize`, prizeUrl)
     // .add(`myHorse`, 'img/myHorse.png')
     .add(`outerBg`, outerBg)
     // .add(`preBg`, preBg)
@@ -154,22 +158,24 @@ onMounted(() => {
 
     gameScene.addChild(infoBar);
 
-    // // hp info
-    // hpInfo = new Text(`HP:${hp}`, { fontSize: '50px', fill: '#d6ac5a' });
-    // hpInfo.x = canvasWidth - 400;
-    // hpInfo.y = 185;
-    // hpInfo.zIndex = 100;
+    // hp info
+    hpInfo = new Text(`HP:${hp}`, { fontSize: '24px', fill: '#d6ac5a' });
+    hpInfo.x = canvasWidth - 150;
+    hpInfo.y = 65;
+    hpInfo.zIndex = 100;
 
-    // gameScene.addChild(hpInfo);
-    // // score info
-    // scoreInfo = new Text(`${score}`, { fontSize: '60px', fill: '#d6ac5a' });
+    gameScene.addChild(hpInfo);
+    // score info
+    scoreInfo = new Text(`${score}`, { fontSize: '24px', fill: '#d6ac5a' });
     // scoreInfo.x = 350;
-    // scoreInfo.y = 185;
-    // scoreInfo.zIndex = 100;
-    // gameScene.addChild(scoreInfo);
+    scoreInfo.x = 150;
+
+    scoreInfo.y = 65;
+    scoreInfo.zIndex = 100;
+    gameScene.addChild(scoreInfo);
 
     runningHorse = new AnimatedSprite(
-      new Array(horseCourt).fill(0).map((item, i) => {
+      new Array(horseCourt).fill(0).map((_item, i) => {
         return resources[`horse${i + 1}`].texture;
       })
     );
@@ -213,42 +219,42 @@ onMounted(() => {
 
     gameScene.addChild(runningHorse);
 
-    // //一个存地方车辆的数组
+    // //创建一个游戏结束的场景
+    gameOverScene = new Container();
+    app.stage.addChild(gameOverScene);
+
+    // gameOverScene.x = 100;
+    // gameOverScene.y = 400;
+    // gameOverScene.width = canvasWidth - 200;
+    gameOverScene.width = canvasWidth;
+
+    // gameOverScene.height = canvasHeight - 500;
+    gameOverScene.height = canvasHeight;
+
+    // const gameOverBg = new Sprite(resources.preBg.texture);
+    // gameOverBg.width = canvasWidth - 200;
+    // gameOverBg.height = canvasHeight - 500;
+    // gameOverScene.addChild(gameOverBg);
+
+    // //先让游戏结束场景隐藏
+    // gameOverScene.visible = false;
+
+    // //设置一个默认字体
+    let style = new TextStyle({
+      wordWrap: true,
+      align: 'center',
+      fill: '#d6ac5a',
+      fontSize: 30,
+    });
+    message = new Text('', style);
+    message.y = canvasHeight / 2 - 50;
+    message.x = canvasWidth / 2;
+    //字体中心点用于居中
+    message.anchor.set(0.5, 0.5);
+    gameOverScene.addChild(message);
+
+    //一个存地方车辆的数组
     // blobs = [];
-
-    // // //创建一个游戏结束的场景
-    // gameOverScene = new Container();
-    // app.stage.addChild(gameOverScene);
-
-    // // gameOverScene.x = 100;
-    // // gameOverScene.y = 400;
-    // // gameOverScene.width = canvasWidth - 200;
-    // gameOverScene.width = canvasWidth;
-
-    // // gameOverScene.height = canvasHeight - 500;
-    // gameOverScene.height = canvasHeight;
-
-    // // const gameOverBg = new Sprite(resources.preBg.texture);
-    // // gameOverBg.width = canvasWidth - 200;
-    // // gameOverBg.height = canvasHeight - 500;
-    // // gameOverScene.addChild(gameOverBg);
-
-    // // //先让游戏结束场景隐藏
-    // // gameOverScene.visible = false;
-
-    // // //设置一个默认字体
-    // let style = new TextStyle({
-    //   wordWrap: true,
-    //   align: 'center',
-    //   fill: '#d6ac5a',
-    //   fontSize: 60,
-    // });
-    // message = new Text('', style);
-    // message.y = canvasHeight / 2 - 50;
-    // message.x = canvasWidth / 2;
-    // //字体中心点用于居中
-    // message.anchor.set(0.5, 0.5);
-    // gameOverScene.addChild(message);
 
     state = play;
     app.ticker.add((delta) => gameLoop(delta));
@@ -260,8 +266,8 @@ onMounted(() => {
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
       //创建敌车
       let blob = new Sprite(resources[blobsArr[randomInt(0, 4)]].texture);
-      blob.width = 100;
-      blob.height = 100;
+      blob.width = 80;
+      blob.height = 80;
       blob.ts = new Date().getTime();
       let EMCarIsHit = true;
       while (EMCarIsHit) {
@@ -307,65 +313,65 @@ onMounted(() => {
     //移动赛车
     // runningHorse.x += runningHorse.vx;
     // runningHorse.y += runningHorse.vy;
-    // if (runningHorse.invl > 0) {
-    //   runningHorse.invl--;
-    // }
+    if (runningHorse.invl > 0) {
+      runningHorse.invl--;
+    }
     //判断车辆是否超出画布
-    // keepInScreen(runningHorse, {
-    //   x: 0,
-    //   y: 2,
-    //   width: canvasWidth,
-    //   height: canvasHeight,
-    // });
+    keepInScreen(runningHorse, {
+      x: 0,
+      y: 2,
+      width: canvasWidth,
+      height: canvasHeight,
+    });
     //设置敌人
-    // creatEMCar(resources);
-    // let explorerHit = false;
-    // //移动敌人
-    // blobs.forEach(function (blob) {
-    //   blob.y += speed;
-    //   //如果和我方车辆发生碰撞
-    //   if (hitTestRectangle(runningHorse, blob)) {
-    //     explorerHit = true;
-    //   }
-    // });
-    // //去除已经行驶到画布外的敌军车辆
-    // removeEmCar();
-    // //加分
-    // //如果分数大于200则每1000分场景车辆+1，最多八辆
-    // if (score > 30) {
-    //   numberOfBlobs = 2 + Math.floor(score / 50);
-    //   speed = initalSpeed + Math.floor(score / 50);
-    //   if (numberOfBlobs > 6) {
-    //     numberOfBlobs = 6;
-    //   }
-    // }
-    // //如果发生碰撞且在无敌时间之外
-    // if (explorerHit && runningHorse.invl === 0) {
-    //   if (['coin', 'prize'].includes(lastHit.url) && shouldAddScore) {
-    //     score += 10;
-    //     scoreInfo.text = `${score}`;
-    //   } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
-    //     //车子图片变更为爆炸
-    //     // mycarSprite.texture = resources["img/boom.png"].texture;
-    //     //减血
-    //     if (score > 0) score -= 1;
-    //     hp--;
-    //     speed = initalSpeed;
-    //     // document.getElementById('hp').innerHTML = String(hp);
-    //     hpInfo.text = `HP:${hp}`;
-    //     scoreInfo.text = `${score}`;
-    //   }
-    //   hitRecords.push(lastHit);
-    //   //判断是否血量归零
-    //   if (hp < 3) {
-    //     //抛出游戏结束
-    //     state = end;
-    //     message.text = `
-    //    获得分数： ${score}
-    //   `;
-    //   }
-    //   runningHorse.invl = 30; //设置无敌时间
-    // }
+    creatEMCar(resources);
+    let explorerHit = false;
+    //移动敌人
+    blobs.forEach(function (blob) {
+      blob.y += speed;
+      //如果和我方车辆发生碰撞
+      if (hitTestRectangle(runningHorse, blob)) {
+        explorerHit = true;
+      }
+    });
+    //去除已经行驶到画布外的敌军车辆
+    removeEmCar();
+    //加分
+    //如果分数大于200则每1000分场景车辆+1，最多八辆
+    if (score > 30) {
+      numberOfBlobs = 2 + Math.floor(score / 50);
+      speed = initalSpeed + Math.floor(score / 50);
+      if (numberOfBlobs > 6) {
+        numberOfBlobs = 6;
+      }
+    }
+    //如果发生碰撞且在无敌时间之外
+    if (explorerHit && runningHorse.invl === 0) {
+      if (['coin', 'prize'].includes(lastHit.url) && shouldAddScore) {
+        score += 10;
+        scoreInfo.text = `${score}`;
+      } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
+        //车子图片变更为爆炸
+        // mycarSprite.texture = resources["img/boom.png"].texture;
+        //减血
+        if (score > 0) score -= 1;
+        hp--;
+        speed = initalSpeed;
+        // document.getElementById('hp').innerHTML = String(hp);
+        hpInfo.text = `HP:${hp}`;
+        scoreInfo.text = `${score}`;
+      }
+      hitRecords.push(lastHit);
+      //判断是否血量归零
+      if (hp < 3) {
+        //抛出游戏结束
+        state = end;
+        message.text = `
+       获得分数： ${score}
+      `;
+      }
+      runningHorse.invl = 30; //设置无敌时间
+    }
   }
   //移除已经行驶到画布外围的敌方车辆
   function removeEmCar() {
@@ -387,25 +393,25 @@ onMounted(() => {
     //Left
     if (sprite.x < container.x) {
       sprite.x = container.x;
-      collision = 'left';
+      // collision = 'left';
     }
 
     //Top
     if (sprite.y < container.y) {
       sprite.y = container.y;
-      collision = 'top';
+      // collision = 'top';
     }
 
     //Right
     if (sprite.x + sprite.width > container.width) {
       sprite.x = container.width - sprite.width;
-      collision = 'right';
+      // collision = 'right';
     }
 
     //Bottom
     if (sprite.y + sprite.height > container.height) {
       sprite.y = container.height - sprite.height;
-      collision = 'bottom';
+      // collision = 'bottom';
     }
 
     return collision;
