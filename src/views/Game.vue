@@ -415,10 +415,8 @@ onMounted(() => {
       if (hp < 1) {
         //抛出游戏结束
         state = end;
-        message.text = `
-            得分
-          ${score}
-        `;
+        scoreText.text = score;
+
         runningHorse.interactive = false;
       }
       runningHorse.invl = 5; //设置无敌时间
