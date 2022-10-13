@@ -362,10 +362,13 @@ onMounted(() => {
       'prize',
       'coin',
       'stone',
+      'coin',
+
       'whiteHorse',
+      'coin',
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
-      const randomBlob = blobsArr[randomInt(0, 9)];
+      const randomBlob = blobsArr[randomInt(0, 11)];
 
       //创建敌车
       let blob =
