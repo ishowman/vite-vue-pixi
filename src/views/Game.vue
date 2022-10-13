@@ -269,17 +269,25 @@ onMounted(() => {
     message.width = 60;
     message.height = 35;
 
-    message.y = canvasHeight * 0.53;
+    message.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.65;
     message.x = canvasWidth / 2 - 50;
     //字体中心点用于居中
     message.anchor.set(0.5, 0.5);
     gameOverScene.addChild(message);
 
-    scoreText = new Text(`20`, style);
-    scoreText.width = 70;
-    scoreText.height = 70;
+    scoreText = new Text(
+      ``,
+      new TextStyle({
+        wordWrap: true,
+        align: 'center',
+        fill: '#d6ac5a',
+        fontSize: 70,
+      })
+    );
 
-    scoreText.y = canvasHeight * 0.53 + 50;
+    scoreText.y =
+      (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.65 + 50;
+
     scoreText.x = canvasWidth / 2 - 50;
 
     //字体中心点用于居中
