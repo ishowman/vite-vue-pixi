@@ -493,6 +493,8 @@ onMounted(() => {
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
         //车子图片变更为爆炸
         // mycarSprite.texture = resources["img/boom.png"].texture;
+        runningHorse.alpha = 0.3;
+
         //减血
         if (score > 20) score -= 20;
         hp--;
@@ -501,6 +503,8 @@ onMounted(() => {
         hpInfo.text = `HP:${hp}`;
         // scoreInfo.text = `${score}`;
       } else if (lastHit.url === `whiteHorse` && shouldAddScore) {
+        runningHorse.alpha = 0.3;
+
         if (score > 40) score -= 40;
         hp--;
         speed = initalSpeed;
@@ -508,6 +512,9 @@ onMounted(() => {
         hpInfo.text = `HP:${hp}`;
       }
       scoreInfo.text = `${score}`;
+      setTimeout(() => {
+        runningHorse.alpha = 1;
+      }, 500);
 
       hitRecords.push(lastHit);
       //判断是否血量归零
