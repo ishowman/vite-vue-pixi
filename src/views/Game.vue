@@ -330,10 +330,10 @@ onMounted(() => {
         blob.height = (blobWidth / 186) * 312;
       }
       if (randomBlob === 'whiteHorse') {
-        blob.width = blobWidth + 10;
+        blob.width = blobWidth * 1.5;
 
-        blob.height = blobWidth * 2;
-        blob.animationSpeed = 0.3;
+        blob.height = blobWidth * 2.5;
+        blob.animationSpeed = 0.2;
         blob.loop = true;
         blob.gotoAndPlay(0);
       }
