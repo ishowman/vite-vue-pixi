@@ -266,14 +266,14 @@ onMounted(() => {
       wordWrap: true,
       align: 'center',
       fill: '#d6ac5a',
-      // fontSize: 30,
+      fontSize: 30,
     });
     message = new Text(`得分`, style);
     message.width = 60;
     message.height = 35;
 
     message.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.65;
-    message.x = canvasWidth / 2 - 50;
+    message.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2;
     //字体中心点用于居中
     message.anchor.set(0.5, 0.5);
     gameOverScene.addChild(message);
@@ -284,21 +284,21 @@ onMounted(() => {
         wordWrap: true,
         align: 'center',
         fill: '#d6ac5a',
-        fontSize: 70,
+        fontSize: 50,
       })
     );
 
     scoreText.y =
-      (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.65 + 50;
+      (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.65 + 40;
 
-    scoreText.x = canvasWidth / 2 - 50;
+    scoreText.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2;
 
     //字体中心点用于居中
     scoreText.anchor.set(0.5, 0.5);
     gameOverScene.addChild(scoreText);
 
     let prizeBtn = new Sprite(resources.prizeBtn.texture);
-    prizeBtn.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.8;
+    prizeBtn.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.78;
     prizeBtn.width = 150;
     prizeBtn.height = 60;
 
