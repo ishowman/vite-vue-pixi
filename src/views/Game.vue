@@ -89,6 +89,8 @@ onMounted(() => {
     .add(`badgeBg`, 'badge/组 40.png')
     .add(`prizeBtn`, 'badge/组 41.png')
     .add(`badge1st`, 'badge/金徽章.png')
+    .add(`tipArrow`, 'tips/arrow.png')
+    .add(`tipText`, 'tips/text.png')
 
     .add(`info`, infoUrl);
 
@@ -197,6 +199,28 @@ onMounted(() => {
     scoreInfo.zIndex = 100;
     gameScene.addChild(scoreInfo);
 
+    let tipArrow = new Sprite(resources.tipArrow.texture);
+    tipArrow.width = canvasWidth - contentX * 4;
+    tipArrow.height = (281 / 891) * (canvasWidth - contentX * 4);
+    tipArrow.position.set(
+      (canvasWidth - tipArrow.width) / 2,
+      canvasHeight - tipArrow.height - 1.5 * gap
+    );
+    tipArrow.zIndex = 99;
+
+    gameScene.addChild(tipArrow);
+
+    let tipText = new Sprite(resources.tipText.texture);
+    tipText.width = canvasWidth - (100 / 375) * canvasWidth;
+    tipText.height = (82 / 675) * (canvasWidth - (100 / 375) * canvasWidth);
+    tipText.position.set(
+      (canvasWidth - tipText.width) / 2,
+      canvasHeight - tipText.height - (30 / 667) * canvasHeight
+    );
+    tipText.zIndex = 99;
+
+    gameScene.addChild(tipText);
+
     runningHorse = new AnimatedSprite(
       new Array(horseCourt).fill(0).map((_item, i) => {
         return resources[`horse${i + 1}`].texture;
@@ -214,10 +238,6 @@ onMounted(() => {
     ); //自己的车的初始位置
 
     runningHorse.animationSpeed = 0.3;
-    runningHorse.loop = true;
-    runningHorse.gotoAndPlay(0);
-
-    runningHorse.interactive = true;
 
     runningHorse.on('touchstart', (event) => {
       dragFlag = true;
@@ -316,8 +336,17 @@ onMounted(() => {
 
     gameOverScene.addChild(goldBadge);
 
-    state = play;
-    app.ticker.add((delta) => gameLoop(delta));
+    setTimeout(() => {
+      tipArrow.visible = false;
+      tipText.visible = false;
+      runningHorse.loop = true;
+      runningHorse.gotoAndPlay(0);
+
+      runningHorse.interactive = true;
+
+      state = play;
+      app.ticker.add((delta) => gameLoop(delta));
+    }, 3000);
   }
   let blobWidth = 62;
   function creatEMCar(resources) {
