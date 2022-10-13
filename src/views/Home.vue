@@ -11,7 +11,7 @@ import playBtn from '@/assets/index/play-btn.png';
 const router = useRouter();
 
 function play() {
-  router.push({ name: 'Game' });
+  router.replace({ name: 'Game' });
 }
 </script>
 <style scoped>
