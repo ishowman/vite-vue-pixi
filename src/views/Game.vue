@@ -6,7 +6,7 @@
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
 // import preBg from '@/assets/index/bg.png';
-// import bgUrl from '@/assets/img/bg.png';
+import bgUrl from '@/assets/img/bg.png';
 import outerBg from '@/assets/img/outer-bg.png';
 import infoUrl from '@/assets/img/info.png';
 import coinUrl from '@/assets/img/coin.png';
@@ -61,7 +61,7 @@ onMounted(() => {
     gameOverScene,
     message,
     bg,
-    mycarSprite,
+    scoreText,
     blobs = [],
     numberOfBlobs,
     score,
@@ -72,7 +72,7 @@ onMounted(() => {
   score = 0; //初始化分数
   hp = 3; //初始化HP
   let shouldAddScore = true;
-  let scoreInfo, hpInfo, scoreText;
+  let scoreInfo, hpInfo;
   const horseCourt = 20;
 
   const contentX = 10;
@@ -80,7 +80,7 @@ onMounted(() => {
 
   //加载素材图片
   app.loader
-    .add(`bg`, `/bg_caodi.webp`)
+    .add(`bg`, bgUrl)
     .add(`coin`, coinUrl)
     .add(`stone`, stoneUrl)
     .add(`prize`, prizeUrl)
@@ -136,26 +136,36 @@ onMounted(() => {
 
     bg = new TilingSprite(resources.bg.texture);
 
-    bg.x = contentX;
-    bg.y = contentY;
+    bg.x = (contentX / 375) * canvasWidth;
+    bg.y = (contentY / 667) * canvasHeight;
+    console.log('contentY/667*canvasHeight', (contentY / 667) * canvasHeight);
     // bg.width = canvasWidth - gap;
-    bg.width = canvasWidth - contentX * 2;
+    const bgWidth = canvasWidth - (contentX / 375) * canvasWidth * 2;
+    const bgHeight = canvasHeight - (55 / 667) * canvasHeight;
+    bg.width = bgWidth;
+    console.log(
+      canvasHeight - (70 / 667) * canvasHeight,
+      canvasWidth - (contentX / 375) * canvasWidth * 2
+    );
 
     // bg.height = canvasHeight - 160;
-    bg.height = canvasHeight;
+    bg.height = bgHeight;
 
-    bg.tileScale.set(0.55, 0.65);
-    // bg.tileScale.set( (canvasWidth- contentX*2)*2/1170, canvasHeight*2/2340);
+    bg.tileScale.set(
+      (0.55 * (canvasWidth - (contentX / 375) * canvasWidth * 2)) / 355,
+      (0.55 * (bgHeight / bgWidth)) / (597 / 355)
+    ); // 355 为 375 宽度下的计算数值
+    // bg.tileScale.set(0.55*(canvasWidth - contentX/375*canvasWidth * 2)/355, 0.65  );  // 355 为 375 宽度下的计算数值
 
     gameScene.addChild(bg);
 
     // // 分数
     let infoBar = new Sprite(resources.info.texture);
-    infoBar.x = contentX;
-    infoBar.y = 10;
-
     infoBar.width = canvasWidth - contentX * 2;
     infoBar.height = 100;
+    infoBar.x = (contentX / 375) * canvasWidth;
+    infoBar.y = (contentY / 667) * canvasHeight - 40; // 40 为相对 height 100 的相对数值
+
     infoBar.zIndex = 99;
 
     gameScene.addChild(infoBar);
@@ -163,16 +173,21 @@ onMounted(() => {
     // hp info
     hpInfo = new Text(`HP:${hp}`, { fontSize: '24px', fill: '#d6ac5a' });
     hpInfo.x = canvasWidth - 150;
-    hpInfo.y = 65;
+    // hpInfo.y = 65;
+    hpInfo.y = (contentY / 667) * canvasHeight + 10;
+
     hpInfo.zIndex = 100;
 
     gameScene.addChild(hpInfo);
     // score info
     scoreInfo = new Text(`${score}`, { fontSize: '24px', fill: '#d6ac5a' });
     // scoreInfo.x = 350;
-    scoreInfo.x = 150;
+    // scoreInfo.x = 150;
+    scoreInfo.x = (140 / 375) * canvasWidth;
 
-    scoreInfo.y = 65;
+    // scoreInfo.y = 65;
+    scoreInfo.y = (contentY / 667) * canvasHeight + 15;
+
     scoreInfo.zIndex = 100;
     gameScene.addChild(scoreInfo);
 
@@ -351,7 +366,7 @@ onMounted(() => {
   let bgSpeed = 1;
   function play(delta) {
     //背景移动
-    bg.tilePosition.y += bgSpeed;
+    // bg.tilePosition.y += bgSpeed;
     bgSpeed += 0.1;
     if (bgSpeed >= 20) bgSpeed = 20;
 
@@ -369,7 +384,7 @@ onMounted(() => {
       height: canvasHeight,
     });
     //设置敌人
-    creatEMCar(resources);
+    // creatEMCar(resources);
     let explorerHit = false;
     //移动敌人
     blobs.forEach(function (blob) {
@@ -416,7 +431,6 @@ onMounted(() => {
         //抛出游戏结束
         state = end;
         scoreText.text = score;
-
         runningHorse.interactive = false;
       }
       runningHorse.invl = 5; //设置无敌时间
