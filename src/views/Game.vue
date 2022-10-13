@@ -15,9 +15,6 @@ import prizeUrl from '@/assets/img/prize.png';
 
 // import badgeBg from 'badge/组 40.png';
 
-import { useRouter } from 'vue-router';
-const router = useRouter();
-
 const game = ref('');
 onMounted(() => {
   let Application = PIXI.Application,
@@ -32,6 +29,8 @@ onMounted(() => {
     TextStyle = PIXI.TextStyle;
   let canvasWidth = window.innerWidth,
     canvasHeight = window.innerHeight;
+
+  let whiteHorseCount = 10;
 
   //创建一个pixi应用
   let app = new Application({
@@ -92,6 +91,10 @@ onMounted(() => {
 
   for (let i = 1; i <= horseCourt; i++) {
     app.loader.add(`horse${i}`, `/blueHorse/ld${i}.png`);
+  }
+
+  for (let i = 1; i <= whiteHorseCount; i++) {
+    app.loader.add(`whiteHorse${i}`, `/敌对白队/db${i}.png`);
   }
 
   app.loader.load((_loader, _resources) => {
@@ -196,9 +199,6 @@ onMounted(() => {
         return resources[`horse${i + 1}`].texture;
       })
     );
-    runningHorse.animationSpeed = 0.3;
-    // runningHorse.width = 250; //自己的车宽度
-    // runningHorse.height = 500; //高度
     runningHorse.width = 120; //自己的车宽度
     runningHorse.height = 260; //高度
     runningHorse.vy = 0; //y轴加速度
@@ -210,6 +210,7 @@ onMounted(() => {
       canvasHeight - runningHorse.height - gap / 2
     ); //自己的车的初始位置
 
+    runningHorse.animationSpeed = 0.3;
     runningHorse.loop = true;
     runningHorse.gotoAndPlay(0);
 
@@ -302,11 +303,21 @@ onMounted(() => {
       'prize',
       'coin',
       'stone',
+      'whiteHorse',
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
-      const randomBlob = blobsArr[randomInt(0, 4)];
+      const randomBlob = blobsArr[randomInt(9, 9)];
+
       //创建敌车
-      let blob = new Sprite(resources[randomBlob].texture);
+      let blob =
+        randomBlob === `whiteHorse`
+          ? new AnimatedSprite(
+              new Array(whiteHorseCount).fill(0).map((_item, i) => {
+                return resources[`whiteHorse${i + 1}`].texture;
+              })
+            )
+          : new Sprite(resources[randomBlob].texture);
+
       blob.width = blobWidth;
       if (randomBlob === 'stone') {
         blob.height = (blobWidth / 238) * 120;
@@ -317,6 +328,14 @@ onMounted(() => {
 
       if (randomBlob === 'prize') {
         blob.height = (blobWidth / 186) * 312;
+      }
+      if (randomBlob === 'whiteHorse') {
+        blob.width = blobWidth + 10;
+
+        blob.height = blobWidth * 2;
+        blob.animationSpeed = 0.3;
+        blob.loop = true;
+        blob.gotoAndPlay(0);
       }
       blob.ts = new Date().getTime();
       let EMCarIsHit = true;
@@ -366,7 +385,7 @@ onMounted(() => {
   let bgSpeed = 1;
   function play(delta) {
     //背景移动
-    // bg.tilePosition.y += bgSpeed;
+    bg.tilePosition.y += bgSpeed;
     bgSpeed += 0.1;
     if (bgSpeed >= 20) bgSpeed = 20;
 
@@ -384,7 +403,7 @@ onMounted(() => {
       height: canvasHeight,
     });
     //设置敌人
-    // creatEMCar(resources);
+    creatEMCar(resources);
     let explorerHit = false;
     //移动敌人
     blobs.forEach(function (blob) {
@@ -422,6 +441,12 @@ onMounted(() => {
         bgSpeed = 1;
         hpInfo.text = `HP:${hp}`;
         // scoreInfo.text = `${score}`;
+      } else if (lastHit.url === `whiteHorse` && shouldAddScore) {
+        if (score > 40) score -= 40;
+        hp--;
+        speed = initalSpeed;
+        bgSpeed = 1;
+        hpInfo.text = `HP:${hp}`;
       }
       scoreInfo.text = `${score}`;
 
@@ -527,12 +552,15 @@ onMounted(() => {
     }
 
     if (hit && r2.texture.textureCacheIds.length) {
-      shouldAddScore = !(
-        r2.ts === lastHit.ts && lastHit.url === r2.texture.textureCacheIds[0]
-      );
+      console.log('r2.texture.textureCacheIds', r2.texture.textureCacheIds);
+      const id = r2.texture.textureCacheIds[0].includes(`whiteHorse`)
+        ? `whiteHorse`
+        : r2.texture.textureCacheIds[0];
+
+      shouldAddScore = !(r2.ts === lastHit.ts && lastHit.url === id);
 
       lastHit = {
-        url: r2.texture.textureCacheIds[0],
+        url: id,
         ts: r2.ts,
       };
     }
