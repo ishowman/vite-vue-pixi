@@ -87,6 +87,9 @@ onMounted(() => {
     .add(`outerBg`, outerBg)
     // .add(`preBg`, preBg)
     .add(`badgeBg`, 'badge/组 40.png')
+    .add(`prizeBtn`, 'badge/组 41.png')
+    .add(`badge1st`, 'badge/金徽章.png')
+
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
@@ -293,6 +296,25 @@ onMounted(() => {
     //字体中心点用于居中
     scoreText.anchor.set(0.5, 0.5);
     gameOverScene.addChild(scoreText);
+
+    let prizeBtn = new Sprite(resources.prizeBtn.texture);
+    prizeBtn.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.8;
+    prizeBtn.width = 150;
+    prizeBtn.height = 60;
+
+    prizeBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
+
+    gameOverScene.addChild(prizeBtn);
+
+    let goldBadge = new Sprite(resources.badge1st.texture);
+
+    goldBadge.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.1;
+    goldBadge.width = 200;
+    goldBadge.height = 250;
+
+    goldBadge.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 100;
+
+    gameOverScene.addChild(goldBadge);
 
     state = play;
     app.ticker.add((delta) => gameLoop(delta));
