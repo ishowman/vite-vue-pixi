@@ -306,7 +306,7 @@ onMounted(() => {
       'whiteHorse',
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
-      const randomBlob = blobsArr[randomInt(9, 9)];
+      const randomBlob = blobsArr[randomInt(0, 9)];
 
       //创建敌车
       let blob =
@@ -552,7 +552,6 @@ onMounted(() => {
     }
 
     if (hit && r2.texture.textureCacheIds.length) {
-      console.log('r2.texture.textureCacheIds', r2.texture.textureCacheIds);
       const id = r2.texture.textureCacheIds[0].includes(`whiteHorse`)
         ? `whiteHorse`
         : r2.texture.textureCacheIds[0];
