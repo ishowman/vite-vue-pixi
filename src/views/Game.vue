@@ -308,7 +308,7 @@ onMounted(() => {
 
     let goldBadge = new Sprite(resources.badge1st.texture);
 
-    goldBadge.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.1;
+    goldBadge.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.08;
     goldBadge.width = 200;
     goldBadge.height = 250;
 
