@@ -410,7 +410,7 @@ onMounted(() => {
       'coin',
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
-      const randomBlob = blobsArr[randomInt(0, 0)];
+      const randomBlob = blobsArr[randomInt(0, 10)];
 
       //创建敌车
       let blob =
@@ -533,7 +533,7 @@ onMounted(() => {
     //如果分数大于30则每1000分场景车辆+1，最多6辆
     if (score > 30) {
       numberOfBlobs = 4 + Math.floor(score / 50);
-      // speed = initalSpeed + Math.floor(score / 45);
+      speed = initalSpeed + Math.floor(score / 45);
       if (speed >= 16) speed = 16;
       if (numberOfBlobs >= 7) {
         numberOfBlobs = 7;
