@@ -6,12 +6,18 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import { Howl } from 'howler';
+import playBgm from '@/assets/audios/play.mp3';
+
 import playBtn from '@/assets/index/play-btn.png';
 
 const router = useRouter();
-
+const sound = new Howl({
+  src: playBgm,
+});
 function play() {
   router.replace({ name: 'Game' });
+  sound.play();
 }
 </script>
 <style scoped>

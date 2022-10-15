@@ -5,6 +5,8 @@
 <script lang="ts" setup>
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
+import { Howl } from 'howler';
+
 // import preBg from '@/assets/index/bg.png';
 import bgUrl from '@/assets/img/bg.jpg';
 import outerBg from '@/assets/img/outer-bg.png';
@@ -13,6 +15,24 @@ import coinUrl from '@/assets/img/coin.png';
 import stoneUrl from '@/assets/img/stone.png';
 import prizeUrl from '@/assets/img/prize.png';
 import heart from '@/assets/img/heart.png';
+// audio
+import ready from '@/assets/audios/ready.mp3';
+import end from '@/assets/audios/end.mp3';
+import score from '@/assets/audios/score.mp3';
+import hp from '@/assets/audios/hp.mp3';
+
+const readyBgm = new Howl({
+  src: ready,
+});
+const endBgm = new Howl({
+  src: end,
+});
+const scoreBgm = new Howl({
+  src: score,
+});
+const hpBgm = new Howl({
+  src: hp,
+});
 
 const game = ref('');
 onMounted(() => {
@@ -303,6 +323,7 @@ onMounted(() => {
     });
 
     gameScene.addChild(runningHorse);
+    readyBgm.play();
 
     // //创建一个游戏结束的场景
     gameOverScene = new Container();
@@ -547,9 +568,11 @@ onMounted(() => {
         };
 
         lastHit.blob.gotoAndPlay(0);
-
+        scoreBgm.play();
         score += 10;
       } else if (['prize'].includes(lastHit.url) && shouldAddScore) {
+        lastHit.blob.visible = false;
+        scoreBgm.play();
         score += 15;
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
         //车子图片变更为爆炸
@@ -560,6 +583,7 @@ onMounted(() => {
 
         //减血
         if (score > 20) score -= 20;
+        hpBgm.play();
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
@@ -571,6 +595,8 @@ onMounted(() => {
         runningHorse.alpha = 0.3;
 
         if (score > 40) score -= 40;
+        hpBgm.play();
+
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
@@ -594,7 +620,8 @@ onMounted(() => {
       //判断是否血量归零
       if (hp < 1) {
         //抛出游戏结束
-        state = end;
+        state = endGame;
+        endBgm.play();
         scoreText.text = score;
         runningHorse.interactive = false;
       }
@@ -683,9 +710,6 @@ onMounted(() => {
       if (Math.abs(vy) < combinedHalfHeights + y) {
         //如果是则判断为碰撞
         hit = true;
-        // setTimeout(() => {
-        //   r2.visible = false;
-        // }, 75)
       } else {
         //否则为没碰撞
         hit = false;
@@ -718,8 +742,7 @@ onMounted(() => {
     return hit;
   }
   //游戏结束显示游戏结束场景，隐藏游戏场景
-  function end() {
-    // gameScene.visible = false;
+  function endGame() {
     gameOverScene.visible = true;
   }
 });
