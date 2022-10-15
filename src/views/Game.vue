@@ -553,6 +553,8 @@ onMounted(() => {
         score += 15;
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
         //车子图片变更为爆炸
+        lastHit.blob.visible = false;
+
         // mycarSprite.texture = resources["img/boom.png"].texture;
         runningHorse.alpha = 0.3;
 
@@ -564,6 +566,8 @@ onMounted(() => {
         // hpInfo.text = `HP:${hp}`;
         // scoreInfo.text = `${score}`;
       } else if (lastHit.url === `whiteHorse` && shouldAddScore) {
+        lastHit.blob.visible = false;
+
         runningHorse.alpha = 0.3;
 
         if (score > 40) score -= 40;
@@ -572,7 +576,6 @@ onMounted(() => {
         bgSpeed = 1;
         // hpInfo.text = `HP:${hp}`;
       }
-      lastHit.blob.visible = false;
       if (hp === 2) {
         heart3.visible = false;
       }
