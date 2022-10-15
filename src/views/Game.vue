@@ -526,7 +526,7 @@ onMounted(() => {
   function play(delta) {
     //背景移动
     bg.tilePosition.y += bgSpeed;
-    bgSpeed += 0.02;
+    bgSpeed += 0.05;
     if (bgSpeed >= 15) bgSpeed = 15;
 
     if (runningHorse.invl > 0) {
