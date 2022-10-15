@@ -410,6 +410,8 @@ onMounted(() => {
       runningHorse.interactive = true;
 
       state = play;
+      app.ticker.maxFPS = 60;
+
       app.ticker.add((delta) => gameLoop(delta));
     }, 3000);
   }
