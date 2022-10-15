@@ -542,16 +542,6 @@ onMounted(() => {
     //如果发生碰撞且在无敌时间之外
     if (explorerHit && runningHorse.invl === 0) {
       if (['coin'].includes(lastHit.url) && shouldAddScore) {
-        // console.log('fuck???', lastHit.blob )
-        // lastHit.blob = new AnimatedSprite(
-        //   new Array(horseCourt).fill(0).map((_item, i) => {
-        //     return resources[`horse${i + 1}`].texture;
-        //   })
-        // );
-        // r2.animationSpeed = 0.5;
-
-        // r2.loop = true;
-        // r2.gotoAndPlay(0);
         lastHit.blob.onComplete = () => {
           lastHit.blob.visible = false;
         };
@@ -582,6 +572,7 @@ onMounted(() => {
         bgSpeed = 1;
         // hpInfo.text = `HP:${hp}`;
       }
+      lastHit.blob.visible = false;
       if (hp === 2) {
         heart3.visible = false;
       }
@@ -710,10 +701,6 @@ onMounted(() => {
       } else {
         id = r2.texture.textureCacheIds[0];
       }
-
-      // const id =
-      //   ? `whiteHorse`
-      //   : r2.texture.textureCacheIds[0];
 
       shouldAddScore = !(r2.ts === lastHit.ts && lastHit.url === id);
 
