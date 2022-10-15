@@ -555,7 +555,7 @@ onMounted(() => {
     if (score > 30) {
       numberOfBlobs = 4 + Math.floor(score / 50);
       speed = initalSpeed + Math.floor(score / 45);
-      if (speed >= 16) speed = 16;
+      if (speed >= 15) speed = 15;
       if (numberOfBlobs >= 7) {
         numberOfBlobs = 7;
       }
