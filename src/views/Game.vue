@@ -6,14 +6,13 @@
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
 // import preBg from '@/assets/index/bg.png';
-import bgUrl from '@/assets/img/bg.png';
+import bgUrl from '@/assets/img/bg.jpg';
 import outerBg from '@/assets/img/outer-bg.png';
 import infoUrl from '@/assets/img/info.png';
 import coinUrl from '@/assets/img/coin.png';
 import stoneUrl from '@/assets/img/stone.png';
 import prizeUrl from '@/assets/img/prize.png';
-
-// import badgeBg from 'badge/组 40.png';
+import heart from '@/assets/img/heart.png';
 
 const game = ref('');
 onMounted(() => {
@@ -62,16 +61,13 @@ onMounted(() => {
     bg,
     scoreText,
     blobs = [],
-    numberOfBlobs,
-    score,
-    hp,
+    numberOfBlobs = 4, //初始化最大敌车数量
+    score = 0,
+    hp = 3,
     runningHorse;
-  numberOfBlobs = 2; //初始化最大敌车数量
 
-  score = 0; //初始化分数
-  hp = 3; //初始化HP
   let shouldAddScore = true;
-  let scoreInfo, hpInfo;
+  let scoreInfo, hpInfo, heart1, heart2, heart3;
   const horseCourt = 20;
 
   const contentX = 10;
@@ -91,7 +87,7 @@ onMounted(() => {
     .add(`badge1st`, 'badge/金徽章.png')
     .add(`tipArrow`, 'tips/arrow.png')
     .add(`tipText`, 'tips/text.png')
-
+    .add('heart', heart)
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
@@ -100,6 +96,10 @@ onMounted(() => {
 
   for (let i = 1; i <= whiteHorseCount; i++) {
     app.loader.add(`whiteHorse${i}`, `/敌对白队/db${i}.png`);
+  }
+
+  for (let i = 1; i <= 12; i++) {
+    app.loader.add(`coin${i}`, `/coin/animation/bc${i}.png`);
   }
 
   app.loader.load((_loader, _resources) => {
@@ -165,28 +165,72 @@ onMounted(() => {
     ); // 355 为 375 宽度下的计算数值
     // bg.tileScale.set(0.55*(canvasWidth - contentX/375*canvasWidth * 2)/355, 0.65  );  // 355 为 375 宽度下的计算数值
 
+    bg.tilePosition.y = (-500 / 667) * canvasHeight;
     gameScene.addChild(bg);
 
     // // 分数
     let infoBar = new Sprite(resources.info.texture);
     infoBar.width = canvasWidth - contentX * 2;
-    infoBar.height = 100;
+    infoBar.height = (100 / 667) * canvasHeight;
     infoBar.x = (contentX / 375) * canvasWidth;
-    infoBar.y = (contentY / 667) * canvasHeight - 40; // 40 为相对 height 100 的相对数值
+    infoBar.y = (contentY / 667) * canvasHeight - (40 / 667) * canvasHeight; // 40 为相对 height 100 的相对数值
 
     infoBar.zIndex = 99;
 
     gameScene.addChild(infoBar);
 
     // hp info
-    hpInfo = new Text(`HP:${hp}`, { fontSize: '24px', fill: '#d6ac5a' });
-    hpInfo.x = canvasWidth - 150;
-    // hpInfo.y = 65;
-    hpInfo.y = (contentY / 667) * canvasHeight + 10;
+    // hpInfo = new Text(`HP:${hp}`, { fontSize: '24px', fill: '#d6ac5a' });
+    // hpInfo.x = canvasWidth - 150;
+    // hpInfo.y = (contentY / 667) * canvasHeight + 10;
 
-    hpInfo.zIndex = 100;
+    // hpInfo.zIndex = 100;
 
-    gameScene.addChild(hpInfo);
+    // gameScene.addChild(hpInfo);
+
+    const heartSize = {
+      width: (22 / 375) * canvasWidth,
+      height: ((22 / 375) * canvasWidth * 82) / 85,
+    };
+
+    // const hearts = new Array(hp).fill(
+    //   new Sprite(resources.heart.texture)
+    // )
+
+    // for(let i in hearts) {
+    //   const heart = hearts[i]
+    //   heart.width = heartSize.width;
+    //   heart.height = heartSize.height;
+    //   heart.x = canvasWidth - (155-27*i)/375*canvasWidth;
+    //   heart.y = (contentY + 18-3*i )/ 667 * canvasHeight;
+    //   heart.zIndex = 100;
+    // gameScene.addChild(heart);
+    // }
+
+    heart1 = new Sprite(resources.heart.texture);
+    heart1.width = heartSize.width;
+    heart1.height = heartSize.height;
+    heart1.x = canvasWidth - (155 / 375) * canvasWidth;
+    heart1.y = ((contentY + 18) / 667) * canvasHeight;
+    heart1.zIndex = 100;
+    gameScene.addChild(heart1);
+
+    heart2 = new Sprite(resources.heart.texture);
+    heart2.width = heartSize.width;
+    heart2.height = heartSize.height;
+    heart2.x = canvasWidth - (128 / 375) * canvasWidth;
+    heart2.y = ((contentY + 15) / 667) * canvasHeight;
+    heart2.zIndex = 100;
+    gameScene.addChild(heart2);
+
+    heart3 = new Sprite(resources.heart.texture);
+    heart3.width = heartSize.width;
+    heart3.height = heartSize.height;
+    heart3.x = canvasWidth - (101 / 375) * canvasWidth;
+    heart3.y = ((contentY + 11) / 667) * canvasHeight;
+    heart3.zIndex = 100;
+    gameScene.addChild(heart3);
+
     // score info
     scoreInfo = new Text(`${score}`, { fontSize: '24px', fill: '#d6ac5a' });
     // scoreInfo.x = 350;
@@ -348,27 +392,25 @@ onMounted(() => {
       app.ticker.add((delta) => gameLoop(delta));
     }, 3000);
   }
-  let blobWidth = 62;
+  let blobWidth = (70 / 375) * canvasWidth;
   function creatEMCar(resources) {
     //设置敌人
     //根据最大 blob 数生成：理论上 1 人 2 石 3 奖 4 金币
     const blobsArr = [
-      'stone',
-      'coin',
-      'prize',
-      'coin',
-      'prize',
-      'coin',
-      'prize',
       'coin',
       'stone',
       'coin',
-
+      'prize',
+      'coin',
+      'prize',
+      'coin',
+      'prize',
+      'coin',
       'whiteHorse',
       'coin',
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
-      const randomBlob = blobsArr[randomInt(0, 11)];
+      const randomBlob = blobsArr[randomInt(0, 0)];
 
       //创建敌车
       let blob =
@@ -379,6 +421,15 @@ onMounted(() => {
               })
             )
           : new Sprite(resources[randomBlob].texture);
+      if (randomBlob === 'coin') {
+        blob = new AnimatedSprite(
+          new Array(11).fill(0).map((_item, i) => {
+            return resources[`coin${i + 1}`].texture;
+          })
+        );
+        blob.animationSpeed = 1.25;
+        blob.loop = false;
+      }
 
       blob.width = blobWidth;
       if (randomBlob === 'stone') {
@@ -389,7 +440,7 @@ onMounted(() => {
       }
 
       if (randomBlob === 'prize') {
-        blob.height = (blobWidth / 186) * 312;
+        blob.height = (blobWidth / 300) * 400;
       }
       if (randomBlob === 'whiteHorse') {
         blob.width = blobWidth * 1.5;
@@ -404,14 +455,18 @@ onMounted(() => {
       while (EMCarIsHit) {
         //随机车子x坐标在画布外
         // let x = randomInt(250, 500);
-        let y = randomInt(-(canvasHeight + speed), -1.5 * canvasHeight);
+        let y = randomInt(-speed, -1.5 * canvasHeight);
 
         //随机y坐标在画布范围内
         const minX = 70;
         let xAreas = [
-          minX / 2 + 10,
-          (canvasWidth - minX) / 2,
-          canvasWidth - minX - 10,
+          // minX / 2 + 10,
+          (contentX / 375) * canvasWidth * 1.5,
+          // (canvasWidth - minX) / 2,
+          (canvasWidth - blobWidth) / 2,
+
+          // canvasWidth - minX - 10,
+          canvasWidth - blobWidth - (contentX / 375) * canvasWidth, // 图片普遍右边有阴影，适当调整
         ];
         // let x = randomInt(10 + gap, app.stage.width - blob.width - gap);
         let x = xAreas[randomInt(0, 2)];
@@ -434,7 +489,7 @@ onMounted(() => {
   //检查生成的地方车辆是否有重叠
   function checkEMCarPositionHit(blob) {
     for (var i = 0; i < blobs.length; i++) {
-      if (hitTestRectangle(blob, blobs[i])) {
+      if (hitTestRectangle(blob, blobs[i], { x: 0, y: 200 })) {
         return true;
         break;
       }
@@ -449,11 +504,8 @@ onMounted(() => {
     //背景移动
     bg.tilePosition.y += bgSpeed;
     bgSpeed += 0.1;
-    if (bgSpeed >= 20) bgSpeed = 20;
+    if (bgSpeed >= 15) bgSpeed = 15;
 
-    //移动赛车
-    // runningHorse.x += runningHorse.vx;
-    // runningHorse.y += runningHorse.vy;
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
     }
@@ -480,16 +532,32 @@ onMounted(() => {
     //加分
     //如果分数大于30则每1000分场景车辆+1，最多6辆
     if (score > 30) {
-      numberOfBlobs = 2 + Math.floor(score / 50);
-      speed = initalSpeed + Math.floor(score / 30);
-      if (speed >= 20) speed = 20;
-      if (numberOfBlobs > 6) {
-        numberOfBlobs = 6;
+      numberOfBlobs = 4 + Math.floor(score / 50);
+      // speed = initalSpeed + Math.floor(score / 45);
+      if (speed >= 16) speed = 16;
+      if (numberOfBlobs >= 7) {
+        numberOfBlobs = 7;
       }
     }
     //如果发生碰撞且在无敌时间之外
     if (explorerHit && runningHorse.invl === 0) {
       if (['coin'].includes(lastHit.url) && shouldAddScore) {
+        // console.log('fuck???', lastHit.blob )
+        // lastHit.blob = new AnimatedSprite(
+        //   new Array(horseCourt).fill(0).map((_item, i) => {
+        //     return resources[`horse${i + 1}`].texture;
+        //   })
+        // );
+        // r2.animationSpeed = 0.5;
+
+        // r2.loop = true;
+        // r2.gotoAndPlay(0);
+        lastHit.blob.onComplete = () => {
+          lastHit.blob.visible = false;
+        };
+
+        lastHit.blob.gotoAndPlay(0);
+
         score += 10;
       } else if (['prize'].includes(lastHit.url) && shouldAddScore) {
         score += 15;
@@ -503,7 +571,7 @@ onMounted(() => {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-        hpInfo.text = `HP:${hp}`;
+        // hpInfo.text = `HP:${hp}`;
         // scoreInfo.text = `${score}`;
       } else if (lastHit.url === `whiteHorse` && shouldAddScore) {
         runningHorse.alpha = 0.3;
@@ -512,7 +580,16 @@ onMounted(() => {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-        hpInfo.text = `HP:${hp}`;
+        // hpInfo.text = `HP:${hp}`;
+      }
+      if (hp === 2) {
+        heart3.visible = false;
+      }
+      if (hp === 1) {
+        heart2.visible = false;
+      }
+      if (hp === 0) {
+        heart1.visible = false;
       }
       scoreInfo.text = `${score}`;
       setTimeout(() => {
@@ -527,7 +604,7 @@ onMounted(() => {
         scoreText.text = score;
         runningHorse.interactive = false;
       }
-      runningHorse.invl = 5; //设置无敌时间
+      runningHorse.invl = 2; //设置无敌时间
     }
   }
   //移除已经行驶到画布外围的敌方车辆
@@ -577,7 +654,9 @@ onMounted(() => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   //碰撞检测
-  function hitTestRectangle(r1, r2) {
+  function hitTestRectangle(r1, r2, option = { x: 0, y: 0 }) {
+    const { x = 0, y = 0 } = option;
+
     //设置需要的变量
     let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
 
@@ -604,13 +683,15 @@ onMounted(() => {
     combinedHalfWidths = r1.halfWidth + r2.halfWidth;
     combinedHalfHeights = r1.halfHeight + r2.halfHeight;
 
-    //检查x轴是否充电
-    if (Math.abs(vx) < combinedHalfWidths) {
+    //检查x轴
+    if (Math.abs(vx) < combinedHalfWidths + x) {
       //再检查y轴
-      if (Math.abs(vy) < combinedHalfHeights) {
+      if (Math.abs(vy) < combinedHalfHeights + y) {
         //如果是则判断为碰撞
         hit = true;
-        r2.visible = false;
+        // setTimeout(() => {
+        //   r2.visible = false;
+        // }, 75)
       } else {
         //否则为没碰撞
         hit = false;
@@ -621,15 +702,25 @@ onMounted(() => {
     }
 
     if (hit && r2.texture.textureCacheIds.length) {
-      const id = r2.texture.textureCacheIds[0].includes(`whiteHorse`)
-        ? `whiteHorse`
-        : r2.texture.textureCacheIds[0];
+      let id;
+      if (r2.texture.textureCacheIds[0].includes(`whiteHorse`)) {
+        id = `whiteHorse`;
+      } else if (r2.texture.textureCacheIds[0].includes(`coin`)) {
+        id = `coin`;
+      } else {
+        id = r2.texture.textureCacheIds[0];
+      }
+
+      // const id =
+      //   ? `whiteHorse`
+      //   : r2.texture.textureCacheIds[0];
 
       shouldAddScore = !(r2.ts === lastHit.ts && lastHit.url === id);
 
       lastHit = {
         url: id,
         ts: r2.ts,
+        blob: r2,
       };
     }
 
