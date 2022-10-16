@@ -71,12 +71,12 @@ function toRule() {
 .rule-btn {
   position: absolute;
   bottom: 5%;
-  width: 55px;
+  width: 14.7%;
 }
 .prize-btn {
-  left: 34%;
+  left: 33.5%;
 }
 .rule-btn {
-  left: 54%;
+  left: 53.5%;
 }
 </style>
