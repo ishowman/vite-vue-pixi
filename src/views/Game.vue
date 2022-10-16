@@ -68,7 +68,7 @@ onMounted(() => {
   let startPoint = {};
   let hitRecords = [];
   let lastHit = {};
-  let initalSpeed = 6;
+  let initalSpeed = 5;
   let speed = initalSpeed;
 
   const gap = 50;
@@ -530,7 +530,7 @@ onMounted(() => {
     if (bgSpeed >= 15) bgSpeed = 15;
 
     speed += 0.1;
-    if (speed >= 15) speed = 15;
+    if (speed >= 10) speed = 10;
 
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
