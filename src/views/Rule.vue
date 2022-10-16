@@ -1,0 +1,1 @@
+<template>rule</template>

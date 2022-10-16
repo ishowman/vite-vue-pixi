@@ -1,6 +1,9 @@
 <template>
   <div class="full-page" id="home">
     <img :src="playBtn" alt="开始游戏" class="play-btn" @click="play()" />
+
+    <img :src="prizeBtn" alt="奖品" class="prize-btn" @click="toPrize()" />
+    <img :src="ruleBtn" alt="规则而" class="rule-btn" @click="toRule()" />
   </div>
 </template>
 
@@ -10,6 +13,8 @@ import { Howl } from 'howler';
 import playBgm from '@/assets/audios/play.mp3';
 
 import playBtn from '@/assets/index/play-btn.png';
+import prizeBtn from '@/assets/index/prize-btn.png';
+import ruleBtn from '@/assets/index/rule-btn.png';
 
 const router = useRouter();
 const sound = new Howl({
@@ -18,6 +23,13 @@ const sound = new Howl({
 function play() {
   router.replace({ name: 'Game' });
   sound.play();
+}
+
+function toPrize() {
+  router.replace({ name: 'Prize' });
+}
+function toRule() {
+  router.replace({ name: 'Rule' });
 }
 </script>
 <style scoped>
@@ -53,5 +65,19 @@ function play() {
   75% {
     transform: scale(1.08);
   }
+}
+
+.prize-btn,
+.rule-btn {
+  position: absolute;
+  bottom: 10%;
+  width: 100px;
+  height: 100x;
+}
+.prize-btn {
+  left: 45%;
+}
+.rule-btn {
+  left: 55%;
 }
 </style>

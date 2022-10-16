@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 const Home = () => import('@/views/Home.vue');
 const Game = () => import('@/views/Game.vue');
+const Prize = () => import('@/views/Prize.vue');
+const Rule = () => import('@/views/Rule.vue');
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,6 +16,16 @@ const router = createRouter({
       path: '/game',
       component: Game,
       name: 'Game',
+    },
+    {
+      path: '/prize',
+      component: Prize,
+      name: 'Prize',
+    },
+    {
+      path: '/rule',
+      component: Rule,
+      name: 'Rule',
     },
     {
       path: '/:catchAll(.*)',
