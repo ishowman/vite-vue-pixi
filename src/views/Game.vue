@@ -530,7 +530,7 @@ onMounted(() => {
     if (bgSpeed >= 15) bgSpeed = 15;
 
     speed += 0.1;
-    if (speed >= 10) speed = 10;
+    if (speed >= 12) speed = 12;
 
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
