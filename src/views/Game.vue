@@ -68,7 +68,7 @@ onMounted(() => {
   let startPoint = {};
   let hitRecords = [];
   let lastHit = {};
-  let initalSpeed = 10;
+  let initalSpeed = 6;
   let speed = initalSpeed;
 
   const gap = 50;
@@ -529,6 +529,9 @@ onMounted(() => {
     bgSpeed += 0.05;
     if (bgSpeed >= 15) bgSpeed = 15;
 
+    speed += 0.1;
+    if (speed >= 15) speed = 15;
+
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
     }
@@ -556,8 +559,8 @@ onMounted(() => {
     //如果分数大于30则每1000分场景车辆+1，最多6辆
     if (score > 30) {
       numberOfBlobs = 4 + Math.floor(score / 50);
-      speed = initalSpeed + Math.floor(score / 45);
-      if (speed >= 15) speed = 15;
+      // speed = initalSpeed + Math.floor(score / 45);
+      // if (speed >= 15) speed = 15;
       if (numberOfBlobs >= 7) {
         numberOfBlobs = 7;
       }
