@@ -74,16 +74,21 @@ onMounted(() => {
 
   function takeScreenshot() {
     // wait = true;
-    app.renderer.plugins.extract.canvas(app.stage).toBlob((b) => {
-      // const a = document.createElement('a');
-      // document.body.append(a);
-      // a.download = 'screenshot';
-      // a.href = URL.createObjectURL(b);
-      console.log(`URL.createObjectURL(b)`, URL.createObjectURL(b));
-      imgUrl.value = URL.createObjectURL(b);
-      // a.click();
-      // a.remove();
-    }, 'image/png');
+    const url = app.renderer.plugins.extract
+      .canvas(app.stage)
+      // .toBlob((b) => {
+      //   // const a = document.createElement('a');
+      //   // document.body.append(a);
+      //   // a.download = 'screenshot';
+      //   // a.href = URL.createObjectURL(b);
+      //   console.log(`URL.createObjectURL(b)`, URL.createObjectURL(b));
+      //   imgUrl.value = URL.createObjectURL(b);
+      //   // a.click();
+      //   // a.remove();
+      // }, 'image/png');
+      .toDataURL();
+    console.log('url', url);
+    imgUrl.value = url;
   }
 });
 </script>
