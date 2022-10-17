@@ -3,6 +3,7 @@ const Home = () => import('@/views/Home.vue');
 const Game = () => import('@/views/Game.vue');
 const Prize = () => import('@/views/Prize.vue');
 const Rule = () => import('@/views/Rule.vue');
+const Poster = () => import('@/views/Poster.vue');
 
 const router = createRouter({
   history: createWebHistory(),
