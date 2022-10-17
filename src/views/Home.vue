@@ -3,11 +3,11 @@
     <img :src="playBtn" alt="开始游戏" class="play-btn" @click="play()" />
 
     <img :src="prizeBtn" alt="奖品" class="prize-btn" @click="toPrize()" />
-    <img :src="ruleBtn" alt="规则而" class="rule-btn" @click="toRule()" />
+    <img :src="ruleBtn" alt="规则" class="rule-btn" @click="toRule()" />
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { useRouter } from 'vue-router';
 import { Howl } from 'howler';
 import playBgm from '@/assets/audios/play.mp3';

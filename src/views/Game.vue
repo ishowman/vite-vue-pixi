@@ -2,7 +2,7 @@
   <div ref="game"></div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
 import { Howl } from 'howler';
