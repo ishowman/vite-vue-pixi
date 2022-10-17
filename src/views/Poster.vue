@@ -86,7 +86,7 @@ onMounted(() => {
       //   // a.click();
       //   // a.remove();
       // }, 'image/png');
-      .toDataURL();
+      .toDataURL('image/png', 1);
     console.log('url', url);
     imgUrl.value = url;
   }
