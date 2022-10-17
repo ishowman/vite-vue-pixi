@@ -19,6 +19,7 @@ const imgUrl = ref('');
 
 onMounted(() => {
   let Application = PIXI.Application,
+  resources,
     Container = PIXI.Container,
     TextureCache = PIXI.utils.TextureCache,
     Sprite = PIXI.Sprite,
