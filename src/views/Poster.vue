@@ -1,10 +1,21 @@
 <template>
-  <div ref="poster"></div>
+  <div ref="poster" v-show="!imgUrl"></div>
+  <img
+    :src="imgUrl"
+    v-if="imgUrl"
+    :style="{
+      width: canvasWidth,
+      height: canvasHeight,
+      zIndex: 99,
+    }"
+  />
 </template>
 <script setup>
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
 const poster = ref('');
+
+const imgUrl = ref('');
 
 onMounted(() => {
   let Application = PIXI.Application,
@@ -66,8 +77,10 @@ onMounted(() => {
       document.body.append(a);
       a.download = 'screenshot';
       a.href = URL.createObjectURL(b);
-      a.click();
-      a.remove();
+      console.log(`URL.createObjectURL(b)`, URL.createObjectURL(b));
+      imgUrl.value = URL.createObjectURL(b);
+      // a.click();
+      // a.remove();
     }, 'image/png');
   }
 });
