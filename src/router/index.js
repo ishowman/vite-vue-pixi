@@ -28,6 +28,11 @@ const router = createRouter({
       name: 'Rule',
     },
     {
+      path: '/poster',
+      component: Poster,
+      name: 'Poster',
+    },
+    {
       path: '/:catchAll(.*)',
       redirect: '/',
     },
