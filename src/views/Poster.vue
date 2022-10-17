@@ -19,8 +19,8 @@ const imgUrl = ref('');
 
 onMounted(() => {
   let Application = PIXI.Application,
-  resources,
     Container = PIXI.Container,
+    resources,
     TextureCache = PIXI.utils.TextureCache,
     Sprite = PIXI.Sprite,
     Text = PIXI.Text,
@@ -73,17 +73,26 @@ onMounted(() => {
       fill: '#fff',
       align: 'center',
     });
-    text.y =
-      posterSprite.height * 0.7 +
-      (canvasHeight - (posterWidth / 869) * 1543) * 0.7;
+    text.y = posterSprite.height * 0.7 + posterSprite.y;
     text.x = posterSprite.x + posterWidth * 0.3;
 
     gameScene.addChild(text);
 
     let btnShare = new Sprite(resources.btnShare.texture);
-    btnShare.width = 100;
-    btnShare.height = 100;
+    btnShare.width = (120 / 375) * canvasWidth;
+    btnShare.height = (btnShare.width / 375) * 143;
+    btnShare.y =
+      posterSprite.height * 0.97 + posterSprite.y - btnShare.height / 2;
+    btnShare.x = posterSprite.x + posterWidth * 0.53;
     gameScene.addChild(btnShare);
+
+    let btnAward = new Sprite(resources.btnAward.texture);
+    btnAward.width = (120 / 375) * canvasWidth;
+    btnAward.height = (btnShare.width / 375) * 143;
+    btnAward.y =
+      posterSprite.height * 0.97 + posterSprite.y - btnShare.height / 2;
+    btnAward.x = posterSprite.x + posterWidth * 0.06;
+    gameScene.addChild(btnAward);
 
     // app.renderer.plugins.interaction.on('pointerdown', takeScreenshot);
     takeScreenshot();
