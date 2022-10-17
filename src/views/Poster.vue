@@ -56,6 +56,7 @@ onMounted(() => {
     let gameScene = new Container();
     // gameScene.sortableChildren = true;
     app.stage.addChild(gameScene);
+    // gameScene.visible
     //设置背景
     let bgSprite = new Sprite(resources.bg.texture);
     bgSprite.width = canvasWidth;
@@ -67,16 +68,17 @@ onMounted(() => {
     btnShare.height = 100;
     gameScene.addChild(btnShare);
 
-    app.renderer.plugins.interaction.on('pointerdown', takeScreenshot);
+    // app.renderer.plugins.interaction.on('pointerdown', takeScreenshot);
+    takeScreenshot();
   }
 
   function takeScreenshot() {
     // wait = true;
     app.renderer.plugins.extract.canvas(app.stage).toBlob((b) => {
-      const a = document.createElement('a');
-      document.body.append(a);
-      a.download = 'screenshot';
-      a.href = URL.createObjectURL(b);
+      // const a = document.createElement('a');
+      // document.body.append(a);
+      // a.download = 'screenshot';
+      // a.href = URL.createObjectURL(b);
       console.log(`URL.createObjectURL(b)`, URL.createObjectURL(b));
       imgUrl.value = URL.createObjectURL(b);
       // a.click();
