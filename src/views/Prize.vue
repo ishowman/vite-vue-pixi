@@ -1,8 +1,13 @@
 <template>
   <div class="full-page" id="prize">
     <div class="square">
-      <img src="rules/square.png" alt="" style="width: 100%" />
-      <img src="rules/btn-back.png" alt="" class="btn-back" @click="toHome" />
+      <img src="public/rules/square.png" alt="" style="width: 100%" />
+      <img
+        src="public/rules/btn-back.png"
+        alt=""
+        class="btn-back"
+        @click="toHome"
+      />
     </div>
   </div>
 </template>
