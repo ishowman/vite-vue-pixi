@@ -29,7 +29,7 @@ function toPrize() {
   router.replace({ name: 'Prize' });
 }
 function toRule() {
-  router.replace({ name: 'Poster' });
+  router.replace({ name: 'Rule' });
 }
 </script>
 <style scoped>
