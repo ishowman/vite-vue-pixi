@@ -13,7 +13,10 @@
 <script setup>
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 const poster = ref('');
+
+const router = useRouter();
 
 const imgUrl = ref('');
 
