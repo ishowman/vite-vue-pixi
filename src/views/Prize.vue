@@ -21,7 +21,7 @@ function toHome() {
 </script>
 <style scoped>
 #prize {
-  background-image: url('rules/bg.png');
+  background-image: url('public/rules/bg.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
