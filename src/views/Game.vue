@@ -141,6 +141,8 @@ onMounted(() => {
     setup(_resources);
   });
 
+  takeScreenshot();
+
   function setup(resources) {
     /* preScene */
     // let preScene = new Container();
@@ -776,8 +778,6 @@ onMounted(() => {
     console.log('url', url);
     imgUrl.value = url;
   }
-});
-
 });
 </script>
 <style>
