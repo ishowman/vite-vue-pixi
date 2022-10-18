@@ -1,5 +1,15 @@
 <template>
-  <div ref="game"></div>
+  <div ref="game" v-show="!imgUrl"></div>
+  <img
+    :src="imgUrl"
+    v-if="imgUrl"
+    :style="{
+      width: canvasWidth,
+      height: canvasHeight,
+      zIndex: 99,
+    }"
+  />
+  <div class="mask" v-if="imgUrl"></div>
 </template>
 
 <script setup>
@@ -24,7 +34,7 @@ import score from '@/assets/audios/score.mp3';
 import hp from '@/assets/audios/hp.mp3';
 
 const router = useRouter();
-
+const imgUrl = ref('');
 const readyBgm = new Howl({
   src: ready,
 });
@@ -758,6 +768,25 @@ onMounted(() => {
   function endGame() {
     gameOverScene.visible = true;
   }
+
+  function takeScreenshot() {
+    const url = app.renderer.plugins.extract
+      .canvas(app.stage)
+      .toDataURL('image/png', 1);
+    console.log('url', url);
+    imgUrl.value = url;
+  }
+});
+
 });
 </script>
-<style></style>
+<style>
+.mask {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+</style>
