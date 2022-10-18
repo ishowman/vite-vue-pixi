@@ -1,1 +1,37 @@
-<template>prize</template>
+<template>
+  <div class="full-page" id="prize">
+    <div class="square">
+      <img src="rules/square.png" alt="" style="width: 100%" />
+      <img src="rules/btn-back.png" alt="" class="btn-back" @click="toHome" />
+    </div>
+  </div>
+</template>
+<script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+function toHome() {
+  router.replace({ name: 'Home' });
+}
+</script>
+<style scoped>
+#prize {
+  background-image: url('rules/bg.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.square {
+  position: absolute;
+  top: 19%;
+  left: 7%;
+  right: 7%;
+  width: 86%;
+}
+.btn-back {
+  position: absolute;
+  top: 90.5%;
+  left: 30%;
+  width: 40%;
+}
+</style>
