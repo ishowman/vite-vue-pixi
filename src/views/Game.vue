@@ -5,6 +5,8 @@
 <script setup>
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 import { Howl } from 'howler';
 
 // import preBg from '@/assets/index/bg.png';
@@ -20,6 +22,8 @@ import ready from '@/assets/audios/ready.mp3';
 import end from '@/assets/audios/end.mp3';
 import score from '@/assets/audios/score.mp3';
 import hp from '@/assets/audios/hp.mp3';
+
+const router = useRouter();
 
 const readyBgm = new Howl({
   src: ready,
@@ -388,6 +392,10 @@ onMounted(() => {
     prizeBtn.height = 60;
 
     prizeBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
+    prizeBtn.interactive = true;
+    prizeBtn.on('touchend', () => {
+      router.replace({ name: 'Poster' });
+    });
 
     gameOverScene.addChild(prizeBtn);
 
