@@ -84,6 +84,11 @@ onMounted(() => {
     btnShare.y =
       posterSprite.height * 0.97 + posterSprite.y - btnShare.height / 2;
     btnShare.x = posterSprite.x + posterWidth * 0.53;
+    btnShare.interactive = true;
+    btnShare.on('touchend', () => {
+      takeScreenshot();
+    });
+
     gameScene.addChild(btnShare);
 
     let btnAward = new Sprite(resources.btnAward.texture);
@@ -92,10 +97,14 @@ onMounted(() => {
     btnAward.y =
       posterSprite.height * 0.97 + posterSprite.y - btnShare.height / 2;
     btnAward.x = posterSprite.x + posterWidth * 0.06;
+    btnAward.interactive = true;
+    btnAward.on('touchend', () => {
+      router.replace({ name: 'Prize' });
+    });
+
     gameScene.addChild(btnAward);
 
     // app.renderer.plugins.interaction.on('pointerdown', takeScreenshot);
-    takeScreenshot();
   }
 
   function takeScreenshot() {
