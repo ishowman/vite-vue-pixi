@@ -2,7 +2,7 @@
   <div class="full-page" id="prize">
     <div class="square">
       <img src="public/rules/star3.png" class="star3" style="width: 40%" />
-      <img src="public/rules/title.png" class="title" style="width: 100%" />
+      <img src="public/myAward/title.png" class="title" style="width: 100%" />
 
       <img src="public/rules/square.png" alt="" style="width: 100%" />
       <img
@@ -11,6 +11,24 @@
         class="btn-back"
         @click="toHome"
       />
+
+      <div style="" class="rule-text">
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+        <p>xxx</p>
+      </div>
     </div>
   </div>
 </template>
@@ -51,5 +69,28 @@ function toHome() {
   position: absolute;
   top: -8%;
   left: 0%;
+}
+
+.rule-text {
+  position: absolute;
+  top: 60px;
+  bottom: 60px;
+  left: 20px;
+  right: 20px;
+  color: #fff;
+  line-height: 1.2;
+  word-wrap: break-word;
+  font-size: 20px;
+  overflow: auto;
+  scrollbar-color: red;
+}
+.rule-text::-webkit-scrollbar-thumb {
+  background-color: #f90;
+}
+.rule-text::-webkit-scrollbar {
+  width: 10px;
+}
+.rule-text::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
 </style>
