@@ -4,7 +4,6 @@
       <img src="public/rules/star3.png" class="star3" style="width: 40%" />
       <img src="public/rules/title.png" class="title" style="width: 100%" />
 
-
       <img src="public/rules/square.png" alt="" style="width: 100%" />
       <img
         src="public/rules/btn-back.png"
@@ -50,8 +49,7 @@ function toHome() {
 }
 .title {
   position: absolute;
-  top: 0%;
+  top: -8%;
   left: 0%;
-
 }
 </style>
