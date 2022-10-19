@@ -1,6 +1,10 @@
 <template>
   <div class="full-page" id="prize">
     <div class="square">
+      <img src="public/rules/star3.png" class="star3" style="width: 40%" />
+      <img src="public/rules/title.png" class="title" style="width: 100%" />
+
+
       <img src="public/rules/square.png" alt="" style="width: 100%" />
       <img
         src="public/rules/btn-back.png"
@@ -38,5 +42,16 @@ function toHome() {
   top: 90.5%;
   left: 30%;
   width: 40%;
+}
+.star3 {
+  position: absolute;
+  top: -14%;
+  left: 30%;
+}
+.title {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+
 }
 </style>
