@@ -85,12 +85,14 @@ function toHome() {
   scrollbar-color: red;
 }
 .rule-text::-webkit-scrollbar-thumb {
-  background-color: #f90;
+  background-color: #d7ae5a;
+  border-radius: 10px;
 }
 .rule-text::-webkit-scrollbar {
   width: 10px;
 }
 .rule-text::-webkit-scrollbar-track {
   border-radius: 10px;
+background-color: #01091d;
 }
 </style>
