@@ -12,23 +12,7 @@
         @click="toHome"
       />
 
-      <div style="" class="rule-text">
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxx</p>
-      </div>
+      <div class="scroll-view"></div>
     </div>
   </div>
 </template>
@@ -83,16 +67,5 @@ function toHome() {
   font-size: 20px;
   overflow: auto;
   scrollbar-color: red;
-}
-.rule-text::-webkit-scrollbar-thumb {
-  background-color: #d7ae5a;
-  border-radius: 10px;
-}
-.rule-text::-webkit-scrollbar {
-  width: 10px;
-}
-.rule-text::-webkit-scrollbar-track {
-  border-radius: 10px;
-background-color: #01091d;
 }
 </style>
