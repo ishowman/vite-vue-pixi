@@ -12,12 +12,19 @@
         @click="toHome"
       />
 
-      <div class="scroll-view"></div>
+      <div class="scroll-view prize-list">
+        <game-prize class="mb-8" />
+        <game-prize class="mb-8">
+          <p class="text-ellipsis">4092384023840240923840238402</p>
+        </game-prize>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 import { useRouter } from 'vue-router';
+import GamePrize from '@/components/GamePrize.vue';
+
 const router = useRouter();
 
 function toHome() {
@@ -55,4 +62,12 @@ function toHome() {
   left: 0%;
 }
 
+.prize-list {
+  position: absolute;
+  top: 60px;
+  bottom: 60px;
+  left: 20px;
+  right: 20px;
+  overflow: auto;
+}
 </style>

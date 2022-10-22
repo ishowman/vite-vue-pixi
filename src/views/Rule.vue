@@ -73,14 +73,15 @@ function toHome() {
 .rule-text {
   position: absolute;
   top: 60px;
-  bottom: 60px;
-  left: 20px;
-  right: 20px;
+  bottom: 64px;
+  left: 16px;
+  right: 16px;
   color: #fff;
   line-height: 1.2;
   word-wrap: break-word;
   font-size: 20px;
   overflow: auto;
-  scrollbar-color: red;
+
+  padding: 0 4px;
 }
 </style>
