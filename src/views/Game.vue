@@ -96,6 +96,7 @@ onMounted(() => {
 
   const contentX = 10;
   const contentY = 50;
+  let goldBadge, silverBadge, cuBadge;
 
   //加载素材图片
   app.loader
@@ -109,6 +110,8 @@ onMounted(() => {
     .add(`badgeBg`, 'badge/组 40.png')
     .add(`prizeBtn`, 'badge/组 41.png')
     .add(`badge1st`, 'badge/金徽章.png')
+    .add(`badge2st`, 'badge/银徽章.png')
+    .add(`badge3st`, 'badge/铜徽章.png')
     .add(`tipArrow`, 'tips/arrow.png')
     .add(`tipText`, 'tips/text.png')
     .add('heart', heart)
@@ -399,15 +402,43 @@ onMounted(() => {
 
     gameOverScene.addChild(prizeBtn);
 
-    let goldBadge = new Sprite(resources.badge1st.texture);
+    const badgeY = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.08;
+    const badgeX = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 100;
+    const badgeWidth = 200;
+    const badgeHeight = 250;
 
-    goldBadge.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.08;
-    goldBadge.width = 200;
-    goldBadge.height = 250;
+    goldBadge = new Sprite(resources.badge1st.texture);
 
-    goldBadge.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 100;
+    goldBadge.y = badgeY;
+    goldBadge.width = badgeWidth;
+    goldBadge.height = badgeHeight;
+
+    goldBadge.x = badgeX;
+    goldBadge.visible = false;
 
     gameOverScene.addChild(goldBadge);
+
+    silverBadge = new Sprite(resources.badge2st.texture);
+
+    silverBadge.y = badgeY;
+    silverBadge.width = badgeWidth;
+    silverBadge.height = badgeHeight;
+
+    silverBadge.x = badgeX;
+    silverBadge.visible = false;
+
+    gameOverScene.addChild(silverBadge);
+
+    cuBadge = new Sprite(resources.badge3st.texture);
+
+    cuBadge.y = badgeY;
+    cuBadge.width = badgeWidth;
+    cuBadge.height = badgeHeight;
+
+    cuBadge.x = badgeX;
+    cuBadge.visible = false;
+
+    gameOverScene.addChild(cuBadge);
 
     setTimeout(() => {
       tipArrow.visible = false;
@@ -756,6 +787,13 @@ onMounted(() => {
   }
   //游戏结束显示游戏结束场景，隐藏游戏场景
   function endGame() {
+    if (score > 600) {
+      goldBadge.visible = true;
+    } else if (score >= 300 && score <= 600) {
+      silverBadge.visible = true;
+    } else {
+      cuBadge.visible = true;
+    }
     gameOverScene.visible = true;
   }
 });
