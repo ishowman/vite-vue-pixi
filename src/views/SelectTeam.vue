@@ -21,15 +21,29 @@
       </div>
 
       <div style="margin: 0 auto" class="grid team-list">
-        <img src="public/team/blue.png" alt="蓝队" class="team-role" />
-        <img src="public/team/white.png" alt="白队" class="team-role" />
+        <img
+          src="public/team/blue.png"
+          alt="蓝队"
+          class="team-role"
+          :class="selected === 0 ? '' : 'gray'"
+          @click="selected = 0"
+        />
+        <img
+          src="public/team/white.png"
+          alt="白队"
+          class="team-role"
+          :class="selected === 1 ? '' : 'gray'"
+          @click="selected = 1"
+        />
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
+const selected = ref(2);
 
 function toGame() {
   router.replace({ name: 'Game' });
@@ -92,5 +106,15 @@ function toGame() {
   top: 16%;
   font-size: 24px;
   line-height: 1.5;
+}
+.gray {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+
+  filter: grayscale(100%);
+
+  filter: gray;
 }
 </style>
