@@ -20,7 +20,6 @@ import { Howl } from 'howler';
 
 // import preBg from '@/assets/index/bg.png';
 import bgUrl from '@/assets/img/bg.jpg';
-import outerBg from '@/assets/img/outer-bg.png';
 import infoUrl from '@/assets/img/info.png';
 import coinUrl from '@/assets/img/coin.png';
 import stoneUrl from '@/assets/img/stone.png';
@@ -117,8 +116,9 @@ onMounted(() => {
     .add(`coin`, coinUrl)
     .add(`stone`, stoneUrl)
     .add(`prize`, prizeUrl)
-    // .add(`myHorse`, 'img/myHorse.png')
-    .add(`outerBg`, outerBg)
+    .add(`outerBg`, 'game/k.png')
+    .add(`star`, 'game/x.png')
+
     // .add(`preBg`, preBg)
     .add(`badgeBg`, 'badge/组 40.png')
     .add(`prizeBtn`, 'badge/组 41.png')
@@ -184,6 +184,15 @@ onMounted(() => {
     outerBgSprite.zIndex = 9;
     gameScene.addChild(outerBgSprite);
 
+    let starSprite = new Sprite(resources.star.texture);
+    const starWidth = canvasWidth * 0.25;
+    starSprite.width = starWidth;
+    starSprite.height = (starWidth * 127) / 318;
+    starSprite.x = (canvasWidth - starWidth) / 2;
+    starSprite.y = (5 / 667) * canvasHeight;
+    starSprite.zIndex = 9;
+    gameScene.addChild(starSprite);
+
     bg = new TilingSprite(resources.bg.texture);
 
     bg.x = (contentX / 375) * canvasWidth;
@@ -213,9 +222,11 @@ onMounted(() => {
     // // 分数
     let infoBar = new Sprite(resources.info.texture);
     infoBar.width = canvasWidth - contentX * 2;
-    infoBar.height = (100 / 667) * canvasHeight;
+    // infoBar.height = (100 / 667) * canvasHeight;
+    infoBar.height = (303 / 1133) * (canvasWidth - contentX * 2);
+
     infoBar.x = (contentX / 375) * canvasWidth;
-    infoBar.y = (contentY / 667) * canvasHeight - (40 / 667) * canvasHeight; // 40 为相对 height 100 的相对数值
+    infoBar.y = ((contentY - 38) / 667) * canvasHeight; // 38 为相对 height  的相对数值
 
     infoBar.zIndex = 99;
 
@@ -252,35 +263,48 @@ onMounted(() => {
     heart1 = new Sprite(resources.heart.texture);
     heart1.width = heartSize.width;
     heart1.height = heartSize.height;
-    heart1.x = canvasWidth - (155 / 375) * canvasWidth;
-    heart1.y = ((contentY + 18) / 667) * canvasHeight;
+    // heart1.x = canvasWidth - (155 / 375) * canvasWidth;
+    // heart1.y = ((contentY + 18) / 667) * canvasHeight;
+    heart1.x = 0.62 * infoBar.width;
+    // heart1.y = ((contentY + 18) / 667) * canvasHeight;
+    heart1.y = infoBar.y + infoBar.height * 0.6;
+
     heart1.zIndex = 100;
     gameScene.addChild(heart1);
 
     heart2 = new Sprite(resources.heart.texture);
     heart2.width = heartSize.width;
     heart2.height = heartSize.height;
-    heart2.x = canvasWidth - (128 / 375) * canvasWidth;
-    heart2.y = ((contentY + 15) / 667) * canvasHeight;
+    // heart2.x = canvasWidth - (128 / 375) * canvasWidth;
+    // heart2.y = ((contentY + 15) / 667) * canvasHeight;
+    heart2.x = 0.62 * infoBar.width + heartSize.width + (5 / 375) * canvasWidth;
+    heart2.y = infoBar.y + infoBar.height * 0.58;
+
     heart2.zIndex = 100;
     gameScene.addChild(heart2);
 
     heart3 = new Sprite(resources.heart.texture);
     heart3.width = heartSize.width;
     heart3.height = heartSize.height;
-    heart3.x = canvasWidth - (101 / 375) * canvasWidth;
-    heart3.y = ((contentY + 11) / 667) * canvasHeight;
+    // heart3.x = canvasWidth - (101 / 375) * canvasWidth;
+    // heart3.y = ((contentY + 11) / 667) * canvasHeight;
+
+    heart3.x =
+      0.62 * infoBar.width + 2 * (heartSize.width + (5 / 375) * canvasWidth);
+    heart3.y = infoBar.y + infoBar.height * 0.54;
+
     heart3.zIndex = 100;
     gameScene.addChild(heart3);
 
     // score info
     scoreInfo = new Text(`${score}`, { fontSize: '24px', fill: '#d6ac5a' });
     // scoreInfo.x = 350;
-    // scoreInfo.x = 150;
-    scoreInfo.x = (140 / 375) * canvasWidth;
+    scoreInfo.x = 0.39 * infoBar.width;
+    // scoreInfo.x = (140 / 375) * canvasWidth;
 
     // scoreInfo.y = 65;
-    scoreInfo.y = (contentY / 667) * canvasHeight + 15;
+    // scoreInfo.y = (contentY / 667) * canvasHeight + 15;
+    scoreInfo.y = infoBar.y + infoBar.height * 0.56;
 
     scoreInfo.zIndex = 100;
     gameScene.addChild(scoreInfo);
@@ -647,8 +671,6 @@ onMounted(() => {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-        // hpInfo.text = `HP:${hp}`;
-        // scoreInfo.text = `${score}`;
       } else if (lastHit.url === `whiteHorse` && shouldAddScore) {
         lastHit.blob.visible = false;
 
@@ -659,7 +681,6 @@ onMounted(() => {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-        // hpInfo.text = `HP:${hp}`;
       }
       if (hp === 2) {
         heart3.visible = false;
@@ -797,7 +818,7 @@ onMounted(() => {
       };
     }
 
-    //传是否碰撞
+    //是否碰撞
     return hit;
   }
   //游戏结束显示游戏结束场景，隐藏游戏场景
@@ -821,11 +842,6 @@ onMounted(() => {
   bottom: 0;
   left: 0;
   right: 0;
-  /* background-color: rgba(255, 255, 255, 0.2); */
-  /* font-size: 60px;
-  color: red; */
-  /* animation-iteration-count: infinite; */
-  /* transition-timing-function: ease-in-out; */
 }
 
 .loading-mask {
