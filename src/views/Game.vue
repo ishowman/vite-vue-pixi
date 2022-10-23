@@ -149,7 +149,6 @@ onMounted(() => {
 
   function setup(resources) {
     showLoadingMask.value = false;
-    showCountdown.value = true;
 
     /* preScene */
     // let preScene = new Container();
@@ -346,6 +345,7 @@ onMounted(() => {
     });
 
     gameScene.addChild(runningHorse);
+    showCountdown.value = true;
     readyBgm.play();
 
     // //创建一个游戏结束的场景
