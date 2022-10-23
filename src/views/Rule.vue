@@ -17,17 +17,57 @@
           手指按住球员左右滑屏，操纵球 员奔跑在球场中，一边避开各种
           障碍，一边收集金币。
         </li>
-        <li>每次游戏有三次生命</li>
+        <li class="flex align-center">
+          每次游戏有三次生命
+          <img
+            src="public/rules/coin.png"
+            style="width: 20px; margin-left: 2px; vertical-align: middle"
+          />
+          <img
+            src="public/rules/coin.png"
+            style="width: 20px; margin-left: 2px; vertical-align: middle"
+          />
+          <img
+            src="public/rules/coin.png"
+            style="width: 20px; margin-left: 2px; vertical-align: middle"
+          />
+        </li>
 
         <li>
           收集到：
-          <p>+5 分</p>
-          <p>+20 分</p>
+          <p class="flex align-center">
+            <img
+              src="public/rules/coin.png"
+              style="width: 30px; margin: 5px 3px 5px 0"
+            />
+            +5 分
+          </p>
+          <p class="flex align-center">
+            <img
+              src="public/rules/horse.png"
+              style="width: 30px; margin: 5px 3px 5px 0"
+            />
+
+            +20 分
+          </p>
         </li>
         <li>
           撞击到：
-          <p>减一次生命</p>
-          <p>减一次生命</p>
+          <p class="flex align-center">
+            <img
+              src="public/rules/stone.png"
+              style="width: 30px; margin: 5px 3px 5px 0"
+            />
+            减一次生命
+          </p>
+          <p class="flex align-center">
+            <img
+              src="public/rules/white.png"
+              style="width: 30px; margin: 5px 3px 5px 0"
+            />
+
+            减一次生命
+          </p>
         </li>
 
         <li>600分以上可获得“金牌”奖品</li>

@@ -54,6 +54,10 @@ body {
   border-radius: 8px;
   background-color: #01091d;
 }
+.flex {
+  display: flex;
+}
+
 /* grid */
 .grid {
   display: grid;
