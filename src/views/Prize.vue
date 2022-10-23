@@ -12,11 +12,23 @@
         @click="toHome"
       />
 
-      <div class="scroll-view prize-list">
-        <game-prize class="mb-8" />
-        <!-- <game-prize class="mb-8">
+      <div class="scroll-view prize-list" v-if="!hidePrizes">
+        <!-- <game-prize class="mb-8" /> -->
+        <game-prize class="mb-8">
           <p class="text-ellipsis">4092384023840240923840238402</p>
-        </game-prize> -->
+          <button @click="hidePrizes = true">兑换</button>
+        </game-prize>
+      </div>
+      <div
+        class="prize-list text-center grid align-center"
+        style="font-size: 24px; color: #d8ae5b"
+        v-else
+      >
+        <p>
+          恭喜
+          <br />
+          领取成功!
+        </p>
       </div>
       <p
         class="text-sm"
@@ -38,9 +50,9 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import GamePrize from '@/components/GamePrize.vue';
-
+import { ref } from 'vue';
 const router = useRouter();
-
+const hidePrizes = ref(false);
 function toHome() {
   router.replace({ name: 'Home' });
 }
