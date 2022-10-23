@@ -1,5 +1,12 @@
 <template>
   <div ref="game"></div>
+  <div class="countdown-mask" v-if="!showLoadingMask">mask</div>
+  <div
+    class="loading-mask grid align-center text-center"
+    v-if="showLoadingMask"
+  >
+    loading ...
+  </div>
 </template>
 
 <script setup>
@@ -39,6 +46,9 @@ const hpBgm = new Howl({
 });
 
 const game = ref('');
+
+const showLoadingMask = ref(true);
+
 onMounted(() => {
   let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -135,6 +145,8 @@ onMounted(() => {
   });
 
   function setup(resources) {
+    showLoadingMask.value = false;
+
     /* preScene */
     // let preScene = new Container();
     // app.stage.addChild(preScene);
@@ -798,4 +810,62 @@ onMounted(() => {
   }
 });
 </script>
-<style></style>
+<style scoped>
+.countdown-mask {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-size: 60px;
+  color: red;
+  animation-name: countdown;
+  animation-duration: 3s;
+  /* animation-iteration-count: infinite; */
+  /* transition-timing-function: ease-in-out; */
+}
+
+@keyframes countdown {
+  0% {
+    /* transform: scale(1); */
+    font-size: 80px;
+  }
+
+  20% {
+    /* transform: scale(1.08); */
+    font-size: 60px;
+  }
+
+  40% {
+    /* transform: scale(1); */
+    font-size: 40px;
+  }
+  60% {
+    /* transform: scale(1.08); */
+    font-size: 60px;
+  }
+  80% {
+    /* transform: scale(1); */
+    font-size: 80px;
+  }
+  100% {
+    /* transform: scale(1); */
+    font-size: 40px;
+  }
+}
+
+.loading-mask {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background-color: bisque;
+  color: cadetblue;
+  font-size: 60px;
+}
+</style>
