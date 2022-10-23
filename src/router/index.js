@@ -4,6 +4,7 @@ const Game = () => import('@/views/Game.vue');
 const Prize = () => import('@/views/Prize.vue');
 const Rule = () => import('@/views/Rule.vue');
 const Poster = () => import('@/views/Poster.vue');
+const SelectTeam = () => import('@/views/SelectTeam.vue');
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: Home,
+    },
+    {
+      path: '/select',
+      name: 'SelectTeam',
+      component: SelectTeam,
     },
     {
       path: '/game',

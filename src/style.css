@@ -66,9 +66,17 @@ body {
   margin-bottom: 8px;
 }
 
-/* ellipsis */
+/* text */
 .text-ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-full {
+  width: 100%;
 }
