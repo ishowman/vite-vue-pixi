@@ -12,23 +12,30 @@
         @click="toHome"
       />
 
-      <div class="rule-text scroll-view">
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
+      <ul class="rule-text scroll-view" style="padding-left: 20px">
+        <li>
+          手指按住球员左右滑屏，操纵球 员奔跑在球场中，一边避开各种
+          障碍，一边收集金币。
+        </li>
+        <li>每次游戏有三次生命</li>
 
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx。</p>
-        <p>xxx</p>
-      </div>
+        <li>
+          收集到：
+          <p>+5 分</p>
+          <p>+20 分</p>
+        </li>
+        <li>
+          撞击到：
+          <p>减一次生命</p>
+          <p>减一次生命</p>
+        </li>
+
+        <li>600分以上可获得“金牌”奖品</li>
+        <li>300~600分可获得“银牌”奖品</li>
+        <li>300以下可获得“铜牌”奖品</li>
+
+        <li>本次活动由比华利保罗举办，活动最终解释权归比华利保罗所有。</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -79,9 +86,13 @@ function toHome() {
   color: #fff;
   line-height: 1.2;
   word-wrap: break-word;
-  font-size: 20px;
+  font-size: 18px;
   overflow: auto;
 
   padding: 0 4px;
+}
+.rule-text li {
+  margin-bottom: 12px;
+  list-style: circle;
 }
 </style>
