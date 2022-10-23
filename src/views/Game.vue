@@ -1,6 +1,8 @@
 <template>
   <div ref="game"></div>
-  <div class="countdown-mask" v-if="!showLoadingMask">mask</div>
+  <div class="countdown-mask" v-if="showCountdown">
+    <div class="countdown-pic"></div>
+  </div>
   <div
     class="loading-mask grid align-center text-center"
     v-if="showLoadingMask"
@@ -48,6 +50,7 @@ const hpBgm = new Howl({
 const game = ref('');
 
 const showLoadingMask = ref(true);
+const showCountdown = ref(false);
 
 onMounted(() => {
   let Application = PIXI.Application,
@@ -146,6 +149,7 @@ onMounted(() => {
 
   function setup(resources) {
     showLoadingMask.value = false;
+    showCountdown.value = true;
 
     /* preScene */
     // let preScene = new Container();
@@ -455,6 +459,7 @@ onMounted(() => {
     setTimeout(() => {
       tipArrow.visible = false;
       tipText.visible = false;
+      showCountdown.value = false;
       runningHorse.loop = true;
       runningHorse.gotoAndPlay(0);
 
@@ -818,42 +823,7 @@ onMounted(() => {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.2);
-  font-size: 60px;
-  color: red;
-  animation-name: countdown;
-  animation-duration: 3s;
-  /* animation-iteration-count: infinite; */
-  /* transition-timing-function: ease-in-out; */
-}
-
-@keyframes countdown {
-  0% {
-    /* transform: scale(1); */
-    font-size: 80px;
-  }
-
-  20% {
-    /* transform: scale(1.08); */
-    font-size: 60px;
-  }
-
-  40% {
-    /* transform: scale(1); */
-    font-size: 40px;
-  }
-  60% {
-    /* transform: scale(1.08); */
-    font-size: 60px;
-  }
-  80% {
-    /* transform: scale(1); */
-    font-size: 80px;
-  }
-  100% {
-    /* transform: scale(1); */
-    font-size: 40px;
-  }
+  /* background-color: rgba(255, 255, 255, 0.2); */
 }
 
 .loading-mask {
@@ -867,5 +837,56 @@ onMounted(() => {
   background-color: bisque;
   color: cadetblue;
   font-size: 60px;
+}
+
+.countdown-pic {
+  width: 20%;
+  height: 300px;
+  background-size: contain;
+
+  background-repeat: no-repeat;
+  animation-name: countdown;
+  animation-duration: 3s;
+  margin-top: 45%;
+  margin-left: 40%;
+  transform-origin: top center;
+}
+
+@keyframes countdown {
+  0% {
+    transform: scale(0.65);
+    background-image: url('public/game/1.png');
+  }
+
+  16% {
+    background-image: url('public/game/1.png');
+    transform: scale(0.8);
+  }
+
+  32% {
+    transform: scale(1);
+    background-image: url('public/game/2.png');
+  }
+  48% {
+    transform: scale(1.2);
+    background-image: url('public/game/2.png');
+  }
+  64% {
+    transform: scale(1);
+    background-image: url('public/game/3.png');
+  }
+  80% {
+    transform: scale(1.2);
+    background-image: url('public/game/3.png');
+  }
+
+  90% {
+    transform: scale(2.2);
+    background-image: url('public/game/go.png');
+  }
+  100% {
+    transform: scale(2.5);
+    background-image: url('public/game/go.png');
+  }
 }
 </style>
