@@ -18,6 +18,10 @@
           <p class="text-ellipsis">4092384023840240923840238402</p>
         </game-prize>
       </div>
+      <p class="text-sm">
+        注：“兑换”按钮请交由线下门店营业员进行点击兑换，
+        具体请前往比华利保罗线下门店进行咨询
+      </p>
     </div>
   </div>
 </template>

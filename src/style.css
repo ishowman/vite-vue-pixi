@@ -76,6 +76,9 @@ body {
 .text-center {
   text-align: center;
 }
+.text-sm {
+  font-size: 12px;
+}
 
 .w-full {
   width: 100%;
