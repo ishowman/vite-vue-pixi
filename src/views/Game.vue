@@ -824,6 +824,10 @@ onMounted(() => {
   left: 0;
   right: 0;
   /* background-color: rgba(255, 255, 255, 0.2); */
+  /* font-size: 60px;
+  color: red; */
+  /* animation-iteration-count: infinite; */
+  /* transition-timing-function: ease-in-out; */
 }
 
 .loading-mask {
