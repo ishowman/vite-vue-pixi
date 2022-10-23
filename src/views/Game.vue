@@ -630,11 +630,11 @@ onMounted(() => {
 
         lastHit.blob.gotoAndPlay(0);
         scoreBgm.play();
-        score += 10;
+        score += 5;
       } else if (['prize'].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.visible = false;
         scoreBgm.play();
-        score += 15;
+        score += 20;
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
         //车子图片变更为爆炸
         lastHit.blob.visible = false;
@@ -643,7 +643,6 @@ onMounted(() => {
         runningHorse.alpha = 0.3;
 
         //减血
-        if (score > 20) score -= 20;
         hpBgm.play();
         hp--;
         speed = initalSpeed;
@@ -655,7 +654,6 @@ onMounted(() => {
 
         runningHorse.alpha = 0.3;
 
-        if (score > 40) score -= 40;
         hpBgm.play();
 
         hp--;
