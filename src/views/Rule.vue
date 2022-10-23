@@ -20,15 +20,15 @@
         <li class="flex align-center">
           每次游戏有三次生命
           <img
-            src="public/rules/coin.png"
+            src="@/assets/img/heart.png"
             style="width: 20px; margin-left: 2px; vertical-align: middle"
           />
           <img
-            src="public/rules/coin.png"
+            src="@/assets/img/heart.png"
             style="width: 20px; margin-left: 2px; vertical-align: middle"
           />
           <img
-            src="public/rules/coin.png"
+            src="@/assets/img/heart.png"
             style="width: 20px; margin-left: 2px; vertical-align: middle"
           />
         </li>
@@ -55,7 +55,7 @@
           撞击到：
           <p class="flex align-center">
             <img
-              src="public/rules/stone.png"
+              src="@/assets/img/stone.png"
               style="width: 30px; margin: 5px 3px 5px 0"
             />
             减一次生命
