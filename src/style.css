@@ -45,13 +45,13 @@ body {
 
 .scroll-view::-webkit-scrollbar-thumb {
   background-color: #d7ae5a;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .scroll-view::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 .scroll-view::-webkit-scrollbar-track {
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: #01091d;
 }
 /* grid */

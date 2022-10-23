@@ -872,13 +872,13 @@ onMounted(() => {
 
 @keyframes countdown {
   0% {
-    transform: scale(0.65);
-    background-image: url('public/game/1.png');
+    transform: scale(1);
+    background-image: url('public/game/3.png');
   }
 
   16% {
-    background-image: url('public/game/1.png');
-    transform: scale(0.8);
+    transform: scale(1.2);
+    background-image: url('public/game/3.png');
   }
 
   32% {
@@ -890,12 +890,12 @@ onMounted(() => {
     background-image: url('public/game/2.png');
   }
   64% {
-    transform: scale(1);
-    background-image: url('public/game/3.png');
+    transform: scale(0.7);
+    background-image: url('public/game/1.png');
   }
   80% {
-    transform: scale(1.2);
-    background-image: url('public/game/3.png');
+    background-image: url('public/game/1.png');
+    transform: scale(0.9);
   }
 
   90% {
