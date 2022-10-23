@@ -19,12 +19,12 @@ defineProps({
 <style scoped>
 .prize-img {
   background-color: #fff;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 .game-prize {
-  grid-template-columns: 60px 1fr auto;
+  grid-template-columns: 50px 1fr auto;
   padding: 8px;
   gap: 8px;
   background-color: #d7ae5a;

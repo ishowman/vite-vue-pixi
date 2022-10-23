@@ -14,11 +14,21 @@
 
       <div class="scroll-view prize-list">
         <game-prize class="mb-8" />
-        <game-prize class="mb-8">
+        <!-- <game-prize class="mb-8">
           <p class="text-ellipsis">4092384023840240923840238402</p>
-        </game-prize>
+        </game-prize> -->
       </div>
-      <p class="text-sm">
+      <p
+        class="text-sm"
+        style="
+          position: absolute;
+          top: 82%;
+          left: 30px;
+          right: 30px;
+          color: #fff;
+          line-height: 1.25;
+        "
+      >
         注：“兑换”按钮请交由线下门店营业员进行点击兑换，
         具体请前往比华利保罗线下门店进行咨询
       </p>
@@ -69,7 +79,7 @@ function toHome() {
 .prize-list {
   position: absolute;
   top: 60px;
-  bottom: 60px;
+  bottom: 100px;
   left: 20px;
   right: 20px;
   overflow: auto;
