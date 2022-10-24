@@ -109,7 +109,6 @@ let Application = PIXI.Application,
 
 function toGame() {
   // router.replace({ name: 'Game' });
-  showTeams.value = false;
   app.loader
     .add(`badgeBg`, 'badge/组 40.png')
     .add(`prizeBtn`, 'badge/组 41.png')
@@ -119,6 +118,7 @@ function toGame() {
     .add(`badge3st`, 'badge/铜徽章.png')
     .load(() => {
       render(app, resources);
+      showTeams.value = false;
     });
 }
 
