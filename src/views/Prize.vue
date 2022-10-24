@@ -20,21 +20,23 @@
         </game-prize>
       </div>
       <div
-        class="prize-list text-center grid align-center"
+        class="prize-list flex align-center "
         style="font-size: 24px; color: #d8ae5b"
         v-else
       >
-        <p>
+        <p class="text-center w-full"  style="line-height: 1.25;">
           恭喜
-          <br />
-          领取成功!
+          <p>
+            领取成功!
+
+            </p>
         </p>
       </div>
       <p
         class="text-sm"
         style="
           position: absolute;
-          top: 82%;
+          top: 80%;
           left: 30px;
           right: 30px;
           color: #fff;
@@ -90,8 +92,8 @@ function toHome() {
 
 .prize-list {
   position: absolute;
-  top: 60px;
-  bottom: 100px;
+  top: 20%;
+  bottom: 24%;
   left: 20px;
   right: 20px;
   overflow: auto;

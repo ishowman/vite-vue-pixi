@@ -64,6 +64,9 @@ body {
 .align-center {
   align-items: center;
 }
+.justify-center {
+  justify-content: center;
+}
 
 .mb-8 {
   margin-bottom: 8px;
