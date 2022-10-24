@@ -14,10 +14,10 @@
 
       <ul class="rule-text scroll-view" style="padding-left: 20px">
         <li>
-          手指按住球员左右滑屏，操纵球 员奔跑在球场中，一边避开各种
-          障碍，一边收集金币。
+          手指按住球员左右滑屏，操纵球
+          员奔跑在球场中，一边避开各种障碍，一边收集金币。
         </li>
-        <li class="flex align-center">
+        <li>
           每次游戏有三次生命
           <img
             src="@/assets/img/heart.png"
@@ -119,17 +119,17 @@ function toHome() {
 }
 .rule-text {
   position: absolute;
-  top: 60px;
-  bottom: 64px;
-  left: 16px;
-  right: 16px;
+  top: 18%;
+  bottom: 15%;
+  left: 8%;
+  right: 5%;
   color: #fff;
   line-height: 1.2;
   word-wrap: break-word;
   font-size: 18px;
   overflow: auto;
 
-  padding: 0 4px;
+  padding: 0 5%;
 }
 .rule-text li {
   margin-bottom: 12px;
