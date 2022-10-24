@@ -141,6 +141,9 @@ onMounted(() => {
   for (let i = 1; i <= 12; i++) {
     app.loader.add(`coin${i}`, `/coin/animation/bc${i}.png`);
   }
+  for (let i = 4; i <= 12; i++) {
+    app.loader.add(`prize${i}`, `/coin/animation/bc${i}.png`);
+  }
 
   app.loader.load((_loader, _resources) => {
     resources = _resources;
@@ -514,8 +517,7 @@ onMounted(() => {
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
       const randomBlob = blobsArr[randomInt(0, 10)];
-
-      //创建敌车
+      //创建道具
       let blob =
         randomBlob === `whiteHorse`
           ? new AnimatedSprite(
@@ -534,6 +536,18 @@ onMounted(() => {
         blob.loop = false;
       }
 
+      if (randomBlob === 'prize') {
+        blob = new AnimatedSprite([
+          resources[`prize`].texture,
+          ...new Array(9).fill(0).map((_item, i) => {
+            return resources[`prize${i + 4}`].texture;
+          }),
+        ]);
+        blob.animationSpeed = 1.25;
+        blob.loop = false;
+        blob.height = (blobWidth / 300) * 400;
+      }
+
       blob.width = blobWidth;
       if (randomBlob === 'stone') {
         blob.height = (blobWidth / 238) * 120;
@@ -542,9 +556,6 @@ onMounted(() => {
         blob.height = (blobWidth / 230) * 231;
       }
 
-      if (randomBlob === 'prize') {
-        blob.height = (blobWidth / 300) * 400;
-      }
       if (randomBlob === 'whiteHorse') {
         blob.width = blobWidth * 1.5;
 
@@ -656,7 +667,13 @@ onMounted(() => {
         scoreBgm.play();
         score += 5;
       } else if (['prize'].includes(lastHit.url) && shouldAddScore) {
-        lastHit.blob.visible = false;
+        lastHit.blob.onComplete = () => {
+          // console.log(`prize hitted`)
+          lastHit.blob.visible = false;
+        };
+
+        lastHit.blob.gotoAndPlay(0);
+
         scoreBgm.play();
         score += 20;
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
@@ -805,6 +822,8 @@ onMounted(() => {
         id = `whiteHorse`;
       } else if (r2.texture.textureCacheIds[0].includes(`coin`)) {
         id = `coin`;
+      } else if (r2.texture.textureCacheIds[0].includes(`prize`)) {
+        id = `prize`;
       } else {
         id = r2.texture.textureCacheIds[0];
       }
