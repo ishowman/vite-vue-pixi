@@ -14,17 +14,27 @@
 
       <div class="scroll-view prize-list" v-if="!hidePrizes">
         <!-- <game-prize class="mb-8" /> -->
-        <game-prize class="mb-8">
-          <p class="text-ellipsis">4092384023840240923840238402</p>
+        <game-prize class="mb-12">
+          <p class="text-ellipsis">金牌奖品</p>
           <button @click="hidePrizes = true">兑换</button>
         </game-prize>
+        <game-prize class="mb-12">
+          <p class="text-ellipsis">银牌奖品</p>
+          <button @click="hidePrizes = true">兑换</button>
+        </game-prize>
+
+        <game-prize class="mb-12">
+          <p class="text-ellipsis">铜牌奖品</p>
+          <button @click="hidePrizes = true">兑换</button>
+        </game-prize>
+
       </div>
       <div
         class="prize-list flex align-center "
-        style="font-size: 24px; color: #d8ae5b"
+        style="font-size: 32px; color: #d8ae5b; top: 16%"
         v-else
       >
-        <p class="text-center w-full"  style="line-height: 1.25;">
+        <p class="text-center w-full"  style="line-height: 1.2;">
           恭喜
           <p>
             领取成功!
