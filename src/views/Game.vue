@@ -110,7 +110,16 @@ let Application = PIXI.Application,
 function toGame() {
   // router.replace({ name: 'Game' });
   showTeams.value = false;
-  render(app, resources);
+  app.loader
+    .add(`badgeBg`, 'badge/组 40.png')
+    .add(`prizeBtn`, 'badge/组 41.png')
+
+    .add(`badge1st`, 'badge/金徽章.png')
+    .add(`badge2st`, 'badge/银徽章.png')
+    .add(`badge3st`, 'badge/铜徽章.png')
+    .load(() => {
+      render(app, resources);
+    });
 }
 
 onMounted(() => {
@@ -138,11 +147,11 @@ onMounted(() => {
     .add(`star`, 'game/x.png')
 
     // .add(`preBg`, preBg)
-    .add(`badgeBg`, 'badge/组 40.png')
-    .add(`prizeBtn`, 'badge/组 41.png')
-    .add(`badge1st`, 'badge/金徽章.png')
-    .add(`badge2st`, 'badge/银徽章.png')
-    .add(`badge3st`, 'badge/铜徽章.png')
+    // .add(`badgeBg`, 'badge/组 40.png')
+    // .add(`prizeBtn`, 'badge/组 41.png')
+    // .add(`badge1st`, 'badge/金徽章.png')
+    // .add(`badge2st`, 'badge/银徽章.png')
+    // .add(`badge3st`, 'badge/铜徽章.png')
     .add(`tipArrow`, 'tips/arrow.png')
     .add(`tipText`, 'tips/text.png')
     .add('heart', heart)
@@ -199,6 +208,8 @@ function render(app, resources) {
   const contentX = 10;
   const contentY = 50;
   let goldBadge, silverBadge, cuBadge;
+  let blobWidth = (70 / 375) * canvasWidth;
+
   setup(app, resources);
 
   function setup(app, resources) {
@@ -547,7 +558,6 @@ function render(app, resources) {
       app.ticker.add((delta) => gameLoop(delta));
     }, 3000);
   }
-  let blobWidth = (70 / 375) * canvasWidth;
   function creatEMCar(resources) {
     //设置敌人
     //根据最大 blob 数生成：理论上 1 人 2 石 3 奖 4 金币
@@ -772,7 +782,7 @@ function render(app, resources) {
         scoreText.text = score;
         runningHorse.interactive = false;
       }
-      runningHorse.invl = 2; //设置无敌时间
+      runningHorse.invl = 3; //设置无敌时间
     }
   }
   //移除已经行驶到画布外围的敌方车辆
