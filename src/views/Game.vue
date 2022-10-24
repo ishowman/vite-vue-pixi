@@ -4,10 +4,49 @@
     <div class="countdown-pic"></div>
   </div>
   <div
-    class="loading-mask grid align-center text-center"
+    class="loading-mask flex align-center justify-center"
     v-if="showLoadingMask"
   >
     loading ...
+  </div>
+  <div class="select-team" id="teams" v-if="showTeams">
+    <div class="square">
+      <img
+        src="public/team/choose-team.png"
+        class="title"
+        style="width: 100%"
+      />
+
+      <img src="public/rules/square.png" alt="" style="width: 100%" />
+      <img
+        src="public/team/btn-play.png"
+        alt=""
+        class="btn-play"
+        @click="toGame"
+      />
+
+      <div class="text-title w-full" style="color: #d7ae5a">
+        <p class="text-center">请点击选择你</p>
+        <p class="text-center">支持的队伍</p>
+      </div>
+
+      <div style="margin: 0 auto" class="grid team-list">
+        <img
+          src="public/team/blue.png"
+          alt="蓝队"
+          class="team-role"
+          :class="selected === 0 ? '' : 'gray'"
+          @click="selected = 0"
+        />
+        <img
+          src="public/team/white.png"
+          alt="白队"
+          class="team-role"
+          :class="selected === 1 ? '' : 'gray'"
+          @click="selected = 1"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,65 +89,44 @@ const game = ref('');
 
 const showLoadingMask = ref(true);
 const showCountdown = ref(false);
+const showTeams = ref(true);
+const selected = ref(2);
+let app, canvasWidth, canvasHeight;
+const whiteHorseCount = 10;
+const horseCourt = 20;
+const blobCount = ref(0);
+
+let Application = PIXI.Application,
+  Container = PIXI.Container,
+  resources,
+  AnimatedSprite = PIXI.AnimatedSprite,
+  Graphics = PIXI.Graphics,
+  TextureCache = PIXI.utils.TextureCache,
+  Sprite = PIXI.Sprite,
+  TilingSprite = PIXI.TilingSprite,
+  Text = PIXI.Text,
+  TextStyle = PIXI.TextStyle;
+
+function toGame() {
+  // router.replace({ name: 'Game' });
+  showTeams.value = false;
+  render(app, resources);
+}
 
 onMounted(() => {
-  let Application = PIXI.Application,
-    Container = PIXI.Container,
-    resources,
-    AnimatedSprite = PIXI.AnimatedSprite,
-    Graphics = PIXI.Graphics,
-    TextureCache = PIXI.utils.TextureCache,
-    Sprite = PIXI.Sprite,
-    TilingSprite = PIXI.TilingSprite,
-    Text = PIXI.Text,
-    TextStyle = PIXI.TextStyle;
-  let canvasWidth = window.innerWidth,
-    canvasHeight = window.innerHeight;
-
-  let whiteHorseCount = 10;
+  canvasWidth = window.innerWidth;
+  canvasHeight = window.innerHeight;
 
   //创建一个pixi应用
-  let app = new Application({
+  app = new Application({
     width: canvasWidth,
     height: canvasHeight,
-    // resizeTo: window,
     antialiasing: true,
     // transparent: false,
     // resolution: 1
     forceCanvas: true,
-    // view: canvas.value,
   });
   game.value.appendChild(app.view);
-
-  let dragFlag = false;
-  let startPoint = {};
-  let hitRecords = [];
-  let lastHit = {};
-  let initalSpeed = 5;
-  let speed = initalSpeed;
-
-  const gap = 50;
-
-  //设置要用到的变量
-  let state,
-    gameScene,
-    gameOverScene,
-    message,
-    bg,
-    scoreText,
-    blobs = [],
-    numberOfBlobs = 4, //初始化最大敌车数量
-    score = 0,
-    hp = 3,
-    runningHorse;
-
-  let shouldAddScore = true;
-  let scoreInfo, hpInfo, heart1, heart2, heart3;
-  const horseCourt = 20;
-
-  const contentX = 10;
-  const contentY = 50;
-  let goldBadge, silverBadge, cuBadge;
 
   //加载素材图片
   app.loader
@@ -147,12 +165,43 @@ onMounted(() => {
 
   app.loader.load((_loader, _resources) => {
     resources = _resources;
-    setup(_resources);
-  });
-
-  function setup(resources) {
     showLoadingMask.value = false;
+    // setup(app, _resources);
+  });
+});
 
+function render(app, resources) {
+  let dragFlag = false;
+  let startPoint = {};
+  let hitRecords = [];
+  let lastHit = {};
+  let initalSpeed = 5;
+  let speed = initalSpeed;
+
+  const gap = 50;
+
+  //设置要用到的变量
+  let state,
+    gameScene,
+    gameOverScene,
+    message,
+    bg,
+    scoreText,
+    blobs = [],
+    numberOfBlobs = 4, //初始化最大敌车数量
+    score = 0,
+    hp = 3,
+    runningHorse;
+
+  let shouldAddScore = true;
+  let scoreInfo, heart1, heart2, heart3;
+
+  const contentX = 10;
+  const contentY = 50;
+  let goldBadge, silverBadge, cuBadge;
+  setup(app, resources);
+
+  function setup(app, resources) {
     /* preScene */
     // let preScene = new Container();
     // app.stage.addChild(preScene);
@@ -516,7 +565,8 @@ onMounted(() => {
       'coin',
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
-      const randomBlob = blobsArr[randomInt(0, 10)];
+      const randomBlob =
+        blobCount.value > 8 ? blobsArr[randomInt(0, 10)] : `coin`;
       //创建道具
       let blob =
         randomBlob === `whiteHorse`
@@ -592,7 +642,7 @@ onMounted(() => {
         //检测车辆位置是否有重叠
         EMCarIsHit = checkEMCarPositionHit(blob);
       }
-
+      blobCount.value += 1;
       //将车子加入数组
       blobs.push(blob);
 
@@ -621,7 +671,7 @@ onMounted(() => {
     if (bgSpeed >= 15) bgSpeed = 15;
 
     speed += 0.1;
-    if (speed >= 12) speed = 12;
+    if (speed >= 8) speed = 8;
 
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
@@ -851,7 +901,7 @@ onMounted(() => {
     }
     gameOverScene.visible = true;
   }
-});
+}
 </script>
 <style scoped>
 .countdown-mask {
@@ -926,5 +976,65 @@ onMounted(() => {
     transform: scale(2.5);
     background-image: url('public/game/go.png');
   }
+}
+
+.select-team {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  background-image: url('public/rules/bg.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.square {
+  position: absolute;
+  top: 19%;
+  left: 7%;
+  right: 7%;
+  width: 86%;
+}
+.btn-play {
+  position: absolute;
+  top: 90.5%;
+  left: 30%;
+  width: 40%;
+}
+.title {
+  position: absolute;
+  top: -14%;
+  left: 0%;
+}
+.team-list {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 0 10%;
+  position: absolute;
+  top: 40%;
+}
+
+.team-role {
+  width: 100%;
+}
+
+.text-title {
+  color: #fff;
+  position: absolute;
+  top: 18%;
+  font-size: 28px;
+  line-height: 1.25;
+}
+.gray {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+
+  filter: grayscale(100%);
+
+  filter: gray;
 }
 </style>

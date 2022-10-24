@@ -21,8 +21,8 @@ const sound = new Howl({
   src: playBgm,
 });
 function play() {
-  router.replace({ name: 'SelectTeam' });
   sound.play();
+  router.replace({ name: 'Game' });
 }
 
 function toPrize() {
