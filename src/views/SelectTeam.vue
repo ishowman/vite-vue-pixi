@@ -15,7 +15,7 @@
         @click="toGame"
       />
 
-      <div class="text-title w-full">
+      <div class="text-title w-full" style="color: #d7ae5a">
         <p class="text-center">请点击选择你</p>
         <p class="text-center">支持的队伍</p>
       </div>
@@ -103,9 +103,9 @@ function toGame() {
 .text-title {
   color: #fff;
   position: absolute;
-  top: 16%;
-  font-size: 24px;
-  line-height: 1.5;
+  top: 18%;
+  font-size: 28px;
+  line-height: 1.25;
 }
 .gray {
   -webkit-filter: grayscale(100%);
