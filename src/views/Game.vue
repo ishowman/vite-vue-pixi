@@ -878,14 +878,15 @@ onMounted(() => {
 
 .countdown-pic {
   width: 20%;
-  height: 300px;
+  height: 20%;
   background-size: contain;
 
   background-repeat: no-repeat;
   animation-name: countdown;
   animation-duration: 3s;
-  margin-top: 45%;
-  margin-left: 40%;
+  position: absolute;
+  top: 40%;
+  left: 40%;
   transform-origin: top center;
 }
 
