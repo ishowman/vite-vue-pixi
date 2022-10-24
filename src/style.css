@@ -61,15 +61,18 @@ body {
 .grid {
   display: grid;
 }
-.align-center {
-  align-items: center;
-}
 .justify-center {
   justify-content: center;
+}
+.align-center {
+  align-items: center;
 }
 
 .mb-8 {
   margin-bottom: 8px;
+}
+.mb-12 {
+  margin-bottom: 12px;
 }
 
 /* text */
