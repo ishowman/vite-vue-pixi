@@ -1,22 +1,45 @@
 <template>
   <!-- {{sc.w}} {{sc.h}} -->
-
-  <img
+  <!-- 这里应该隐藏起来  -->
+  <div :style="{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: sc.w + 'px',
+    height: sc.h + 'px',
+    background: 'rgba(0,0,0, 0.2)'
+  }">
+    <div :style="{
+    width: sc.w* 0.8 + 'px',
+    height: sc.h * 0.4 + 'px',
+    position: 'relative',
+    overflowY: 'scroll'
+  }">
+    <img
     :src="testUrl"
     v-if="testUrl"
     :style="{
         position: 'absolute',
         left:0,
         right:0,
-        width: sc.w+ 'px',
-        height: sc.h+ 'px',
+        width: sc.w* 0.8 + 'px',
+        height: sc.h* 0.8 + 'px',
         zIndex: 100,
     }"
   />
+  </div>
+  </div>
+  
   <!-- 这里其实就是实现一个zIndex 最大 同-->
   <div :style="{
     position: 'absolute',
-    left:0,
+    overflowX: 'hidden',
+    width: sc.w + 'px',
+    height: sc.h +'px'
+  }">
+  <div :style="{
+    position: 'absolute',
+    left: -sc.w + 'px', 
     right:0,
     width: sc.w + 'px',
     height: sc.h+ 'px',
@@ -107,7 +130,9 @@
         right: sc.w * 0.059 + 'px',
         bottom:  '20px'
       }">
-    </div>
+  </div>
+  </div>
+  
 </template>
 <script setup>
 import * as PIXI from 'pixi.js-legacy';
