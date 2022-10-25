@@ -1102,7 +1102,7 @@ function render(app, resources) {
   }
   /* 
   5% {
-    background-image: url('public/loading/mp2.png');
+    background-image: url('/loading/mp2.png');
   } */
 
   10% {
@@ -1110,51 +1110,51 @@ function render(app, resources) {
   }
 
   /* 15% {
-    background-image: url('public/loading/mp4.png');
+    background-image: url('/loading/mp4.png');
   } */
   20% {
     background-image: url('/loading/mp5.png');
   }
 
   /* 25% {
-    background-image: url('public/loading/mp6.png');
+    background-image: url('/loading/mp6.png');
   } */
 
   30% {
-    background-image: url('public/loading/mp7.png');
+    background-image: url('/loading/mp7.png');
   }
 
   /* 35% {
-    background-image: url('public/loading/mp8.png');
+    background-image: url('/loading/mp8.png');
   } */
   40% {
-    background-image: url('public/loading/mp9.png');
+    background-image: url('/loading/mp9.png');
   }
   /* 
   45% {
-    background-image: url('public/loading/mp10.png');
+    background-image: url('/loading/mp10.png');
   } */
   50% {
-    background-image: url('public/loading/mp11.png');
+    background-image: url('/loading/mp11.png');
   }
   60% {
-    background-image: url('public/loading/mp12.png');
+    background-image: url('/loading/mp12.png');
   }
 
   70% {
-    background-image: url('public/loading/mp14.png');
+    background-image: url('/loading/mp14.png');
   }
 
   80% {
-    background-image: url('public/loading/mp16.png');
+    background-image: url('/loading/mp16.png');
   }
 
   90% {
-    background-image: url('public/loading/mp18.png');
+    background-image: url('/loading/mp18.png');
   }
 
   100% {
-    background-image: url('public/loading/mp20.png');
+    background-image: url('/loading/mp20.png');
   }
 }
 </style>
