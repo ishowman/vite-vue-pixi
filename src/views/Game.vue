@@ -99,7 +99,7 @@ const showTeams = ref(true);
 const selected = ref(2);
 let loaded = ref(false);
 let app, canvasWidth, canvasHeight;
-const whiteEnemyCount = 10;
+const enemyCount = 10;
 const horseCourt = 20;
 const blobCount = ref(0);
 const timerId = ref(0);
@@ -185,12 +185,21 @@ onMounted(() => {
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
-    app.loader.add(`horse${i}`, `/blueHorse/ld${i}.png`);
+    app.loader.add(`blueHorse${i}`, `/blueHorse/ld${i}.png`);
+  }
+  for (let i = 1; i <= horseCourt; i++) {
+    app.loader.add(`whiteHorse${i}`, `/whiteHorse/horse/ld${i}.png`);
   }
 
-  for (let i = 1; i <= whiteEnemyCount; i++) {
+
+  for (let i = 1; i <= enemyCount; i++) {
     app.loader.add(`whiteEnemy${i}`, `/敌对白队/db${i}.png`);
   }
+
+  for (let i = 1; i <= enemyCount; i++) {
+    app.loader.add(`blueEnemy${i}`, `/whiteHorse/enemy/db${i}.png`);
+  }
+
 
   for (let i = 1; i <= 12; i++) {
     app.loader.add(`coin${i}`, `/coin/animation/bc${i}.png`);
@@ -421,9 +430,10 @@ function render(app, resources) {
 
     gameScene.addChild(tipText);
 
+    const name = selected.value === 0? `blueHorse`:`whiteHorse`;
     runningHorse = new AnimatedSprite(
       new Array(horseCourt).fill(0).map((_item, i) => {
-        return resources[`horse${i + 1}`].texture;
+        return resources[`${name}${i + 1}`].texture;
       })
     );
     runningHorse.width = 85/375*canvasWidth; //自己的车宽度
@@ -605,15 +615,24 @@ function render(app, resources) {
       const randomBlob =
         blobCount.value > 8 ? blobsArr[randomInt(0, 10)] : `coin`;
       //创建道具
-      let blob =
-        randomBlob === `enemy`
-          ? new AnimatedSprite(
-              new Array(whiteEnemyCount).fill(0).map((_item, i) => {
-                return resources[`whiteEnemy${i + 1}`].texture;
-              })
-            )
-          : new Sprite(resources[randomBlob].texture);
-      if (randomBlob === 'coin') {
+      let blob;
+      //  =
+      //   randomBlob === `enemy`
+      //     ? new AnimatedSprite(
+      //         new Array(enemyCount).fill(0).map((_item, i) => {
+      //           return resources[`whiteEnemy${i + 1}`].texture;
+      //         })
+      //       )
+      //     : new Sprite(resources[randomBlob].texture);
+      if(  randomBlob === `enemy`) {
+        const name = selected.value === 0? `whiteEnemy` : `blueEnemy`;
+        blob = new AnimatedSprite(
+            new Array(enemyCount).fill(0).map((_item, i) => {
+              return resources[`${name}${i + 1}`].texture;
+            })
+          )
+      }
+      else if (randomBlob === 'coin') {
         blob = new AnimatedSprite(
           new Array(11).fill(0).map((_item, i) => {
             return resources[`coin${i + 1}`].texture;
@@ -623,7 +642,7 @@ function render(app, resources) {
         blob.loop = false;
       }
 
-      if (randomBlob === 'prize') {
+      else if (randomBlob === 'prize') {
         blob = new AnimatedSprite([
           resources[`prize`].texture,
           ...new Array(9).fill(0).map((_item, i) => {
@@ -633,6 +652,10 @@ function render(app, resources) {
         blob.animationSpeed = 1.25;
         blob.loop = false;
         blob.height = (blobWidth / 300) * 400;
+      }
+
+      else {
+        blob = new Sprite(resources[randomBlob].texture);
       }
 
       blob.width = blobWidth;
