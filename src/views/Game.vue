@@ -8,13 +8,10 @@
     v-if="showLoadingMask"
   >
     <div class="loading">
-      <div class="loading-horse">
-
-      </div>
+      <div class="loading-horse"></div>
       <p class="text-center">
         LOADING
-        <span class="percent">{{percent}}%</span>
-
+        <span class="percent">{{ percent }}%</span>
       </p>
     </div>
   </div>
@@ -107,24 +104,24 @@ const horseCourt = 20;
 const blobCount = ref(0);
 const timerId = ref(0);
 timerId.value = setInterval(() => {
-    percent.value += 4;
-    if(percent.value >=96) {
-      percent.value = 96;
-    }
-    if(loaded.value) {
-      percent.value = 100;
-      clearInterval(timerId.value)
-      timerId.value = setTimeout(() => {
-        showLoadingMask.value = false;
-      }, 100)
-    }
-  }, 100)
-  onBeforeUnmount(() => {
-    if(timerId.value) {
-      clearInterval(timerId.value)
-      clearTimeout(timerId.value)
-    }
-  })
+  percent.value += 4;
+  if (percent.value >= 96) {
+    percent.value = 96;
+  }
+  if (loaded.value) {
+    percent.value = 100;
+    clearInterval(timerId.value);
+    timerId.value = setTimeout(() => {
+      showLoadingMask.value = false;
+    }, 100);
+  }
+}, 100);
+onBeforeUnmount(() => {
+  if (timerId.value) {
+    clearInterval(timerId.value);
+    clearTimeout(timerId.value);
+  }
+});
 
 let Application = PIXI.Application,
   Container = PIXI.Container,
@@ -136,8 +133,6 @@ let Application = PIXI.Application,
   TilingSprite = PIXI.TilingSprite,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
-
-
 
 function toGame() {
   // router.replace({ name: 'Game' });
@@ -962,7 +957,7 @@ function render(app, resources) {
   bottom: 0;
   left: 0;
   right: 0;
-margin: 0 auto;
+  margin: 0 auto;
   background-color: #022044;
 }
 
@@ -1089,7 +1084,6 @@ margin: 0 auto;
   height: 40%;
   color: #d7ae5a;
   font-size: 20px;
-
 }
 .loading-horse {
   width: 100%;
@@ -1106,7 +1100,7 @@ margin: 0 auto;
   0% {
     background-image: url('public/loading/mp1.png');
   }
-/* 
+  /* 
   5% {
     background-image: url('public/loading/mp2.png');
   } */
@@ -1136,7 +1130,7 @@ margin: 0 auto;
   40% {
     background-image: url('public/loading/mp9.png');
   }
-/* 
+  /* 
   45% {
     background-image: url('public/loading/mp10.png');
   } */
@@ -1163,5 +1157,4 @@ margin: 0 auto;
     background-image: url('public/loading/mp20.png');
   }
 }
-
 </style>
