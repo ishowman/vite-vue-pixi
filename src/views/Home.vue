@@ -11,6 +11,8 @@
 import { useRouter } from 'vue-router';
 import { Howl } from 'howler';
 import playBgm from '@/assets/audios/play.mp3';
+import bgm from '@/assets/audios/bgm.mp3';
+
 
 import playBtn from '@/assets/index/play-btn.png';
 import prizeBtn from '@/assets/index/prize-btn.png';
@@ -20,8 +22,14 @@ const router = useRouter();
 const sound = new Howl({
   src: playBgm,
 });
+const bgmMusic = new Howl({
+  src: bgm,
+  volume: 0.5,
+  loop: true
+});
 function play() {
   sound.play();
+  bgmMusic.play()
   router.replace({ name: 'Game' });
 }
 
