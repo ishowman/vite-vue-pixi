@@ -13,8 +13,8 @@
       />
 
       <div class="scroll-view prize-list" v-if="!hidePrizes">
-        <!-- <game-prize class="mb-8" /> -->
-        <game-prize class="mb-12" v-if="hasGold">
+        <template v-if="hasGold || hasSilver || hasCu">
+          <game-prize class="mb-12" v-if="hasGold">
           <template #pic>
             <img src="public/myAward/prize-gold.png" style="width: 100%;">
           </template>
@@ -40,19 +40,35 @@
           <img src="public/myAward/btn-get.png"  style="width:50px;" @click="getPrize('cu')" />
         </game-prize>
 
+        </template>
+        <div
+        class="flex align-center "
+        style=" color: #d8ae5b; margin-top: 16%"
+        v-else
+      >
+        <p class="text-center w-full"  style="line-height: 1.25;" >
+          您还未获得奖品
+          <p>
+            快去参与游戏获取奖品吧~
+          </p>
+        </p>
+
+      </div>
+
       </div>
       <div
         class="prize-list flex align-center "
-        style="font-size: 32px; color: #d8ae5b; top: 16%"
+        style=" color: #d8ae5b; top: 16%"
         v-else
       >
-        <p class="text-center w-full"  style="line-height: 1.2;">
+        <p class="text-center w-full"  style="line-height: 1.2;font-size: 32px;">
           恭喜
           <p>
             领取成功!
-
-            </p>
+          </p>
         </p>
+
+
       </div>
       <p
         class="text-sm"
