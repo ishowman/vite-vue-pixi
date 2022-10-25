@@ -185,15 +185,14 @@ onMounted(() => {
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
-    app.loader.add(`blueHorse${i}`, `/blueHorse/ld${i}.png`);
+    app.loader.add(`blueHorse${i}`, `/blueHorse/horse/ld${i}.png`);
   }
   for (let i = 1; i <= horseCourt; i++) {
     app.loader.add(`whiteHorse${i}`, `/whiteHorse/horse/ld${i}.png`);
   }
 
-
   for (let i = 1; i <= enemyCount; i++) {
-    app.loader.add(`whiteEnemy${i}`, `/敌对白队/db${i}.png`);
+    app.loader.add(`whiteEnemy${i}`, `/blueHorse/enemy/db${i}.png`);
   }
 
   for (let i = 1; i <= enemyCount; i++) {
@@ -667,9 +666,9 @@ function render(app, resources) {
       }
 
       if (randomBlob === 'enemy') {
-        blob.width = blobWidth * 1.5;
+        blob.width = blobWidth;
 
-        blob.height = blobWidth * 2.5;
+        blob.height = 592/228*blobWidth;
         blob.animationSpeed = 0.2;
         blob.loop = true;
         blob.gotoAndPlay(0);
