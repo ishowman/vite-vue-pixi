@@ -7,7 +7,16 @@
     class="loading-mask flex align-center justify-center"
     v-if="showLoadingMask"
   >
-    loading ...
+    <div class="loading">
+      <div class="loading-horse">
+
+      </div>
+      <p class="text-center">
+        LOADING
+        <span class="percent">{{percent}}%</span>
+
+      </p>
+    </div>
   </div>
   <div class="select-team" id="teams" v-if="showTeams">
     <div class="square">
@@ -52,7 +61,7 @@
 
 <script setup>
 import * as PIXI from 'pixi.js-legacy';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Howl } from 'howler';
@@ -71,7 +80,7 @@ import score from '@/assets/audios/score.mp3';
 import hp from '@/assets/audios/hp.mp3';
 
 const router = useRouter();
-
+const percent = ref(0);
 const readyBgm = new Howl({
   src: ready,
 });
@@ -91,10 +100,31 @@ const showLoadingMask = ref(true);
 const showCountdown = ref(false);
 const showTeams = ref(true);
 const selected = ref(2);
+let loaded = ref(false);
 let app, canvasWidth, canvasHeight;
 const whiteHorseCount = 10;
 const horseCourt = 20;
 const blobCount = ref(0);
+const timerId = ref(0);
+timerId.value = setInterval(() => {
+    percent.value += 4;
+    if(percent.value >=96) {
+      percent.value = 96;
+    }
+    if(loaded.value) {
+      percent.value = 100;
+      clearInterval(timerId.value)
+      timerId.value = setTimeout(() => {
+        showLoadingMask.value = false;
+      }, 100)
+    }
+  }, 100)
+  onBeforeUnmount(() => {
+    if(timerId.value) {
+      clearInterval(timerId.value)
+      clearTimeout(timerId.value)
+    }
+  })
 
 let Application = PIXI.Application,
   Container = PIXI.Container,
@@ -106,6 +136,8 @@ let Application = PIXI.Application,
   TilingSprite = PIXI.TilingSprite,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
+
+
 
 function toGame() {
   // router.replace({ name: 'Game' });
@@ -158,7 +190,7 @@ onMounted(() => {
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
-    app.loader.add(`horse${i}`, `/blueHorse/ld${i}.png`);
+    app.loader.add(`horse${i}`, `/blueHorse-old/ld${i}.png`);
   }
 
   for (let i = 1; i <= whiteHorseCount; i++) {
@@ -174,7 +206,7 @@ onMounted(() => {
 
   app.loader.load((_loader, _resources) => {
     resources = _resources;
-    showLoadingMask.value = false;
+    loaded.value = true;
     // setup(app, _resources);
   });
 });
@@ -930,10 +962,8 @@ function render(app, resources) {
   bottom: 0;
   left: 0;
   right: 0;
-
-  background-color: bisque;
-  color: cadetblue;
-  font-size: 60px;
+margin: 0 auto;
+  background-color: #022044;
 }
 
 .countdown-pic {
@@ -1047,4 +1077,91 @@ function render(app, resources) {
 
   filter: gray;
 }
+
+.percent {
+  margin-left: 16px;
+}
+.loading {
+  position: absolute;
+  top: 25%;
+  width: 50%;
+  left: 25%;
+  height: 40%;
+  color: #d7ae5a;
+  font-size: 20px;
+
+}
+.loading-horse {
+  width: 100%;
+  height: 60%;
+  background-size: contain;
+
+  background-repeat: no-repeat;
+  animation-name: runninghorse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes runninghorse {
+  0% {
+    background-image: url('public/loading/mp1.png');
+  }
+/* 
+  5% {
+    background-image: url('public/loading/mp2.png');
+  } */
+
+  10% {
+    background-image: url('public/loading/mp3.png');
+  }
+
+  /* 15% {
+    background-image: url('public/loading/mp4.png');
+  } */
+  20% {
+    background-image: url('public/loading/mp5.png');
+  }
+
+  /* 25% {
+    background-image: url('public/loading/mp6.png');
+  } */
+
+  30% {
+    background-image: url('public/loading/mp7.png');
+  }
+
+  /* 35% {
+    background-image: url('public/loading/mp8.png');
+  } */
+  40% {
+    background-image: url('public/loading/mp9.png');
+  }
+/* 
+  45% {
+    background-image: url('public/loading/mp10.png');
+  } */
+  50% {
+    background-image: url('public/loading/mp11.png');
+  }
+  60% {
+    background-image: url('public/loading/mp12.png');
+  }
+
+  70% {
+    background-image: url('public/loading/mp14.png');
+  }
+
+  80% {
+    background-image: url('public/loading/mp16.png');
+  }
+
+  90% {
+    background-image: url('public/loading/mp18.png');
+  }
+
+  100% {
+    background-image: url('public/loading/mp20.png');
+  }
+}
+
 </style>
