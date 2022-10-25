@@ -99,7 +99,7 @@ const showTeams = ref(true);
 const selected = ref(2);
 let loaded = ref(false);
 let app, canvasWidth, canvasHeight;
-const whiteHorseCount = 10;
+const whiteEnemyCount = 10;
 const horseCourt = 20;
 const blobCount = ref(0);
 const timerId = ref(0);
@@ -185,11 +185,11 @@ onMounted(() => {
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
-    app.loader.add(`horse${i}`, `/blueHorse-old/ld${i}.png`);
+    app.loader.add(`horse${i}`, `/blueHorse/ld${i}.png`);
   }
 
-  for (let i = 1; i <= whiteHorseCount; i++) {
-    app.loader.add(`whiteHorse${i}`, `/敌对白队/db${i}.png`);
+  for (let i = 1; i <= whiteEnemyCount; i++) {
+    app.loader.add(`whiteEnemy${i}`, `/敌对白队/db${i}.png`);
   }
 
   for (let i = 1; i <= 12; i++) {
@@ -426,14 +426,14 @@ function render(app, resources) {
         return resources[`horse${i + 1}`].texture;
       })
     );
-    runningHorse.width = 120; //自己的车宽度
-    runningHorse.height = 260; //高度
+    runningHorse.width = 85/375*canvasWidth; //自己的车宽度
+    runningHorse.height = 362/133*85/375*canvasWidth; //高度
     runningHorse.vy = 0; //y轴加速度
     runningHorse.vx = 0; //x轴加速度
     runningHorse.invl = 0; //初始化无敌时间
 
     runningHorse.position.set(
-      (canvasWidth - runningHorse.width) / 2,
+      (canvasWidth - runningHorse.width) / 2 + 0.02*canvasWidth,
       canvasHeight - runningHorse.height - gap / 2
     ); //自己的车的初始位置
 
@@ -598,7 +598,7 @@ function render(app, resources) {
       'coin',
       'prize',
       'coin',
-      'whiteHorse',
+      'enemy',
       'coin',
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
@@ -606,10 +606,10 @@ function render(app, resources) {
         blobCount.value > 8 ? blobsArr[randomInt(0, 10)] : `coin`;
       //创建道具
       let blob =
-        randomBlob === `whiteHorse`
+        randomBlob === `enemy`
           ? new AnimatedSprite(
-              new Array(whiteHorseCount).fill(0).map((_item, i) => {
-                return resources[`whiteHorse${i + 1}`].texture;
+              new Array(whiteEnemyCount).fill(0).map((_item, i) => {
+                return resources[`whiteEnemy${i + 1}`].texture;
               })
             )
           : new Sprite(resources[randomBlob].texture);
@@ -643,7 +643,7 @@ function render(app, resources) {
         blob.height = (blobWidth / 230) * 231;
       }
 
-      if (randomBlob === 'whiteHorse') {
+      if (randomBlob === 'enemy') {
         blob.width = blobWidth * 1.5;
 
         blob.height = blobWidth * 2.5;
@@ -764,7 +764,6 @@ function render(app, resources) {
         scoreBgm.play();
         score += 20;
       } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
-        //车子图片变更为爆炸
         lastHit.blob.visible = false;
 
         // mycarSprite.texture = resources["img/boom.png"].texture;
@@ -775,7 +774,7 @@ function render(app, resources) {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-      } else if (lastHit.url === `whiteHorse` && shouldAddScore) {
+      } else if ( [`enemy`, ].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.visible = false;
 
         runningHorse.alpha = 0.3;
@@ -905,8 +904,8 @@ function render(app, resources) {
 
     if (hit && r2.texture.textureCacheIds.length) {
       let id;
-      if (r2.texture.textureCacheIds[0].includes(`whiteHorse`)) {
-        id = `whiteHorse`;
+      if (r2.texture.textureCacheIds[0].includes(`whiteEnemy`) || r2.texture.textureCacheIds[0].includes(`blueEnemy`)) {
+        id = `enemy`;
       } else if (r2.texture.textureCacheIds[0].includes(`coin`)) {
         id = `coin`;
       } else if (r2.texture.textureCacheIds[0].includes(`prize`)) {
