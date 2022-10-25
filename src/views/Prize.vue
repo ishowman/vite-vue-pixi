@@ -14,30 +14,30 @@
 
       <div class="scroll-view prize-list" v-if="!hidePrizes">
         <!-- <game-prize class="mb-8" /> -->
-        <game-prize class="mb-12">
+        <game-prize class="mb-12" v-if="hasGold">
           <template #pic>
             <img src="public/myAward/prize-gold.png" style="width: 100%;">
           </template>
           <p class="text-ellipsis">金牌奖品</p>
           <!-- <button @click="hidePrizes = true">兑换</button> -->
-          <img src="public/myAward/btn-get.png" @click="hidePrizes = true" style="width:50px;"/>
+          <img src="public/myAward/btn-get.png" @click="getPrize('gold')" style="width:50px;"/>
         </game-prize>
-        <game-prize class="mb-12">
+        <game-prize class="mb-12" v-if="hasSilver">
           <template #pic>
             <img src="public/myAward/prize-silver.png" style="width: 100%;">
           </template>
 
           <p class="text-ellipsis">银牌奖品</p>
-          <img src="public/myAward/btn-get.png" @click="hidePrizes = true" style="width:50px;"/>
+          <img src="public/myAward/btn-get.png" @click="getPrize('silver')"  style="width:50px;"/>
         </game-prize>
 
-        <game-prize class="mb-12">
+        <game-prize class="mb-12" v-if="hasCu">
           <template #pic>
             <img src="public/myAward/prize-cu.png" style="width: 100%;">
           </template>
 
           <p class="text-ellipsis">铜牌奖品</p>
-          <img src="public/myAward/btn-get.png" @click="hidePrizes = true" style="width:50px;"/>
+          <img src="public/myAward/btn-get.png"  style="width:50px;" @click="getPrize('cu')" />
         </game-prize>
 
       </div>
@@ -77,8 +77,35 @@ import GamePrize from '@/components/GamePrize.vue';
 import { ref } from 'vue';
 const router = useRouter();
 const hidePrizes = ref(false);
+
+const hasGold = ref(false);
+const hasSilver = ref(false);
+const hasCu = ref(false);
+hasGold.value = +localStorage.getItem('gold');
+hasSilver.value = +localStorage.getItem('silver');
+hasCu.value = +localStorage.getItem('cu');
+
 function toHome() {
   router.replace({ name: 'Home' });
+}
+
+function getPrize(key) {
+  hidePrizes.value = true;
+  if(key === 'gold') {
+    hasGold.value = false;
+
+  }
+  else if(key === 'silver') {
+    hasSilver.value = false;
+
+  }
+
+  else if(key === 'cu') {
+    hasCu.value = false;
+
+  }
+  localStorage.setItem(key, 0);
+
 }
 </script>
 <style scoped>
