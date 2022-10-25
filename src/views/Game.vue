@@ -1098,7 +1098,7 @@ function render(app, resources) {
 
 @keyframes runninghorse {
   0% {
-    background-image: url('public/loading/mp1.png');
+    background-image: url('/loading/mp1.png');
   }
   /* 
   5% {
@@ -1106,14 +1106,14 @@ function render(app, resources) {
   } */
 
   10% {
-    background-image: url('public/loading/mp3.png');
+    background-image: url('/loading/mp3.png');
   }
 
   /* 15% {
     background-image: url('public/loading/mp4.png');
   } */
   20% {
-    background-image: url('public/loading/mp5.png');
+    background-image: url('/loading/mp5.png');
   }
 
   /* 25% {
