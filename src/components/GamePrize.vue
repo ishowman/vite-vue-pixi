@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 
 defineProps({
   msg: String,
@@ -8,7 +7,9 @@ defineProps({
 
 <template>
   <div class="game-prize grid align-center">
-    <div class="prize-img"></div>
+    <div class="prize-img">
+      <slot name="pic" />
+    </div>
     <slot>
       <p>xxxxx</p>
       <button>兑换</button>

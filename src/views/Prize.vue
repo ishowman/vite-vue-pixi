@@ -15,17 +15,29 @@
       <div class="scroll-view prize-list" v-if="!hidePrizes">
         <!-- <game-prize class="mb-8" /> -->
         <game-prize class="mb-12">
+          <template #pic>
+            <img src="public/myAward/prize-gold.png" style="width: 100%;">
+          </template>
           <p class="text-ellipsis">金牌奖品</p>
-          <button @click="hidePrizes = true">兑换</button>
+          <!-- <button @click="hidePrizes = true">兑换</button> -->
+          <img src="public/myAward/btn-get.png" @click="hidePrizes = true" style="width:50px;"/>
         </game-prize>
         <game-prize class="mb-12">
+          <template #pic>
+            <img src="public/myAward/prize-silver.png" style="width: 100%;">
+          </template>
+
           <p class="text-ellipsis">银牌奖品</p>
-          <button @click="hidePrizes = true">兑换</button>
+          <img src="public/myAward/btn-get.png" @click="hidePrizes = true" style="width:50px;"/>
         </game-prize>
 
         <game-prize class="mb-12">
+          <template #pic>
+            <img src="public/myAward/prize-cu.png" style="width: 100%;">
+          </template>
+
           <p class="text-ellipsis">铜牌奖品</p>
-          <button @click="hidePrizes = true">兑换</button>
+          <img src="public/myAward/btn-get.png" @click="hidePrizes = true" style="width:50px;"/>
         </game-prize>
 
       </div>
