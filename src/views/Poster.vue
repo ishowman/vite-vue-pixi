@@ -19,7 +19,7 @@
     >
     <!-- todo 这里也是 -->
       <img
-        src="/posterjin.png"
+        src="/poster/jin.png"
         :style="{
           position: 'absolute',
           left: sc.w * 0.1411 + 'px',
@@ -30,7 +30,7 @@
         }"
       />
       <img
-        src="/posterbg.png"
+        src="/poster/bg.png"
         :style="{
           position: 'absolute',
           left: 0,
@@ -40,7 +40,7 @@
         }"
       />
       <img
-        src="/posterposter.png"
+        src="/poster/poster.png"
         :style="{
           width: parseInt(sc.w) * 0.82 + 'px',
           height: (parseInt(sc.w) / 869) * 1543 + 'px',
@@ -52,7 +52,7 @@
         }"
       />
       <img
-        src="/posterget-poster-text.png"
+        src="/poster/get-poster-text.png"
         :style="{
           position: 'absolute',
           left: 0,
@@ -64,7 +64,7 @@
         }"
       />
       <img
-        src="/postersqure.png"
+        src="/poster/squre.png"
         :style="{
           width: sc.w * 0.58 + 'px',
           height: sc.h * 0.089 + 'px',
@@ -78,7 +78,7 @@
       />
       <!-- todo 图标 金银铜 此处需要变量改变显示的金银 -->
       <img
-        src="/posterjin.png"
+        src="/poster/jin.png"
         :style="{
           width: sc.w * 0.166 + 'px',
           height: sc.w * 0.166 + 'px',
@@ -104,7 +104,7 @@
         金牌奖品
       </div>
       <img
-        src="/posterbtn-award.png"
+        src="/poster/btn-award.png"
         :style="{
           position: 'absolute',
           bottom: (parseInt(sc.w) / 869) * 1543 * 0.06 + 'px',
@@ -114,7 +114,7 @@
         }"
       />
       <img
-        src="/posterbtn-share.png"
+        src="/poster/btn-share.png"
         :style="{
           position: 'absolute',
           bottom: (parseInt(sc.w) / 869) * 1543 * 0.06 + 'px',
@@ -140,7 +140,7 @@
       }"
     >
       <img
-        src="/postershare-bg.png"
+        src="/poster/share-bg.png"
         :style="{
           width: sc.w * 0.67 + 'px',
           height: sc.h * 0.3333 + 'px',
@@ -179,7 +179,7 @@
       }"
     >
       <img
-        src="/posterpoaster.png"
+        src="/poster/poaster.png"
         :style="{
           width: sc.w * 0.5811 + 'px',
           height: sc.h * 0.5805 + 'px',
@@ -192,7 +192,7 @@
       />
       <!-- 这里是变量 金 银 铜 -->
       <img
-        src="/poster金.jpg"
+        src="/poster/金.jpg"
         alt=""
         :style="{
           width: sc.w * 0.57 + 'px',
@@ -207,7 +207,7 @@
           top: '2px',
         }"
       />
-       <img src="/postersave-long-img.png" :style="{
+       <img src="/poster/save-long-img.png" :style="{
          position: 'absolute',
           left: 0,
           right: 0,
@@ -217,7 +217,7 @@
           top: sc.h * 0.575 + 28 + 'px',
           zIndex: 999
       }">
-      <img src="/posterx.png" @click="modalStatus = false" :style="{
+      <img src="/poster/x.png" @click="modalStatus = false" :style="{
         position: 'absolute',
         left: 0,
           right: 0,
