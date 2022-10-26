@@ -91,7 +91,7 @@
 import { useRouter } from 'vue-router';
 import { Howl } from 'howler';
 import GamePrize from '@/components/GamePrize.vue';
-import { ref } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import playBgm from '@/assets/audios/play.mp3';
 const sound = new Howl({
   src: playBgm,
@@ -104,17 +104,20 @@ const hasGold = ref(false);
 const hasSilver = ref(false);
 const hasCu = ref(false);
 const getAlreadyGet = ref(false)
-const getKeyValue = localStorage.getItem('keyValue')
-getAlreadyGet.value = localStorage.getItem(getKeyValue) === 0
-hasGold.value = getKeyValue=== 'gold';
-hasSilver.value = getKeyValue=== 'silver';
-hasCu.value = getKeyValue === 'cu';
+
 
 function toHome() {
   router.replace({ name: 'Home' });
   sound.play()
-}
 
+}
+watch(()=> router.currentRoute.value.path, ()=>{
+  const getKeyValue = localStorage.getItem('keyValue')
+  getAlreadyGet.value = localStorage.getItem('getAlreadyGet') === '0'
+  hasGold.value = getKeyValue=== 'gold';
+  hasSilver.value = getKeyValue=== 'silver';
+  hasCu.value = getKeyValue === 'cu';
+},{immediate: true})
 function getPrize(key) {
   sound.play()
   hidePrizes.value = true;
@@ -131,7 +134,7 @@ function getPrize(key) {
     hasCu.value = false;
 
   }
-  localStorage.setItem(key, 0);
+  localStorage.setItem('getAlreadyGet', 0);
 
 }
 </script>

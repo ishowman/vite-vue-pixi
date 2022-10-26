@@ -1,3 +1,12 @@
+<!--
+ * @Author: corinchen
+ * @Date: 2022-10-26 14:27:25
+ * @LastEditTime: 2022-10-26 22:48:26
+ * @LastEditors: corinchen
+ * @Description: 
+ * @FilePath: \vite-vue-pixi\src\views\Home.vue
+ * for  good code
+-->
 <template>
   <div class="full-page" id="home">
     <img :src="playBtn" alt="开始游戏" class="play-btn" @click="play()" />
@@ -34,7 +43,7 @@ function play() {
 }
 
 function toPrize() {
-  router.replace({ name: 'Prize' });
+  router.push({ name: 'Prize' , query: {random: new Date().getMilliseconds()}});
   sound.play();
 
 }

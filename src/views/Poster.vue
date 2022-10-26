@@ -110,7 +110,7 @@
           height: sc.h * 0.0731 + 'px',
           left: sc.w * 0.11 + 'px',
         }"
-        @click="router.replace({name: 'Prize'})"
+        @click="router.push({name: 'Prize', query: { random: new Date().getTime()}})"
       />
       <img
         src="/poster/btn-share.png"
@@ -232,7 +232,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 const poster = ref("");
 const router = useRouter();
@@ -277,8 +277,13 @@ const JJ_MAP = ref({
     // icon: 
   }
 })
+watch(()=> router.currentRoute.value.path, ()=>{
+    modalStatus.value = true;
+    KEY.value = window.localStorage.getItem('keyValue') || 'cu'
+   
+},{immediate: true})
 onMounted(() => {
-  modalStatus.value = true;
-  KEY.value = window.localStorage.getItem('keyValue') || 'cu'
+
+  // KEY.value = window.localStorage.getItem('keyValue') || 'cu'
 });
 </script>
