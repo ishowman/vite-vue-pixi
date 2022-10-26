@@ -14,6 +14,11 @@
 import * as PIXI from 'pixi.js-legacy';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import playBgm from '@/assets/audios/play.mp3';
+const sound = new Howl({
+  src: playBgm,
+});
+
 const poster = ref('');
 
 const router = useRouter();
@@ -89,6 +94,7 @@ onMounted(() => {
     btnShare.x = posterSprite.x + posterWidth * 0.53;
     btnShare.interactive = true;
     btnShare.on('touchend', () => {
+      sound.play();
       takeScreenshot();
     });
 
@@ -102,6 +108,7 @@ onMounted(() => {
     btnAward.x = posterSprite.x + posterWidth * 0.06;
     btnAward.interactive = true;
     btnAward.on('touchend', () => {
+      sound.play();
       router.replace({ name: 'Prize' });
     });
 
