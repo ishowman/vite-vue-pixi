@@ -979,13 +979,12 @@ function render(app, resources) {
   function endGame() {
     if (score > 600) {
       goldBadge.visible = true;
-      localStorage.setItem('gold', 1)
+      localStorage.setItem('keyValue', 'gold')
     } else if (score >= 300 && score <= 600) {
-      localStorage.setItem('silver', 1)
-
+      localStorage.setItem('keyValue', 'silver')
       silverBadge.visible = true;
     } else {
-      localStorage.setItem('cu', 1)
+      localStorage.setItem('keyValue', 'cu')
       cuBadge.visible = true;
     }
     gameOverScene.visible = true;

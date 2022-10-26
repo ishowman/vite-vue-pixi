@@ -7,6 +7,7 @@
       width: sc.w + 'px',
       height: sc.h + 'px',
     }"
+    v-if="KEY"
   >
     <div
       :style="{
@@ -19,7 +20,7 @@
     >
     <!-- todo 这里也是 -->
       <img
-        src="/poster/jin.png"
+        :src="JJ_MAP[KEY].img"
         :style="{
           position: 'absolute',
           left: sc.w * 0.1145 + 'px',
@@ -79,7 +80,7 @@
           alignItems: 'center'
       }">
         <img
-        src="/poster/金.png"
+        :src="JJ_MAP[KEY].icon"
         :style="{
           width: sc.w * 0.1486 + 'px',
           height: sc.h * 0.0745 + 'px',
@@ -96,7 +97,7 @@
           marginLeft: '24px'
         }"
       >
-        金牌奖品
+        {{JJ_MAP[KEY].name}}
       </div>
       </div>
       <!-- todo 图标 金银铜 此处需要变量改变显示的金银 -->
@@ -189,7 +190,7 @@
       />
       <!-- 这里是变量 金 银 铜 -->
       <img
-        src="/poster/金.jpg"
+        :src="JJ_MAP[KEY].poster"
         alt=""
         :style="{
           width: sc.w * 0.57 + 'px',
@@ -222,7 +223,8 @@
           top: sc.h * 0.575 + 60 + 'px',
           zIndex: 999,
           width: sc.w*0.1017 + 'px',
-          height: sc.h * 0.0508 + 'px'
+          height: sc.h * 0.0508 + 'px',
+          zIndex: 999
       }">
     </div>
 
@@ -239,9 +241,43 @@ const sc = ref({
   w: window.innerWidth,
   h: window.innerHeight,
 });
+const KEY = ref('silver')
 // console.log(sc.value.w, sc.value.h)
+// localStorage.setItem('gold', 1)
+//     } else if (score >= 300 && score <= 600) {
+//       localStorage.setItem('silver', 1)
 
+//       silverBadge.visible = true;
+//     } else {
+//       localStorage.setItem('cu', 1)
+const JJ_MAP = ref({
+  'gold': {
+    name: '金牌奖品',
+    icon: '/poster/金.png',
+    img: '/poster/jin.png',
+    poster: '/poster/金.jpg'
+
+  },
+  'silver': {
+    name: '银牌奖品',
+    icon: '/poster/银.png',
+    img: '/poster/yin.png',
+    poster: '/poster/银.jpg'
+
+  },
+  'cu': {
+    name: '铜牌奖品',
+    icon: '/poster/铜.png',
+    img: '/poster/tong.png',
+    poster: '/poster/铜.jpg'
+  },
+  'empty': {
+    name: '暂无奖品',
+    // icon: 
+  }
+})
 onMounted(() => {
   modalStatus.value = true;
+  KEY.value = window.localStorage.getItem('keyValue') || 'cu'
 });
 </script>
