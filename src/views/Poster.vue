@@ -92,18 +92,25 @@
     }" @click="modalStatus = true">
   </div>
   </div>
-  <div :style="{
+  <div v-if="modalStatus" :style="{
     width: sc.w + 'px',
     height: sc.h + 'px',
     background: 'rgba(0,0,0, 0.77)',
     position: 'fixed',
     left: 0,
     top: 0,
-      zIndex: 9
-
-  }">
+    zIndex: 9
+  }"  @click="modalStatus = false">
       <!-- 一张图 -->
-      <img src="poster/poaster.png" :style="{
+      <div 
+        :style="{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        margin: auto,
+        top: sc.h * 0.14 + 'px'
+      }">
+         <img src="poster/poaster.png" :style="{
         width: sc.w * 0.5811 + 'px',
         height: sc.h * 0.5805 + 'px',
         zIndex: 10,
@@ -113,15 +120,21 @@
         margin: 'auto'
       }">
       <!-- 这里是变量 金 银 铜 -->
-      <img src="" alt="" :style="{
-        width: sc.w * 0.5806 + 'px',
-        height: sc.h * 0.5705 + 'px',
+      <img src="poster/金.jpg" alt="" :style="{
+        width: sc.w * 0.57 + 'px',
+        height: sc.h * 0.576 + 'px',
         zIndex: 10,
         position: 'absolute',
         left: 0,
         right: 0,
-        margin: 'auto'
+        margin: 'auto',
+        borderRadius: '32px',
+        zIndex: 11,
+        top:  '2px'
+
       }">
+      </div>
+     
   </div>
 </template>
 <script setup>
@@ -129,7 +142,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 const poster = ref('');
 const router = useRouter();
-const modalStatus = ref(false)
+const modalStatus = ref(true)
 const sc = ref({
   w: window.innerWidth,
   h: window.innerHeight
