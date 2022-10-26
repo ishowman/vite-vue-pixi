@@ -105,7 +105,7 @@
         src="/poster/btn-award.png"
         :style="{
           position: 'absolute',
-          bottom: (parseInt(sc.w) / 869) * 1543 * 0.06 + 'px',
+          bottom: '5.43%',
           width: sc.w * 0.3829 + 'px',
           height: sc.h * 0.0731 + 'px',
           left: sc.w * 0.11 + 'px',
