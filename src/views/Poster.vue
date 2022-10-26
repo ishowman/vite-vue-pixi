@@ -79,7 +79,7 @@
           alignItems: 'center'
       }">
         <img
-        src="/poster/jin.png"
+        src="/poster/金.png"
         :style="{
           width: sc.w * 0.1486 + 'px',
           height: sc.h * 0.0745 + 'px',
@@ -100,7 +100,6 @@
       </div>
       </div>
       <!-- todo 图标 金银铜 此处需要变量改变显示的金银 -->
-      
         <img
         src="/poster/btn-award.png"
         :style="{
