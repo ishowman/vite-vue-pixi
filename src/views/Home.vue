@@ -35,9 +35,13 @@ function play() {
 
 function toPrize() {
   router.replace({ name: 'Prize' });
+  sound.play();
+
 }
 function toRule() {
   router.replace({ name: 'Rule' });
+  sound.play();
+
 }
 </script>
 <style scoped>

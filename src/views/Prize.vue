@@ -112,6 +112,7 @@ function toHome() {
 }
 
 function getPrize(key) {
+  sound.play()
   hidePrizes.value = true;
   if(key === 'gold') {
     hasGold.value = false;
