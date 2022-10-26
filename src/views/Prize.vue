@@ -13,7 +13,7 @@
       />
 
       <div class="scroll-view prize-list" v-if="!hidePrizes">
-        <template v-if="hasGold || hasSilver || hasCu">
+        <template v-if="(hasGold || hasSilver || hasCu) && !getAlreadyGet">
           <game-prize class="mb-12" v-if="hasGold">
           <template #pic>
             <img src="public/myAward/prize-gold.png" style="width: 100%;">
@@ -103,9 +103,12 @@ const hidePrizes = ref(false);
 const hasGold = ref(false);
 const hasSilver = ref(false);
 const hasCu = ref(false);
-hasGold.value = localStorage.getItem('keyValue') === 'gold';
-hasSilver.value = localStorage.getItem('silver') === 'silver';
-hasCu.value = +localStorage.getItem('cu') === 'cu';
+const getAlreadyGet = ref(false)
+const getKeyValue = localStorage.getItem('keyValue')
+getAlreadyGet.value = localStorage.getItem(getKeyValue) === 0
+hasGold.value = getKeyValue=== 'gold';
+hasSilver.value = getKeyValue=== 'silver';
+hasCu.value = getKeyValue === 'cu';
 
 function toHome() {
   router.replace({ name: 'Home' });

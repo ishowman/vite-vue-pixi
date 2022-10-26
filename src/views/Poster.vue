@@ -110,6 +110,7 @@
           height: sc.h * 0.0731 + 'px',
           left: sc.w * 0.11 + 'px',
         }"
+        @click="router.replace({name: 'Prize'})"
       />
       <img
         src="/poster/btn-share.png"
