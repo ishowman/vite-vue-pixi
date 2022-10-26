@@ -2,6 +2,8 @@
   <div ref="game"></div>
   <div class="countdown-mask" v-if="showCountdown">
     <div class="countdown-pic"></div>
+    <img src="/tips/arrow.png" :style="tipsArrowStyle">
+    <img src="/tips/text.png" :style="tipsTextStyle">
   </div>
   <div
     class="loading-mask flex align-center justify-center"
@@ -139,6 +141,8 @@ let Application = PIXI.Application,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
 
+const tipsArrowStyle = ref({})
+const tipsTextStyle= ref({})
 function toGame() {
   // router.replace({ name: 'Game' });
   app.loader
@@ -416,24 +420,39 @@ function render(app, resources) {
     let tipArrow = new Sprite(resources.tipArrow.texture);
     tipArrow.width = canvasWidth - contentX * 4;
     tipArrow.height = (281 / 891) * (canvasWidth - contentX * 4);
-    tipArrow.position.set(
-      (canvasWidth - tipArrow.width) / 2,
-      canvasHeight - tipArrow.height - 1.5 * gap
-    );
-    tipArrow.zIndex = 99;
+    // tipArrow.position.set(
+    //   (canvasWidth - tipArrow.width) / 2,
+    //   canvasHeight - tipArrow.height - 1.5 * gap
+    // );
+    // tipArrow.zIndex = 99;
+    
+    // gameScene.addChild(tipArrow);
 
-    gameScene.addChild(tipArrow);
+    tipsArrowStyle.value = {
+      width: `${canvasWidth - contentX * 4}px`,
+      left: `${(canvasWidth - tipArrow.width) / 2}px`,
+      top: `${canvasHeight - tipArrow.height - 1.5 * gap}px`,
+      position:'absolute'
+    }
+
 
     let tipText = new Sprite(resources.tipText.texture);
     tipText.width = canvasWidth - (100 / 375) * canvasWidth;
     tipText.height = (82 / 675) * (canvasWidth - (100 / 375) * canvasWidth);
-    tipText.position.set(
-      (canvasWidth - tipText.width) / 2,
-      canvasHeight - tipText.height - (30 / 667) * canvasHeight
-    );
-    tipText.zIndex = 99;
+    // tipText.position.set(
+    //   (canvasWidth - tipText.width) / 2,
+    //   canvasHeight - tipText.height - (30 / 667) * canvasHeight
+    // );
+    // tipText.zIndex = 99;
 
-    gameScene.addChild(tipText);
+    // gameScene.addChild(tipText);
+    tipsTextStyle.value = {
+      width: `${canvasWidth - (100 / 375) * canvasWidth}px`,
+      left: `${(canvasWidth - tipText.width) / 2}px`,
+      top: `${canvasHeight - tipText.height - (30 / 667) * canvasHeight}px`,
+      position:'absolute'
+    }
+
 
     const name = selected.value === 0? `blueHorse`:`whiteHorse`;
     runningHorse = new AnimatedSprite(
