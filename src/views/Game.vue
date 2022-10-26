@@ -71,6 +71,11 @@ import stoneUrl from '@/assets/img/stone.png';
 import prizeUrl from '@/assets/img/prize.png';
 import heart from '@/assets/img/heart.png';
 // audio
+import playBgm from '@/assets/audios/play.mp3';
+const sound = new Howl({
+  src: playBgm,
+});
+
 import ready from '@/assets/audios/ready.mp3';
 import end from '@/assets/audios/end.mp3';
 import score from '@/assets/audios/score.mp3';
@@ -145,6 +150,7 @@ function toGame() {
     .add(`badge3st`, 'badge/铜徽章.png')
     .load(() => {
       render(app, resources);
+      sound.play();
       showTeams.value = false;
     });
 }

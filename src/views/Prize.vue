@@ -91,6 +91,11 @@
 import { useRouter } from 'vue-router';
 import GamePrize from '@/components/GamePrize.vue';
 import { ref } from 'vue';
+import playBgm from '@/assets/audios/play.mp3';
+const sound = new Howl({
+  src: playBgm,
+});
+
 const router = useRouter();
 const hidePrizes = ref(false);
 
@@ -103,6 +108,7 @@ hasCu.value = +localStorage.getItem('cu');
 
 function toHome() {
   router.replace({ name: 'Home' });
+  sound.play()
 }
 
 function getPrize(key) {

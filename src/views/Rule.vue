@@ -81,10 +81,17 @@
 </template>
 <script setup>
 import { useRouter } from 'vue-router';
+import playBgm from '@/assets/audios/play.mp3';
+const sound = new Howl({
+  src: playBgm,
+});
+
 const router = useRouter();
 
 function toHome() {
   router.replace({ name: 'Home' });
+  sound.play()
+
 }
 </script>
 <style scoped>
