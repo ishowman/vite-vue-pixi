@@ -736,7 +736,7 @@ function render(app, resources) {
     if (bgSpeed >= 15) bgSpeed = 15;
 
     speed += 0.1;
-    if (speed >= 8) speed = 8;
+    if (speed >= 10) speed = 10;
 
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
