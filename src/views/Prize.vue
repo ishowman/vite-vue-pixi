@@ -103,9 +103,9 @@ const hidePrizes = ref(false);
 const hasGold = ref(false);
 const hasSilver = ref(false);
 const hasCu = ref(false);
-hasGold.value = +localStorage.getItem('gold');
-hasSilver.value = +localStorage.getItem('silver');
-hasCu.value = +localStorage.getItem('cu');
+hasGold.value = localStorage.getItem('keyValue') === 'gold';
+hasSilver.value = localStorage.getItem('silver') === 'silver';
+hasCu.value = +localStorage.getItem('cu') === 'cu';
 
 function toHome() {
   router.replace({ name: 'Home' });
