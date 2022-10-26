@@ -134,7 +134,7 @@ function getPrize(key) {
 </script>
 <style scoped>
 #prize {
-  background-image: url('public/rules/bg.png');
+  background-image: url('public/rules/bg.jpg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;

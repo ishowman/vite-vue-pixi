@@ -308,7 +308,7 @@ function render(app, resources) {
     console.log('contentY/667*canvasHeight', (contentY / 667) * canvasHeight);
     // bg.width = canvasWidth - gap;
     const bgWidth = canvasWidth - (contentX / 375) * canvasWidth * 2;
-    const bgHeight = canvasHeight - (55 / 667) * canvasHeight;
+    const bgHeight = bgWidth/750*2415;
     bg.width = bgWidth;
     console.log(
       canvasHeight - (70 / 667) * canvasHeight,
@@ -319,12 +319,14 @@ function render(app, resources) {
     bg.height = bgHeight;
 
     bg.tileScale.set(
-      (0.55 * (canvasWidth - (contentX / 375) * canvasWidth * 2)) / 355,
-      (0.55 * (bgHeight / bgWidth)) / (597 / 355)
+      (0.683 * (canvasWidth - (contentX / 375) * canvasWidth * 2)) / 355,
+      (0.683 * (canvasWidth - (contentX / 375) * canvasWidth * 2)) / 355,
+
+      // (0.6 * (bgHeight / bgWidth)) / (597 / 355)
     ); // 355 为 375 宽度下的计算数值
     // bg.tileScale.set(0.55*(canvasWidth - contentX/375*canvasWidth * 2)/355, 0.65  );  // 355 为 375 宽度下的计算数值
 
-    bg.tilePosition.y = (-500 / 667) * canvasHeight;
+    bg.tilePosition.y = (-1000 / 667) * canvasHeight;
     gameScene.addChild(bg);
 
     // // 分数
@@ -1070,7 +1072,7 @@ function render(app, resources) {
   left: 0;
   right: 0;
   z-index: 998;
-  background-image: url('public/rules/bg.png');
+  background-image: url('public/rules/bg.jpg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }

@@ -97,7 +97,7 @@ function toHome() {
 </script>
 <style scoped>
 #rule {
-  background-image: url('public/rules/bg.png');
+  background-image: url('public/rules/bg.jpg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
