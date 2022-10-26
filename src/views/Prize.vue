@@ -89,6 +89,7 @@
 </template>
 <script setup>
 import { useRouter } from 'vue-router';
+import { Howl } from 'howler';
 import GamePrize from '@/components/GamePrize.vue';
 import { ref } from 'vue';
 import playBgm from '@/assets/audios/play.mp3';

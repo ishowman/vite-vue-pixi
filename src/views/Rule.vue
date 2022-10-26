@@ -81,6 +81,7 @@
 </template>
 <script setup>
 import { useRouter } from 'vue-router';
+import { Howl } from 'howler';
 import playBgm from '@/assets/audios/play.mp3';
 const sound = new Howl({
   src: playBgm,

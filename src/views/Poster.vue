@@ -12,6 +12,7 @@
 </template>
 <script setup>
 import * as PIXI from 'pixi.js-legacy';
+import { Howl } from 'howler';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import playBgm from '@/assets/audios/play.mp3';
