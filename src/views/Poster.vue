@@ -22,8 +22,8 @@
         src="/poster/jin.png"
         :style="{
           position: 'absolute',
-          left: sc.w * 0.1411 + 'px',
-          top: sc.h * 0.17 + 'px',
+          left: sc.w * 0.1145 + 'px',
+          top: sc.h * 0.16 + 'px',
           width: sc.w * 0.2521 + 'px',
           height: sc.h * 0.1688 + 'px',
           zIndex: 8,
@@ -42,13 +42,13 @@
       <img
         src="/poster/poster.png"
         :style="{
-          width: parseInt(sc.w) * 0.82 + 'px',
-          height: (parseInt(sc.w) / 869) * 1543 + 'px',
+          width: parseInt(sc.w) * 0.8871 + 'px',
+          height: sc.h * 0.7876 + 'px',
           position: 'absolute',
           left: 0,
           right: 0,
           margin: 'auto',
-          top: (parseInt(sc.w) / 869) * 1543 * 0.14 + 'px',
+          top: sc.h * 0.1483+ 'px',
         }"
       />
       <img
@@ -58,52 +58,50 @@
           left: 0,
           right: 0,
           margin: 'auto',
-          bottom: (parseInt(sc.w) / 869) * 1543 * 0.28 + 'px',
+          bottom: sc.h * 0.2564 + 'px',
           width: sc.w * 0.32 + 'px',
           height: sc.h * 0.038 + 'px',
+          zIndex: 9
         }"
       />
-      <img
-        src="/poster/squre.png"
-        :style="{
-          width: sc.w * 0.58 + 'px',
-          height: sc.h * 0.089 + 'px',
-          backgroundSize: '100%',
-          bottom: (parseInt(sc.w) / 869) * 1543 * 0.16 + 'px',
+    
+      <div :style="{
+          bottom: sc.h * 0.1417+ 'px',
           position: 'absolute',
+          width: sc.w * 0.6385 + 'px',
+          height: sc.h * 0.0889 + 'px',
           left: 0,
           right: 0,
           margin: 'auto',
-        }"
-      />
-      <!-- todo 图标 金银铜 此处需要变量改变显示的金银 -->
-      <img
+          background:'url(/poster/squre.png) no-repeat',
+          backgroundSize: `${sc.w * 0.6385 + 'px'} ${sc.h * 0.0889 + 'px'}`,
+          display: 'flex',
+          alignItems: 'center'
+      }">
+        <img
         src="/poster/jin.png"
         :style="{
-          width: sc.w * 0.166 + 'px',
-          height: sc.w * 0.166 + 'px',
-          backgroundSize: '100%',
-          bottom: (parseInt(sc.w) / 869) * 1543 * 0.16 + 4 + 'px',
-          position: 'absolute',
-          left: sc.w * 0.25 + 'px',
-          margin: 'auto',
+          width: sc.w * 0.1486 + 'px',
+          height: sc.h * 0.0745 + 'px',
+          marginLeft: '16px'
+
         }"
       />
       <!-- todo 这里也是 -->
       <div
         :style="{
-          bottom: (parseInt(sc.w) / 869) * 1543 * 0.16 + 24 + 'px',
-          position: 'absolute',
-          left: sc.w * 0.425 + 'px',
-          margin: 'auto',
           fontWeight: 500,
           fontSize: '30.34px',
           color: '#FFFFFF',
+          marginLeft: '24px'
         }"
       >
         金牌奖品
       </div>
-      <img
+      </div>
+      <!-- todo 图标 金银铜 此处需要变量改变显示的金银 -->
+      
+        <img
         src="/poster/btn-award.png"
         :style="{
           position: 'absolute',
@@ -117,8 +115,8 @@
         src="/poster/btn-share.png"
         :style="{
           position: 'absolute',
-          bottom: (parseInt(sc.w) / 869) * 1543 * 0.06 + 'px',
-          right: sc.w * 0.11 + 'px',
+          bottom: '5.43%',
+          right: sc.w * 0.1248 + 'px',
           width: sc.w * 0.3829 + 'px',
           height: sc.h * 0.0731 + 'px',
         }"
