@@ -1,5 +1,5 @@
 <template>
-  <!-- 这里其实就是实现一个zIndex 最大 同-->
+  <!-- 点击分享-->
   <div :style="{
     position: 'absolute',
     overflowX: 'hidden',
@@ -89,22 +89,53 @@
       right: sc.w*0.11 +'px',
       width: sc.w * 0.3829 + 'px',
       height: sc.h *0.0731 + 'px'
-    }">
+    }" @click="modalStatus = true">
   </div>
   </div>
-  
+  <div :style="{
+    width: sc.w + 'px',
+    height: sc.h + 'px',
+    background: 'rgba(0,0,0, 0.77)',
+    position: 'fixed',
+    left: 0,
+    top: 0,
+      zIndex: 9
+
+  }">
+      <!-- 一张图 -->
+      <img src="poster/poaster.png" :style="{
+        width: sc.w * 0.5811 + 'px',
+        height: sc.h * 0.5805 + 'px',
+        zIndex: 10,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        margin: 'auto'
+      }">
+      <!-- 这里是变量 金 银 铜 -->
+      <img src="" alt="" :style="{
+        width: sc.w * 0.5806 + 'px',
+        height: sc.h * 0.5705 + 'px',
+        zIndex: 10,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        margin: 'auto'
+      }">
+  </div>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 const poster = ref('');
 const router = useRouter();
-
+const modalStatus = ref(false)
 const sc = ref({
   w: window.innerWidth,
   h: window.innerHeight
 })
 // console.log(sc.value.w, sc.value.h)
+
 onMounted(() => {  
 })
 </script>
