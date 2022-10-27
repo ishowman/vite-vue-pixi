@@ -2,8 +2,8 @@
   <div ref="game"></div>
   <div class="countdown-mask" v-if="showCountdown">
     <div class="countdown-pic"></div>
-    <img src="/tips/arrow.png" :style="tipsArrowStyle">
-    <img src="/tips/text.png" :style="tipsTextStyle">
+    <img src="/tips/arrow.png" :style="tipsArrowStyle" />
+    <img src="/tips/text.png" :style="tipsTextStyle" />
   </div>
   <div
     class="loading-mask flex align-center justify-center"
@@ -59,29 +59,29 @@
 </template>
 
 <script setup>
-import * as PIXI from 'pixi.js-legacy';
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { useRouter } from 'vue-router';
+import * as PIXI from "pixi.js-legacy";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 
-import { Howl } from 'howler';
+import { Howl } from "howler";
 
 // import preBg from '@/assets/index/bg.png';
-import bgUrl from '@/assets/img/bg.jpg';
-import infoUrl from '@/assets/img/info.png';
-import coinUrl from '@/assets/img/coin.png';
-import stoneUrl from '@/assets/img/stone.png';
-import prizeUrl from '@/assets/img/prize.png';
-import heart from '@/assets/img/heart.png';
+import bgUrl from "@/assets/img/bg.jpg";
+import infoUrl from "@/assets/img/info.png";
+import coinUrl from "@/assets/img/coin.png";
+import stoneUrl from "@/assets/img/stone.png";
+import prizeUrl from "@/assets/img/prize.png";
+import heart from "@/assets/img/heart.png";
 // audio
-import playBgm from '@/assets/audios/play.mp3';
+import playBgm from "@/assets/audios/play.mp3";
 const sound = new Howl({
   src: playBgm,
 });
 
-import ready from '@/assets/audios/ready.mp3';
-import end from '@/assets/audios/end.mp3';
-import score from '@/assets/audios/score.mp3';
-import hp from '@/assets/audios/hp.mp3';
+import ready from "@/assets/audios/ready.mp3";
+import end from "@/assets/audios/end.mp3";
+import score from "@/assets/audios/score.mp3";
+import hp from "@/assets/audios/hp.mp3";
 
 const router = useRouter();
 const percent = ref(0);
@@ -98,7 +98,7 @@ const hpBgm = new Howl({
   src: hp,
 });
 
-const game = ref('');
+const game = ref("");
 
 const showLoadingMask = ref(true);
 const showCountdown = ref(false);
@@ -141,17 +141,17 @@ let Application = PIXI.Application,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
 
-const tipsArrowStyle = ref({})
-const tipsTextStyle= ref({})
+const tipsArrowStyle = ref({});
+const tipsTextStyle = ref({});
 function toGame() {
   // router.replace({ name: 'Game' });
   app.loader
-    .add(`badgeBg`, 'badge/组 40.png')
-    .add(`prizeBtn`, 'badge/组 41.png')
+    .add(`badgeBg`, "badge/组 40.png")
+    .add(`prizeBtn`, "badge/组 41.png")
 
-    .add(`badge1st`, 'badge/金徽章.png')
-    .add(`badge2st`, 'badge/银徽章.png')
-    .add(`badge3st`, 'badge/铜徽章.png')
+    .add(`badge1st`, "badge/金徽章.png")
+    .add(`badge2st`, "badge/银徽章.png")
+    .add(`badge3st`, "badge/铜徽章.png")
     .load(() => {
       render(app, resources);
       sound.play();
@@ -180,8 +180,8 @@ onMounted(() => {
     .add(`coin`, coinUrl)
     .add(`stone`, stoneUrl)
     .add(`prize`, prizeUrl)
-    .add(`outerBg`, 'game/k.png')
-    .add(`star`, 'game/x.png')
+    .add(`outerBg`, "game/k.png")
+    .add(`star`, "game/x.png")
 
     // .add(`preBg`, preBg)
     // .add(`badgeBg`, 'badge/组 40.png')
@@ -189,9 +189,10 @@ onMounted(() => {
     // .add(`badge1st`, 'badge/金徽章.png')
     // .add(`badge2st`, 'badge/银徽章.png')
     // .add(`badge3st`, 'badge/铜徽章.png')
-    .add(`tipArrow`, 'tips/arrow.png')
-    .add(`tipText`, 'tips/text.png')
-    .add('heart', heart)
+    .add('backBtn', 'rules/btn-back.png')
+    .add(`tipArrow`, "tips/arrow.png")
+    .add(`tipText`, "tips/text.png")
+    .add("heart", heart)
     .add(`info`, infoUrl);
 
   for (let i = 1; i <= horseCourt; i++) {
@@ -208,7 +209,6 @@ onMounted(() => {
   for (let i = 1; i <= enemyCount; i++) {
     app.loader.add(`blueEnemy${i}`, `/whiteHorse/enemy/db${i}.png`);
   }
-
 
   for (let i = 1; i <= 12; i++) {
     app.loader.add(`coin${i}`, `/coin/animation/bc${i}.png`);
@@ -238,6 +238,7 @@ function render(app, resources) {
   let state,
     gameScene,
     gameOverScene,
+    gameOverBg,
     message,
     bg,
     scoreText,
@@ -305,10 +306,10 @@ function render(app, resources) {
 
     bg.x = (contentX / 375) * canvasWidth;
     bg.y = (contentY / 667) * canvasHeight;
-    console.log('contentY/667*canvasHeight', (contentY / 667) * canvasHeight);
+    console.log("contentY/667*canvasHeight", (contentY / 667) * canvasHeight);
     // bg.width = canvasWidth - gap;
     const bgWidth = canvasWidth - (contentX / 375) * canvasWidth * 2;
-    const bgHeight = bgWidth/750*2415;
+    const bgHeight = (bgWidth / 750) * 2415;
     bg.width = bgWidth;
     console.log(
       canvasHeight - (70 / 667) * canvasHeight,
@@ -320,7 +321,7 @@ function render(app, resources) {
 
     bg.tileScale.set(
       (0.683 * (canvasWidth - (contentX / 375) * canvasWidth * 2)) / 355,
-      (0.683 * (canvasWidth - (contentX / 375) * canvasWidth * 2)) / 355,
+      (0.683 * (canvasWidth - (contentX / 375) * canvasWidth * 2)) / 355
 
       // (0.6 * (bgHeight / bgWidth)) / (597 / 355)
     ); // 355 为 375 宽度下的计算数值
@@ -407,7 +408,7 @@ function render(app, resources) {
     gameScene.addChild(heart3);
 
     // score info
-    scoreInfo = new Text(`${score}`, { fontSize: '24px', fill: '#d6ac5a' });
+    scoreInfo = new Text(`${score}`, { fontSize: "24px", fill: "#d6ac5a" });
     // scoreInfo.x = 350;
     scoreInfo.x = 0.39 * infoBar.width;
     // scoreInfo.x = (140 / 375) * canvasWidth;
@@ -427,16 +428,15 @@ function render(app, resources) {
     //   canvasHeight - tipArrow.height - 1.5 * gap
     // );
     // tipArrow.zIndex = 99;
-    
+
     // gameScene.addChild(tipArrow);
 
     tipsArrowStyle.value = {
       width: `${canvasWidth - contentX * 4}px`,
       left: `${(canvasWidth - tipArrow.width) / 2}px`,
       top: `${canvasHeight - tipArrow.height - 1.5 * gap}px`,
-      position:'absolute'
-    }
-
+      position: "absolute",
+    };
 
     let tipText = new Sprite(resources.tipText.texture);
     tipText.width = canvasWidth - (100 / 375) * canvasWidth;
@@ -452,35 +452,34 @@ function render(app, resources) {
       width: `${canvasWidth - (100 / 375) * canvasWidth}px`,
       left: `${(canvasWidth - tipText.width) / 2}px`,
       top: `${canvasHeight - tipText.height - (30 / 667) * canvasHeight}px`,
-      position:'absolute'
-    }
+      position: "absolute",
+    };
 
-
-    const name = selected.value === 0? `blueHorse`:`whiteHorse`;
+    const name = selected.value === 0 ? `blueHorse` : `whiteHorse`;
     runningHorse = new AnimatedSprite(
       new Array(horseCourt).fill(0).map((_item, i) => {
         return resources[`${name}${i + 1}`].texture;
       })
     );
-    runningHorse.width = 85/375*canvasWidth; //自己的车宽度
-    runningHorse.height = 362/133*85/375*canvasWidth; //高度
+    runningHorse.width = (85 / 375) * canvasWidth; //自己的车宽度
+    runningHorse.height = (((362 / 133) * 85) / 375) * canvasWidth; //高度
     runningHorse.vy = 0; //y轴加速度
     runningHorse.vx = 0; //x轴加速度
     runningHorse.invl = 0; //初始化无敌时间
 
     runningHorse.position.set(
-      (canvasWidth - runningHorse.width) / 2 + 0.02*canvasWidth,
+      (canvasWidth - runningHorse.width) / 2 + 0.02 * canvasWidth,
       canvasHeight - runningHorse.height - gap / 2
     ); //自己的车的初始位置
 
     runningHorse.animationSpeed = 0.3;
 
-    runningHorse.on('touchstart', (event) => {
+    runningHorse.on("touchstart", (event) => {
       dragFlag = true;
       startPoint = { x: event.data.global.x, y: event.data.global.y };
     });
 
-    runningHorse.on('touchmove', (event) => {
+    runningHorse.on("touchmove", (event) => {
       if (dragFlag) {
         const dx = event.data.global.x - startPoint.x;
         // const dy = event.data.global.y - startPoint.y;
@@ -490,7 +489,7 @@ function render(app, resources) {
       }
     });
 
-    runningHorse.on('touchend', (event) => {
+    runningHorse.on("touchend", (event) => {
       dragFlag = false;
     });
 
@@ -503,6 +502,7 @@ function render(app, resources) {
     app.stage.addChild(gameOverScene);
 
     gameOverScene.x = canvasWidth * 0.13;
+    // 这是他所在的y + 他的高度 就是 -
     gameOverScene.y = canvasHeight * 0.18;
     gameOverScene.width = canvasWidth - canvasWidth * 0.13 * 2;
     // gameOverScene.width = canvasWidth;
@@ -511,7 +511,7 @@ function render(app, resources) {
     gameOverScene.height =
       (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2);
 
-    const gameOverBg = new Sprite(resources.badgeBg.texture);
+     gameOverBg = new Sprite(resources.badgeBg.texture);
     gameOverBg.width = canvasWidth - canvasWidth * 0.13 * 2;
     gameOverBg.height = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2);
     gameOverScene.addChild(gameOverBg);
@@ -522,8 +522,8 @@ function render(app, resources) {
     // //设置一个默认字体
     let style = new TextStyle({
       wordWrap: true,
-      align: 'center',
-      fill: '#d6ac5a',
+      align: "center",
+      fill: "#d6ac5a",
       fontSize: 30,
     });
     message = new Text(`得分`, style);
@@ -540,8 +540,8 @@ function render(app, resources) {
       ``,
       new TextStyle({
         wordWrap: true,
-        align: 'center',
-        fill: '#d6ac5a',
+        align: "center",
+        fill: "#d6ac5a",
         fontSize: 50,
       })
     );
@@ -554,19 +554,9 @@ function render(app, resources) {
     //字体中心点用于居中
     scoreText.anchor.set(0.5, 0.5);
     gameOverScene.addChild(scoreText);
-
-    let prizeBtn = new Sprite(resources.prizeBtn.texture);
-    prizeBtn.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.78;
-    prizeBtn.width = 150;
-    prizeBtn.height = 60;
-
-    prizeBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
-    prizeBtn.interactive = true;
-    prizeBtn.on('touchend', () => {
-      router.replace({ name: 'Poster' });
-    });
-
-    gameOverScene.addChild(prizeBtn);
+   
+      
+    
 
     const badgeY = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.08;
     const badgeX = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 100;
@@ -625,17 +615,17 @@ function render(app, resources) {
     //设置敌人
     //根据最大 blob 数生成：理论上 1 人 2 石 3 奖 4 金币
     const blobsArr = [
-      'coin',
-      'stone',
-      'coin',
-      'prize',
-      'coin',
-      'prize',
-      'coin',
-      'prize',
-      'coin',
-      'enemy',
-      'coin',
+      "coin",
+      "stone",
+      "coin",
+      "prize",
+      "coin",
+      "prize",
+      "coin",
+      "prize",
+      "coin",
+      "enemy",
+      "coin",
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
       const randomBlob =
@@ -650,15 +640,14 @@ function render(app, resources) {
       //         })
       //       )
       //     : new Sprite(resources[randomBlob].texture);
-      if(  randomBlob === `enemy`) {
-        const name = selected.value === 0? `whiteEnemy` : `blueEnemy`;
+      if (randomBlob === `enemy`) {
+        const name = selected.value === 0 ? `whiteEnemy` : `blueEnemy`;
         blob = new AnimatedSprite(
-            new Array(enemyCount).fill(0).map((_item, i) => {
-              return resources[`${name}${i + 1}`].texture;
-            })
-          )
-      }
-      else if (randomBlob === 'coin') {
+          new Array(enemyCount).fill(0).map((_item, i) => {
+            return resources[`${name}${i + 1}`].texture;
+          })
+        );
+      } else if (randomBlob === "coin") {
         blob = new AnimatedSprite(
           new Array(11).fill(0).map((_item, i) => {
             return resources[`coin${i + 1}`].texture;
@@ -666,9 +655,7 @@ function render(app, resources) {
         );
         blob.animationSpeed = 1.25;
         blob.loop = false;
-      }
-
-      else if (randomBlob === 'prize') {
+      } else if (randomBlob === "prize") {
         blob = new AnimatedSprite([
           resources[`prize`].texture,
           ...new Array(9).fill(0).map((_item, i) => {
@@ -678,24 +665,22 @@ function render(app, resources) {
         blob.animationSpeed = 1.25;
         blob.loop = false;
         blob.height = (blobWidth / 300) * 400;
-      }
-
-      else {
+      } else {
         blob = new Sprite(resources[randomBlob].texture);
       }
 
       blob.width = blobWidth;
-      if (randomBlob === 'stone') {
+      if (randomBlob === "stone") {
         blob.height = (blobWidth / 238) * 120;
       }
-      if (randomBlob === 'coin') {
+      if (randomBlob === "coin") {
         blob.height = (blobWidth / 230) * 231;
       }
 
-      if (randomBlob === 'enemy') {
+      if (randomBlob === "enemy") {
         blob.width = blobWidth;
 
-        blob.height = 592/228*blobWidth;
+        blob.height = (592 / 228) * blobWidth;
         blob.animationSpeed = 0.2;
         blob.loop = true;
         blob.gotoAndPlay(0);
@@ -794,7 +779,7 @@ function render(app, resources) {
     }
     //如果发生碰撞且在无敌时间之外
     if (explorerHit && runningHorse.invl === 0) {
-      if (['coin'].includes(lastHit.url) && shouldAddScore) {
+      if (["coin"].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.onComplete = () => {
           lastHit.blob.visible = false;
         };
@@ -802,7 +787,7 @@ function render(app, resources) {
         lastHit.blob.gotoAndPlay(0);
         scoreBgm.play();
         score += 5;
-      } else if (['prize'].includes(lastHit.url) && shouldAddScore) {
+      } else if (["prize"].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.onComplete = () => {
           // console.log(`prize hitted`)
           lastHit.blob.visible = false;
@@ -812,7 +797,7 @@ function render(app, resources) {
 
         scoreBgm.play();
         score += 20;
-      } else if (['stone'].includes(lastHit.url) && shouldAddScore) {
+      } else if (["stone"].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.visible = false;
 
         // mycarSprite.texture = resources["img/boom.png"].texture;
@@ -823,7 +808,7 @@ function render(app, resources) {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-      } else if ( [`enemy`, ].includes(lastHit.url) && shouldAddScore) {
+      } else if ([`enemy`].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.visible = false;
 
         runningHorse.alpha = 0.3;
@@ -953,7 +938,10 @@ function render(app, resources) {
 
     if (hit && r2.texture.textureCacheIds.length) {
       let id;
-      if (r2.texture.textureCacheIds[0].includes(`whiteEnemy`) || r2.texture.textureCacheIds[0].includes(`blueEnemy`)) {
+      if (
+        r2.texture.textureCacheIds[0].includes(`whiteEnemy`) ||
+        r2.texture.textureCacheIds[0].includes(`blueEnemy`)
+      ) {
         id = `enemy`;
       } else if (r2.texture.textureCacheIds[0].includes(`coin`)) {
         id = `coin`;
@@ -977,17 +965,88 @@ function render(app, resources) {
   }
   //游戏结束显示游戏结束场景，隐藏游戏场景
   function endGame() {
+    const keyValue = localStorage.getItem("keyValue");
+
     if (score > 600) {
       goldBadge.visible = true;
-      localStorage.setItem('keyValue', 'gold')
+      if (keyValue !== "gold") {
+        localStorage.setItem("keyValue", "gold");
+        genEndGame(false)
+      }else {
+        genEndGame(true)
+      }
     } else if (score >= 300 && score <= 600) {
-      localStorage.setItem('keyValue', 'silver')
+      if (keyValue !== "gold") {
+        localStorage.setItem("keyValue", "silver");
+        genEndGame(false)
+      }else {
+        genEndGame(true)
+      }
       silverBadge.visible = true;
     } else {
-      localStorage.setItem('keyValue', 'cu')
+      if (!["gold", "silver"].includes(keyValue)) {
+        localStorage.setItem("keyValue", "cu");
+        genEndGame(false)
+      }else {
+        genEndGame(true)
+      }
       cuBadge.visible = true;
     }
     gameOverScene.visible = true;
+  }
+   function genEndGame(isAlready=false) {
+    // console.log('触发对应的规则', isAlready)
+    if(isAlready) {
+      // 已经获取到对应的勋章了
+      let backBtn = new Sprite(resources.backBtn.texture)
+      backBtn.y = gameOverBg.height - 60/2;
+      backBtn.width = 150; 
+      backBtn.height = 60;
+      backBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
+      backBtn.interactive = true;
+      backBtn.on("touchend", () => {
+        router.push({
+          name: "Home",
+          query: {
+            score,
+          },
+        });
+      });
+     let style = new TextStyle({
+      wordWrap: true,
+      align: "center",
+      fill: "white",
+      fontSize: 12,
+    });
+    let tip = new Text(`你已领取或获得了更高的奖牌`, style);
+    tip.width = 158;
+
+    tip.y = gameOverBg.height  * 0.8;
+    tip.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2;
+    //字体中心点用于居中
+    tip.anchor.set(0.5, 0.5);
+    gameOverScene.addChild(tip)
+    gameOverScene.addChild(backBtn);
+
+    }else{
+      // 未获取直接渲染跳转逻辑
+      let prizeBtn = new Sprite(resources.prizeBtn.texture);
+      prizeBtn.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.78;
+      prizeBtn.width = 150;
+      prizeBtn.height = 60;
+
+      prizeBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
+      prizeBtn.interactive = true;
+      prizeBtn.on("touchend", () => {
+        router.push({
+          name: "Poster",
+          query: {
+            score,
+          },
+        });
+      });
+      gameOverScene.addChild(prizeBtn);
+    }
   }
 }
 </script>
@@ -1029,38 +1088,38 @@ function render(app, resources) {
 @keyframes countdown {
   0% {
     transform: scale(1);
-    background-image: url('public/game/3.png');
+    background-image: url("public/game/3.png");
   }
 
   16% {
     transform: scale(1.2);
-    background-image: url('public/game/3.png');
+    background-image: url("public/game/3.png");
   }
 
   32% {
     transform: scale(1);
-    background-image: url('public/game/2.png');
+    background-image: url("public/game/2.png");
   }
   48% {
     transform: scale(1.2);
-    background-image: url('public/game/2.png');
+    background-image: url("public/game/2.png");
   }
   64% {
     transform: scale(0.7);
-    background-image: url('public/game/1.png');
+    background-image: url("public/game/1.png");
   }
   80% {
-    background-image: url('public/game/1.png');
+    background-image: url("public/game/1.png");
     transform: scale(0.9);
   }
 
   90% {
     transform: scale(2.2);
-    background-image: url('public/game/go.png');
+    background-image: url("public/game/go.png");
   }
   100% {
     transform: scale(2.5);
-    background-image: url('public/game/go.png');
+    background-image: url("public/game/go.png");
   }
 }
 
@@ -1071,7 +1130,7 @@ function render(app, resources) {
   left: 0;
   right: 0;
   z-index: 998;
-  background-image: url('public/rules/bg.jpg');
+  background-image: url("public/rules/bg.jpg");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -1149,7 +1208,7 @@ function render(app, resources) {
 
 @keyframes runninghorse {
   0% {
-    background-image: url('/loading/mp1.png');
+    background-image: url("/loading/mp1.png");
   }
   /* 
   5% {
@@ -1157,14 +1216,14 @@ function render(app, resources) {
   } */
 
   10% {
-    background-image: url('/loading/mp3.png');
+    background-image: url("/loading/mp3.png");
   }
 
   /* 15% {
     background-image: url('/loading/mp4.png');
   } */
   20% {
-    background-image: url('/loading/mp5.png');
+    background-image: url("/loading/mp5.png");
   }
 
   /* 25% {
@@ -1172,40 +1231,40 @@ function render(app, resources) {
   } */
 
   30% {
-    background-image: url('/loading/mp7.png');
+    background-image: url("/loading/mp7.png");
   }
 
   /* 35% {
     background-image: url('/loading/mp8.png');
   } */
   40% {
-    background-image: url('/loading/mp9.png');
+    background-image: url("/loading/mp9.png");
   }
   /* 
   45% {
     background-image: url('/loading/mp10.png');
   } */
   50% {
-    background-image: url('/loading/mp11.png');
+    background-image: url("/loading/mp11.png");
   }
   60% {
-    background-image: url('/loading/mp12.png');
+    background-image: url("/loading/mp12.png");
   }
 
   70% {
-    background-image: url('/loading/mp14.png');
+    background-image: url("/loading/mp14.png");
   }
 
   80% {
-    background-image: url('/loading/mp16.png');
+    background-image: url("/loading/mp16.png");
   }
 
   90% {
-    background-image: url('/loading/mp18.png');
+    background-image: url("/loading/mp18.png");
   }
 
   100% {
-    background-image: url('/loading/mp20.png');
+    background-image: url("/loading/mp20.png");
   }
 }
 </style>

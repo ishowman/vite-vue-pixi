@@ -279,8 +279,15 @@ const JJ_MAP = ref({
 })
 watch(()=> router.currentRoute.value.path, ()=>{
     modalStatus.value = true;
-    KEY.value = window.localStorage.getItem('keyValue') || 'cu'
-   
+    console.log(router.currentRoute._value.query.score)
+    let score = router.currentRoute._value.query.score
+     if (score > 600) {
+      KEY.value = 'gold'
+    } else if (score >= 300 && score <= 600) {
+      KEY.value = 'silver'
+    } else {
+      KEY.value = 'cu'
+    }
 },{immediate: true})
 onMounted(() => {
 
