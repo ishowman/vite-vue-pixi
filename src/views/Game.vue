@@ -234,7 +234,7 @@ function render(app, resources) {
   let startPoint = {};
   let hitRecords = [];
   let lastHit = {};
-  let initalSpeed = 5;
+  let initalSpeed = 3;
   let speed = initalSpeed;
 
   const gap = 50;
@@ -749,12 +749,10 @@ function render(app, resources) {
     //背景移动
     bg.tilePosition.y += bgSpeed;
     bgSpeed += 0.05;
-    if (bgSpeed >= 15) bgSpeed = 15;
+    if (bgSpeed >= 12) bgSpeed = 12;
 
-    speed += 0.1;
-    // if (speed >= 10) speed = 10;
-    if (speed >= 6) speed = 6;
-
+    speed += 0.02;
+    if (speed >= 9) speed = 9;
 
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
