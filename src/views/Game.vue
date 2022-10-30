@@ -498,6 +498,11 @@ function render(app, resources) {
       dragFlag = false;
     });
 
+    // runningHorse.on("tap", (event) => {
+    //   play()
+    // });
+
+
     gameScene.addChild(runningHorse);
     showCountdown.value = true;
     readyBgm.play();
@@ -729,7 +734,7 @@ function render(app, resources) {
   //检查生成的地方车辆是否有重叠
   function checkEMCarPositionHit(blob) {
     for (var i = 0; i < blobs.length; i++) {
-      if (hitTestRectangle(blob, blobs[i], { x: 0, y: 200 })) {
+      if (hitTestRectangle(blob, blobs[i], { x: 0, y: 200, updateLast: false })) {
         return true;
         break;
       }
@@ -747,7 +752,9 @@ function render(app, resources) {
     if (bgSpeed >= 15) bgSpeed = 15;
 
     speed += 0.1;
-    if (speed >= 10) speed = 10;
+    // if (speed >= 10) speed = 10;
+    if (speed >= 6) speed = 6;
+
 
     if (runningHorse.invl > 0) {
       runningHorse.invl--;
@@ -897,8 +904,8 @@ function render(app, resources) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   //碰撞检测
-  function hitTestRectangle(r1, r2, option = { x: 0, y: 0 }) {
-    const { x = 0, y = 0 } = option;
+  function hitTestRectangle(r1, r2, option = { x: 0, y: 0, updateLast: true }) {
+    const { x = 0, y = 0, updateLast } = option;
 
     //设置需要的变量
     let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
@@ -940,7 +947,6 @@ function render(app, resources) {
       //x轴没有碰撞
       hit = false;
     }
-
     if (hit && r2.texture.textureCacheIds.length) {
       let id;
       if (
@@ -956,13 +962,17 @@ function render(app, resources) {
         id = r2.texture.textureCacheIds[0];
       }
 
-      shouldAddScore = !(r2.ts === lastHit.ts && lastHit.url === id);
+      if(updateLast) {
+        shouldAddScore = !(r2.ts === lastHit.ts && lastHit.url === id);
 
-      lastHit = {
-        url: id,
-        ts: r2.ts,
-        blob: r2,
-      };
+        lastHit = {
+          url: id,
+          ts: r2.ts,
+          blob: r2,
+        };
+
+      }
+
     }
 
     //是否碰撞
