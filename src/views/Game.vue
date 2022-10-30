@@ -1012,10 +1012,11 @@ function render(app, resources) {
     if(isAlready) {
       // 已经获取到对应的勋章了
       let backBtn = new Sprite(resources.backBtn.texture)
-      backBtn.y = gameOverBg.height - 60/2;
-      backBtn.width = 150; 
-      backBtn.height = 60;
+      backBtn.width = 150/375*canvasWidth; 
+      backBtn.height = 60/667*canvasHeight;
       backBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
+      backBtn.y = gameOverBg.height - 1.1*backBtn.height;
+
       backBtn.interactive = true;
       backBtn.on("touchend", () => {
         router.push({
