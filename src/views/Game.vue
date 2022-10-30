@@ -73,9 +73,9 @@ import stoneUrl from "@/assets/img/stone.png";
 import prizeUrl from "@/assets/img/prize.png";
 import heart from "@/assets/img/heart.png";
 // audio
-import playBgm from "@/assets/audios/play.mp3";
+import btnBgm from "@/assets/audios/play.mp3";
 const sound = new Howl({
-  src: playBgm,
+  src: btnBgm,
 });
 
 import ready from "@/assets/audios/ready.mp3";
@@ -127,6 +127,9 @@ onBeforeUnmount(() => {
   if (timerId.value) {
     clearInterval(timerId.value);
     clearTimeout(timerId.value);
+  }
+  if(app) {
+    app.destroy(true)
   }
 });
 
@@ -1019,7 +1022,8 @@ function render(app, resources) {
 
       backBtn.interactive = true;
       backBtn.on("touchend", () => {
-        router.push({
+        sound.play();
+        router.replace({
           name: "Home",
           query: {
             score,
@@ -1052,7 +1056,9 @@ function render(app, resources) {
       prizeBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
       prizeBtn.interactive = true;
       prizeBtn.on("touchend", () => {
-        router.push({
+        sound.play();
+
+        router.replace({
           name: "Poster",
           query: {
             score,
