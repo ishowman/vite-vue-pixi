@@ -1,5 +1,5 @@
 <template>
-  <div ref="game"></div>
+  <div ref="game" ></div>
   <div class="countdown-mask" v-if="showCountdown">
     <div class="countdown-pic"></div>
     <img src="/tips/arrow.png" :style="tipsArrowStyle" />
@@ -167,11 +167,16 @@ onMounted(() => {
   app = new Application({
     width: canvasWidth,
     height: canvasHeight,
-    antialiasing: true,
+    // antialiasing: true,
+    antialias: true,
     // transparent: false,
-    // resolution: 1
+    resolution: 2, // 接近锯齿问题
     forceCanvas: true,
+    autoResize: true
   });
+  app.renderer.autoDensity = true;
+  app.renderer.resize(canvasWidth, canvasHeight);
+
   game.value.appendChild(app.view);
 
   //加载素材图片
