@@ -857,7 +857,7 @@ function render(app, resources) {
       gameScene.addChildAt(silverAnimation, 1);
       setTimeout(() => {
         silverAnimation.visible = false
-        gameScene.removeChildAt(1)
+        // gameScene.removeChildAt(1)
 
       }, 1200)
     }
