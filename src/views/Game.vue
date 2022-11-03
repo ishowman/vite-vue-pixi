@@ -110,6 +110,9 @@ const enemyCount = 10;
 const horseCourt = 20;
 const blobCount = ref(0);
 const timerId = ref(0);
+const cuScore = 900;
+const silverScore = 1800;
+const goldScore = 3600;
 timerId.value = setInterval(() => {
   percent.value += 4;
   if (percent.value >= 96) {
@@ -355,6 +358,7 @@ function render(app, resources) {
     scoreAnimation.x = badgeAnimationSize.x; 
     scoreAnimation.y = badgeAnimationSize.y;
     scoreAnimation.loop = true;
+    scoreAnimation.visible = false;
     scoreAnimation.gotoAndPlay(0);
     scoreAnimation.zIndex = 99;
     gameScene.addChildAt(scoreAnimation, 1);
@@ -364,6 +368,7 @@ function render(app, resources) {
     bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height/2;
     bigScore.anchor.set(0.5, 0.5);
     bigScore.zIndex = 100;
+    bigScore.visible = false;
     gameScene.addChild(bigScore);
 
 
@@ -849,28 +854,22 @@ function render(app, resources) {
       runningHorse.invl = 3; //设置无敌时间
     }
 
-
     if(score>= scoreRate + 300) {
-      // goldAnimation = new AnimatedSprite(
-      //   new Array(11).fill(0).map((_item, i) => {
-      //     return resources[`gold${i + 1}`].texture;
-      //   })
-      // );
-      // goldAnimation.width = badgeAnimationSize.width; 
-      // goldAnimation.height = badgeAnimationSize.height; 
-      // goldAnimation.x = badgeAnimationSize.x; 
-      // goldAnimation.y = badgeAnimationSize.y;
-      // goldAnimation.loop = true;
-      // goldAnimation.gotoAndPlay(0);
-      // gameScene.addChildAt(goldAnimation, 1);
-      // setTimeout(() => {
-      //   goldAnimation.visible = false;
-      //   // gameScene.removeChildAt(1)
-      // }, 1200)
+      const shouldNotShow = ( score >= cuScore&& score<=cuScore+20) || (score >= silverScore && score<=silverScore+20) || (score >= goldScore && score<=goldScore+20 )
+      if(!shouldNotShow) {
+        scoreAnimation.visible = true
+        bigScore.visible = true
+        bigScore.text = Math.floor(score/100)*100
+        setTimeout(() => {
+          scoreAnimation.visible = false
+          bigScore.visible = false
+        }, 1200)
+      }
+      scoreRate += 300;
 
     }
 
-    if(score>=3600 && !goldAnimation) {
+    if(score>=goldScore && !goldAnimation) {
       goldAnimation = new AnimatedSprite(
         new Array(11).fill(0).map((_item, i) => {
           return resources[`gold${i + 1}`].texture;
@@ -888,7 +887,7 @@ function render(app, resources) {
         // gameScene.removeChildAt(1)
       }, 1200)
     }
-    if(score>=1800 && !silverAnimation) {
+    if(score>=silverScore && !silverAnimation) {
       silverAnimation = new AnimatedSprite(
         new Array(11).fill(0).map((_item, i) => {
           return resources[`silver${i + 1}`].texture;
@@ -903,12 +902,10 @@ function render(app, resources) {
       gameScene.addChildAt(silverAnimation, 1);
       setTimeout(() => {
         silverAnimation.visible = false
-        // gameScene.removeChildAt(1)
-
       }, 1200)
     }
 
-    if(score>=900 && !cuAnimation) {
+    if(score>=cuScore && !cuAnimation) {
       cuAnimation = new AnimatedSprite(
         new Array(11).fill(0).map((_item, i) => {
           return resources[`cu${i + 1}`].texture;
@@ -927,9 +924,8 @@ function render(app, resources) {
 
       }, 1200)
     }
-
-
   }
+  
   //移除已经行驶到画布外围的敌方车辆
   function removeEmCar() {
     for (var i = 0; i < blobs.length; i++) {
