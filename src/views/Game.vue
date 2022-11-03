@@ -983,7 +983,7 @@ function render(app, resources) {
   function endGame() {
     const keyValue = localStorage.getItem("keyValue");
 
-    if (score > 600) {
+    if (score > 3600) {
       goldBadge.visible = true;
       if (keyValue !== "gold") {
         localStorage.setItem("keyValue", "gold");
@@ -991,7 +991,7 @@ function render(app, resources) {
       }else {
         genEndGame(true)
       }
-    } else if (score >= 300 && score <= 600) {
+    } else if (score >= 1800 && score <= 3600) {
       if (keyValue !== "gold") {
         localStorage.setItem("keyValue", "silver");
         genEndGame(false)
@@ -1018,7 +1018,8 @@ function render(app, resources) {
       backBtn.width = 150/375*canvasWidth; 
       backBtn.height = 60/667*canvasHeight;
       backBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
-      backBtn.y = gameOverBg.height - 1.1*backBtn.height;
+      // backBtn.y = gameOverBg.height - 1.1*backBtn.height;
+      backBtn.y = gameOverBg.height  * 0.85
 
       backBtn.interactive = true;
       backBtn.on("touchend", () => {
@@ -1030,20 +1031,20 @@ function render(app, resources) {
           },
         });
       });
-     let style = new TextStyle({
-      wordWrap: true,
-      align: "center",
-      fill: "white",
-      fontSize: 12,
-    });
-    let tip = new Text(`你已领取或获得了更高的奖牌`, style);
-    tip.width = 158;
+    //  let style = new TextStyle({
+    //   wordWrap: true,
+    //   align: "center",
+    //   fill: "white",
+    //   fontSize: 12,
+    // });
+    // let tip = new Text(`你已领取或获得了更高的奖牌`, style);
+    // tip.width = 158;
 
-    tip.y = gameOverBg.height  * 0.8;
-    tip.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2;
-    //字体中心点用于居中
-    tip.anchor.set(0.5, 0.5);
-    gameOverScene.addChild(tip)
+    // tip.y = gameOverBg.height  * 0.8;
+    // tip.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2;
+    // //字体中心点用于居中
+    // tip.anchor.set(0.5, 0.5);
+    // gameOverScene.addChild(tip)
     gameOverScene.addChild(backBtn);
 
     }else{
