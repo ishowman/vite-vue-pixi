@@ -95,18 +95,7 @@
         top: sc.h * 0.14 + 'px',
       }"
     >
-      <img
-        src="/poster/poaster.png"
-        :style="{
-          width: sc.w * 0.5811 + 'px',
-          height: sc.h * 0.5805 + 'px',
-          zIndex: 10,
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          margin: 'auto',
-        }"
-      />
+    
       <!-- 这里是变量 金 银 铜 -->
       <img
         :src="JJ_MAP[KEY].poster"
