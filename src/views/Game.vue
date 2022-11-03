@@ -144,7 +144,7 @@ let Application = PIXI.Application,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
 
-let goldAnimation, silverAnimation, cuAnimation, badgeAnimationSize,scoreAnimation, scoreRate = 300;
+let goldAnimation, silverAnimation, cuAnimation, badgeAnimationSize,scoreAnimation, bigScore, scoreRate = 300;
 const tipsArrowStyle = ref({});
 const tipsTextStyle = ref({});
 function toGame() {
@@ -359,7 +359,7 @@ function render(app, resources) {
     scoreAnimation.zIndex = 99;
     gameScene.addChildAt(scoreAnimation, 1);
 
-    let bigScore = new Text(`100`, { fontSize: "24px", fill: "#fff", align: 'center', fontWeight: 600 });
+    bigScore = new Text(`100`, { fontSize: "24px", fill: "#fff", align: 'center', fontWeight: 600 });
     bigScore.x = badgeAnimationSize.x + badgeAnimationSize.width/2 + 6;
     bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height/2;
     bigScore.anchor.set(0.5, 0.5);
