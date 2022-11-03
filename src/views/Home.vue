@@ -39,7 +39,7 @@ const bgmMusic = new Howl({
 function play() {
   sound.play();
   bgmMusic.play()
-  router.replace({ name: 'Game' });
+  router.replace({ name: 'Rule' });
 }
 
 function toPrize() {
