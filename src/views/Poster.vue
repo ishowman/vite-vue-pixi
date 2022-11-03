@@ -95,7 +95,6 @@
         top: sc.h * 0.14 + 'px',
       }"
     >
-    
       <!-- 这里是变量 金 银 铜 -->
       <img
         :src="JJ_MAP[KEY].poster"
