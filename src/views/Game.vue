@@ -144,7 +144,7 @@ let Application = PIXI.Application,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
 
-let goldAnimation, silverAnimation, cuAnimation;
+let goldAnimation, silverAnimation, cuAnimation, badgeAnimationSize,scoreAnimation, scoreRate = 300;
 const tipsArrowStyle = ref({});
 const tipsTextStyle = ref({});
 function toGame() {
@@ -166,6 +166,14 @@ function toGame() {
 onMounted(() => {
   canvasWidth = window.innerWidth;
   canvasHeight = window.innerHeight;
+
+  badgeAnimationSize = {
+      width: 0.6 * canvasWidth,
+      height: 0.6 * canvasWidth/600*340,
+      x: canvasWidth*0.2,
+      y: 85/667*canvasHeight
+    }
+
 
   //创建一个pixi应用
   app = new Application({
@@ -232,6 +240,9 @@ onMounted(() => {
     app.loader.add(`cu${i}`, `/game/cu/${i}.png`);
   }
 
+  for (let i = 1; i <= 12; i++) {
+    app.loader.add(`score${i}`, `/game/score/${i}.png`);
+  }
 
   app.loader.load((_loader, _resources) => {
     resources = _resources;
@@ -333,6 +344,27 @@ function render(app, resources) {
     infoBar.zIndex = 99;
 
     gameScene.addChild(infoBar);
+
+    scoreAnimation = new AnimatedSprite(
+      new Array(11).fill(0).map((_item, i) => {
+        return resources[`score${i + 1}`].texture;
+      })
+    );
+    scoreAnimation.width = badgeAnimationSize.width; 
+    scoreAnimation.height = badgeAnimationSize.height; 
+    scoreAnimation.x = badgeAnimationSize.x; 
+    scoreAnimation.y = badgeAnimationSize.y;
+    scoreAnimation.loop = true;
+    scoreAnimation.gotoAndPlay(0);
+    scoreAnimation.zIndex = 99;
+    gameScene.addChildAt(scoreAnimation, 1);
+
+    let bigScore = new Text(`100`, { fontSize: "24px", fill: "#fff", align: 'center', fontWeight: 600 });
+    bigScore.x = badgeAnimationSize.x + badgeAnimationSize.width/2 + 6;
+    bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height/2;
+    bigScore.anchor.set(0.5, 0.5);
+    bigScore.zIndex = 100;
+    gameScene.addChild(bigScore);
 
 
     const heartSize = {
@@ -817,11 +849,25 @@ function render(app, resources) {
       runningHorse.invl = 3; //设置无敌时间
     }
 
-    const badgeAnimationSize = {
-      width: 0.6 * canvasWidth,
-      height: 0.6 * canvasWidth/600*340,
-      x: canvasWidth*0.2,
-      y: 85/667*canvasHeight
+
+    if(score>= scoreRate + 300) {
+      // goldAnimation = new AnimatedSprite(
+      //   new Array(11).fill(0).map((_item, i) => {
+      //     return resources[`gold${i + 1}`].texture;
+      //   })
+      // );
+      // goldAnimation.width = badgeAnimationSize.width; 
+      // goldAnimation.height = badgeAnimationSize.height; 
+      // goldAnimation.x = badgeAnimationSize.x; 
+      // goldAnimation.y = badgeAnimationSize.y;
+      // goldAnimation.loop = true;
+      // goldAnimation.gotoAndPlay(0);
+      // gameScene.addChildAt(goldAnimation, 1);
+      // setTimeout(() => {
+      //   goldAnimation.visible = false;
+      //   // gameScene.removeChildAt(1)
+      // }, 1200)
+
     }
 
     if(score>=3600 && !goldAnimation) {
@@ -893,7 +939,7 @@ function render(app, resources) {
         blobs.splice(i, 1);
         //从场景删除: gameScene 调用 addChild 后记得更改这里的值
         let badgeAnimationCount = [goldAnimation, silverAnimation, cuAnimation].filter(item => item);
-        gameScene.removeChildAt(i + 2+badgeAnimationCount.length);
+        gameScene.removeChildAt(i + 2 +badgeAnimationCount.length);
         // console.log('children', gameScene.children)
       }
     }
