@@ -147,7 +147,7 @@ let Application = PIXI.Application,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
 
-let goldAnimation, silverAnimation, cuAnimation, badgeAnimationSize,scoreAnimation, bigScore, scoreRate = 300;
+let goldAnimation, silverAnimation, cuAnimation, badgeAnimationSize,scoreAnimation, bigScore, scoreRate = 0;
 const tipsArrowStyle = ref({});
 const tipsTextStyle = ref({});
 function toGame() {
