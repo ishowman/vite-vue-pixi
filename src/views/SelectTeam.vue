@@ -22,13 +22,13 @@
 
       <div style="margin: 0 auto" class="grid team-list">
         <img
-          :src="selected === 0 ? 'public/team/choose-blue.png': 'public/team/blue.png'"
+          :src="selected === 0 ? '/team/choose-blue.png': '/team/blue.png'"
           alt="蓝队"
           class="team-role"
           @click="selected = 0"
         />
         <img
-          :src="selected === 1 ? 'public/team/choose-white.png': 'public/team/white.png'"
+          :src="selected === 1 ? '/team/choose-white.png': '/team/white.png'"
           alt="白队"
           class="team-role"
           @click="selected = 1"
