@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "howler": "^2.2.3",
+    "vant": "^3.6.4",
     "vue": "^3.2.40"
   },
   "devDependencies": {

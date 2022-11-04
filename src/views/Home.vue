@@ -18,12 +18,8 @@
       <img class="input-name-bg" :src="inputNameBg" />
 
       <div class="input-name-title">请填写你的姓名</div>
-      <input type="text" class="input-name-input" v-model="inputName"/>
-      <img
-        :src="submit"
-        class="input-submit"
-        @click="startGame"
-      />
+      <input type="text" class="input-name-input" v-model="inputName" />
+      <img :src="submit" class="input-submit" @click="startGame" />
       <div class="mask" v-if="modelShow"></div>
     </div>
   </div>
@@ -35,7 +31,7 @@ import { Howl } from "howler";
 import playBgm from "@/assets/audios/play.mp3";
 import bgm from "@/assets/audios/bgm.mp3";
 import { ref } from "vue";
-
+import { Toast } from "vant";
 import playBtn from "@/assets/index/play-btn.png";
 import prizeBtn from "@/assets/index/prize-btn.png";
 import ruleBtn from "@/assets/index/rule-btn.png";
@@ -44,7 +40,7 @@ import input from "@/assets/index/input.png";
 import submit from "@/assets/index/submit.png";
 const router = useRouter();
 let modelShow = ref(false);
-let inputName = ref('')
+let inputName = ref("");
 const sound = new Howl({
   src: playBgm,
 });
@@ -60,10 +56,17 @@ function play() {
   modelShow.value = true;
 }
 function startGame() {
-  
-  if(inputName.value){
+  if (!inputName.value) {
+    // 弹出toast
+    Toast({
+      message: "请输入姓名",
+      position: "top",
+    });
+    return;
+  }
+  if (inputName.value) {
     sound.play();
-    router.replace({ name: 'Game' })
+    router.replace({ name: "Game" });
   }
 }
 function toPrize() {
