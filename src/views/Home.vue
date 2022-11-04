@@ -88,6 +88,11 @@ function toRule() {
   background-repeat: no-repeat;
   position: relative;
 }
+#full-page{
+  position: fixed;
+  left:0;
+  top:0;
+}
 .play-btn {
   position: absolute;
   bottom: 15%;
