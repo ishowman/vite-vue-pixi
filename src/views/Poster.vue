@@ -178,13 +178,12 @@ const JJ_MAP = ref({
   }
 })
 watch(()=> router.currentRoute.value.path, ()=>{
-  console.log('modalStatus', modalStatus)
     modalStatus.value = true;
     console.log(router.currentRoute._value.query.score)
     let score = router.currentRoute._value.query.score
-     if (score > 600) {
+     if (score >= 3600) {
       KEY.value = 'gold'
-    } else if (score >= 300 && score <= 600) {
+    } else if (score >= 1800 && score < 3600) {
       KEY.value = 'silver'
     } else {
       KEY.value = 'cu'
