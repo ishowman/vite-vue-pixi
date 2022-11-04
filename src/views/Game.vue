@@ -38,19 +38,17 @@
         <p class="text-center">支持的队伍</p>
       </div>
 
-      <div style="margin: 0 auto" class="grid team-list">
+        <div style="margin: 0 auto" class="grid team-list">
         <img
-          src="public/team/blue.png"
+          :src="selected === 0 ? 'public/team/choose-blue.png': 'public/team/blue.png'"
           alt="蓝队"
           class="team-role"
-          :class="selected === 0 ? '' : 'gray'"
           @click="selected = 0"
         />
         <img
-          src="public/team/white.png"
+          :src="selected === 1 ? 'public/team/choose-white.png': 'public/team/white.png'"
           alt="白队"
           class="team-role"
-          :class="selected === 1 ? '' : 'gray'"
           @click="selected = 1"
         />
       </div>

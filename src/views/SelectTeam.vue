@@ -28,7 +28,7 @@
           @click="selected = 0"
         />
         <img
-          :src="selected === 1 ? 'public/team/choose-white.png': 'public/team/choose-white.png'"
+          :src="selected === 1 ? 'public/team/choose-white.png': 'public/team/white.png'"
           alt="白队"
           class="team-role"
           @click="selected = 1"
