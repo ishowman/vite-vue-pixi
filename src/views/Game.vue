@@ -916,6 +916,8 @@ function render(app, resources) {
       goldAnimation.loop = true;
       goldAnimation.gotoAndPlay(0);
       gameScene.addChildAt(goldAnimation, 1);
+      getScoreBm.play()
+
       setTimeout(() => {
         goldAnimation.visible = false;
         // gameScene.removeChildAt(1)
@@ -934,6 +936,8 @@ function render(app, resources) {
       silverAnimation.loop = true;
       silverAnimation.gotoAndPlay(0);
       gameScene.addChildAt(silverAnimation, 1);
+      getScoreBm.play()
+        
       setTimeout(() => {
         silverAnimation.visible = false;
       }, 1200);
@@ -952,6 +956,7 @@ function render(app, resources) {
       cuAnimation.loop = true;
       cuAnimation.gotoAndPlay(0);
       gameScene.addChildAt(cuAnimation, 1);
+      getScoreBm.play()
       setTimeout(() => {
         cuAnimation.visible = false;
         // gameScene.removeChildAt(1)
