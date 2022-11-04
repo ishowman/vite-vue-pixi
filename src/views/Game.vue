@@ -78,6 +78,7 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 
 import { Howl } from "howler";
+import { randomInt } from '@/utils'
 
 // import preBg from '@/assets/index/bg.png';
 import bgUrl from "@/assets/img/bg.jpg";
@@ -194,9 +195,9 @@ onMounted(() => {
   canvasHeight = window.innerHeight;
 
   badgeAnimationSize = {
-    width: 0.8256 * canvasWidth,
-    height: 0.1552 * canvasHeight,
-    x: (canvasWidth - 0.8256 * canvasWidth)/2,
+    width: 0.96 * canvasWidth,
+    height: 0.96 * canvasWidth/600*340,
+    x: (canvasWidth - 0.96 * canvasWidth)/2,
     y: (85 / 667) * canvasHeight,
   };
 
@@ -384,14 +385,14 @@ function render(app, resources) {
     scoreAnimation.zIndex = 99;
     gameScene.addChildAt(scoreAnimation, 1);
 
-    bigScore = new Text(`100`, {
-      fontSize: "24px",
+    bigScore = new Text(``, {
+      fontSize: "45px",
       fill: "#fff",
       align: "center",
       fontWeight: 600,
     });
-    bigScore.x = badgeAnimationSize.x + badgeAnimationSize.width / 2 + 6;
-    bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height / 2;
+    bigScore.x = badgeAnimationSize.x + badgeAnimationSize.width / 2 +10/375*canvasWidth;
+    bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height / 2 - 2/667*canvasHeight;
     bigScore.anchor.set(0.5, 0.5);
     bigScore.zIndex = 100;
     bigScore.visible = false;
@@ -653,6 +654,8 @@ function render(app, resources) {
     //设置敌人
     //根据最大 blob 数生成：理论上 1 人 2 石 3 奖 4 金币
     const blobsArr = [
+    "coin",
+
       "coin",
       "stone",
       "coin",
@@ -664,10 +667,12 @@ function render(app, resources) {
       "coin",
       "enemy",
       "coin",
+      "prize",
+
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
       const randomBlob =
-        blobCount.value > 8 ? blobsArr[randomInt(0, 10)] : `coin`;
+        blobCount.value > 8 ? blobsArr[randomInt(0, 12)] : `coin`;
       //创建道具
       let blob;
       //  =
@@ -1012,9 +1017,6 @@ function render(app, resources) {
 
     return collision;
   }
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
   //碰撞检测
   function hitTestRectangle(r1, r2, option = { x: 0, y: 0, updateLast: true }) {
     const { x = 0, y = 0, updateLast } = option;
@@ -1118,7 +1120,6 @@ function render(app, resources) {
       cuBadge.visible = true;
     } else {
       noget.visible = true;
-      gameOverScene.visible = true;
       genEndGame(true)
 
     }
@@ -1181,6 +1182,9 @@ function render(app, resources) {
       });
       gameOverScene.addChild(prizeBtn);
     }
+
+    gameOverScene.visible = true;
+
   }
 }
 </script>
