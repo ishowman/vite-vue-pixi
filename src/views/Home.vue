@@ -40,7 +40,7 @@ import playBtn from "@/assets/index/play-btn.png";
 import prizeBtn from "@/assets/index/prize-btn.png";
 import ruleBtn from "@/assets/index/rule-btn.png";
 import inputNameBg from "@/assets/index/input-name-bg.png";
-import input from "@/assets/index.png";
+import input from "@/assets/index/input.png";
 import submit from "@/assets/index/submit.png";
 const router = useRouter();
 let modelShow = ref(false);
