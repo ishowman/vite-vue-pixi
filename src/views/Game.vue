@@ -96,7 +96,7 @@ import ready from "@/assets/audios/ready.mp3";
 import end from "@/assets/audios/end.mp3";
 import score from "@/assets/audios/score.mp3";
 import hp from "@/assets/audios/hp.mp3";
-
+import getScore from '@/assets/audios/get-score.mp3';
 const router = useRouter();
 const percent = ref(0);
 const readyBgm = new Howl({
@@ -111,7 +111,9 @@ const scoreBgm = new Howl({
 const hpBgm = new Howl({
   src: hp,
 });
-
+const getScoreBm = new Howl({
+  src: getScore
+})
 const game = ref("");
 
 const showLoadingMask = ref(true);
@@ -889,6 +891,7 @@ function render(app, resources) {
         (score >= silverScore && score <= silverScore + 20) ||
         (score >= goldScore && score <= goldScore + 20);
       if (!shouldNotShow) {
+        getScoreBm.play()
         scoreAnimation.visible = true;
         bigScore.visible = true;
         bigScore.text = Math.floor(score / 100) * 100;
