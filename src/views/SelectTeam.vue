@@ -107,14 +107,5 @@ function toGame() {
   font-size: 28px;
   line-height: 1.25;
 }
-.gray {
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  -o-filter: grayscale(100%);
 
-  filter: grayscale(100%);
-
-  filter: gray;
-}
 </style>
