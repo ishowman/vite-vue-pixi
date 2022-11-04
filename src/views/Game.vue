@@ -194,8 +194,8 @@ onMounted(() => {
   canvasHeight = window.innerHeight;
 
   badgeAnimationSize = {
-    width: 0.6 * canvasWidth,
-    height: ((0.6 * canvasWidth) / 600) * 340,
+    width: 0.8256 * canvasWidth,
+    height: 0.1552 * canvasHeight,
     x: canvasWidth * 0.2,
     y: (85 / 667) * canvasHeight,
   };
