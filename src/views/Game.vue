@@ -1,5 +1,5 @@
 <template>
-  <div ref="game" ></div>
+  <div ref="game"></div>
   <div class="countdown-mask" v-if="showCountdown">
     <div class="countdown-pic"></div>
     <img src="/tips/arrow.png" :style="tipsArrowStyle" />
@@ -38,7 +38,7 @@
         <p class="text-center">支持的队伍</p>
       </div>
 
-        <div style="margin: 0 auto" class="grid team-list">
+      <div style="margin: 0 auto" class="grid team-list">
         <img
           v-if="selected === 0"
           src="public/team/choose-blue.png"
@@ -60,7 +60,7 @@
           class="team-role"
           @click="selected = 1"
         />
-         <img
+        <img
           v-else
           src="public/team/white.png"
           alt="白队"
@@ -145,8 +145,8 @@ onBeforeUnmount(() => {
     clearInterval(timerId.value);
     clearTimeout(timerId.value);
   }
-  if(app) {
-    app.destroy(true)
+  if (app) {
+    app.destroy(true);
   }
 });
 
@@ -161,7 +161,13 @@ let Application = PIXI.Application,
   Text = PIXI.Text,
   TextStyle = PIXI.TextStyle;
 
-let goldAnimation, silverAnimation, cuAnimation, badgeAnimationSize,scoreAnimation, bigScore, scoreRate = 0;
+let goldAnimation,
+  silverAnimation,
+  cuAnimation,
+  badgeAnimationSize,
+  scoreAnimation,
+  bigScore,
+  scoreRate = 0;
 const tipsArrowStyle = ref({});
 const tipsTextStyle = ref({});
 function toGame() {
@@ -173,6 +179,7 @@ function toGame() {
     .add(`badge1st`, "badge/金徽章.png")
     .add(`badge2st`, "badge/银徽章.png")
     .add(`badge3st`, "badge/铜徽章.png")
+    .add(`noget`, "badge/no-get.png")
     .load(() => {
       render(app, resources);
       sound.play();
@@ -185,12 +192,11 @@ onMounted(() => {
   canvasHeight = window.innerHeight;
 
   badgeAnimationSize = {
-      width: 0.6 * canvasWidth,
-      height: 0.6 * canvasWidth/600*340,
-      x: canvasWidth*0.2,
-      y: 85/667*canvasHeight
-    }
-
+    width: 0.6 * canvasWidth,
+    height: ((0.6 * canvasWidth) / 600) * 340,
+    x: canvasWidth * 0.2,
+    y: (85 / 667) * canvasHeight,
+  };
 
   //创建一个pixi应用
   app = new Application({
@@ -201,7 +207,7 @@ onMounted(() => {
     // transparent: false,
     resolution: 2, // 接近锯齿问题
     forceCanvas: true,
-    autoResize: true
+    autoResize: true,
   });
   app.renderer.autoDensity = true;
   app.renderer.resize(canvasWidth, canvasHeight);
@@ -217,7 +223,7 @@ onMounted(() => {
     .add(`outerBg`, "game/k.png")
     .add(`star`, "game/x.png")
 
-    .add('backBtn', 'rules/btn-back.png')
+    .add("backBtn", "rules/btn-back.png")
     .add(`tipArrow`, "tips/arrow.png")
     .add(`tipText`, "tips/text.png")
     .add("heart", heart)
@@ -297,13 +303,12 @@ function render(app, resources) {
 
   const contentX = 10;
   const contentY = 50;
-  let goldBadge, silverBadge, cuBadge;
+  let goldBadge, silverBadge, cuBadge, noget;
   let blobWidth = (70 / 375) * canvasWidth;
 
   setup(app, resources);
 
   function setup(app, resources) {
-
     //设置游戏场景容器
     gameScene = new Container();
     // gameScene.visible = false;
@@ -367,9 +372,9 @@ function render(app, resources) {
         return resources[`score${i + 1}`].texture;
       })
     );
-    scoreAnimation.width = badgeAnimationSize.width; 
-    scoreAnimation.height = badgeAnimationSize.height; 
-    scoreAnimation.x = badgeAnimationSize.x; 
+    scoreAnimation.width = badgeAnimationSize.width;
+    scoreAnimation.height = badgeAnimationSize.height;
+    scoreAnimation.x = badgeAnimationSize.x;
     scoreAnimation.y = badgeAnimationSize.y;
     scoreAnimation.loop = true;
     scoreAnimation.visible = false;
@@ -377,14 +382,18 @@ function render(app, resources) {
     scoreAnimation.zIndex = 99;
     gameScene.addChildAt(scoreAnimation, 1);
 
-    bigScore = new Text(`100`, { fontSize: "24px", fill: "#fff", align: 'center', fontWeight: 600 });
-    bigScore.x = badgeAnimationSize.x + badgeAnimationSize.width/2 + 6;
-    bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height/2;
+    bigScore = new Text(`100`, {
+      fontSize: "24px",
+      fill: "#fff",
+      align: "center",
+      fontWeight: 600,
+    });
+    bigScore.x = badgeAnimationSize.x + badgeAnimationSize.width / 2 + 6;
+    bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height / 2;
     bigScore.anchor.set(0.5, 0.5);
     bigScore.zIndex = 100;
     bigScore.visible = false;
     gameScene.addChild(bigScore);
-
 
     const heartSize = {
       width: (22 / 375) * canvasWidth,
@@ -479,8 +488,8 @@ function render(app, resources) {
         return resources[`${name}${i + 1}`].texture;
       })
     );
-    runningHorse.width = (85 / 375) * canvasWidth; 
-    runningHorse.height = (((362 / 133) * 85) / 375) * canvasWidth; 
+    runningHorse.width = (85 / 375) * canvasWidth;
+    runningHorse.height = (((362 / 133) * 85) / 375) * canvasWidth;
     runningHorse.vy = 0; //y轴加速度
     runningHorse.vx = 0; //x轴加速度
     runningHorse.invl = 0; //初始化无敌时间
@@ -515,7 +524,6 @@ function render(app, resources) {
     //   console.log(666)
     // });
 
-
     gameScene.addChild(runningHorse);
     showCountdown.value = true;
     readyBgm.play();
@@ -534,7 +542,7 @@ function render(app, resources) {
     gameOverScene.height =
       (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2);
 
-     gameOverBg = new Sprite(resources.badgeBg.texture);
+    gameOverBg = new Sprite(resources.badgeBg.texture);
     gameOverBg.width = canvasWidth - canvasWidth * 0.13 * 2;
     gameOverBg.height = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2);
     gameOverScene.addChild(gameOverBg);
@@ -577,9 +585,6 @@ function render(app, resources) {
     //字体中心点用于居中
     scoreText.anchor.set(0.5, 0.5);
     gameOverScene.addChild(scoreText);
-   
-      
-    
 
     const badgeY = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.08;
     const badgeX = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 100;
@@ -618,7 +623,15 @@ function render(app, resources) {
     cuBadge.visible = false;
 
     gameOverScene.addChild(cuBadge);
+    // noget
+    noget = new Sprite(resources.noget.texture);
+    noget.y = canvasHeight * 0.1675;
+    noget.width = canvasWidth * 0.5333;
+    noget.height = canvasHeight * 0.1547;
 
+    noget.x = badgeX;
+    noget.visible = false;
+    gameOverScene.addChild(noget)
     setTimeout(() => {
       tipArrow.visible = false;
       tipText.visible = false;
@@ -747,7 +760,9 @@ function render(app, resources) {
   //检查生成的地方车辆是否有重叠
   function checkEMCarPositionHit(blob) {
     for (var i = 0; i < blobs.length; i++) {
-      if (hitTestRectangle(blob, blobs[i], { x: 0, y: 200, updateLast: false })) {
+      if (
+        hitTestRectangle(blob, blobs[i], { x: 0, y: 200, updateLast: false })
+      ) {
         return true;
         break;
       }
@@ -868,30 +883,32 @@ function render(app, resources) {
       runningHorse.invl = 3; //设置无敌时间
     }
 
-    if(score>= scoreRate + 300) {
-      const shouldNotShow = ( score >= cuScore&& score<=cuScore+20) || (score >= silverScore && score<=silverScore+20) || (score >= goldScore && score<=goldScore+20 )
-      if(!shouldNotShow) {
-        scoreAnimation.visible = true
-        bigScore.visible = true
-        bigScore.text = Math.floor(score/100)*100
+    if (score >= scoreRate + 300) {
+      const shouldNotShow =
+        (score >= cuScore && score <= cuScore + 20) ||
+        (score >= silverScore && score <= silverScore + 20) ||
+        (score >= goldScore && score <= goldScore + 20);
+      if (!shouldNotShow) {
+        scoreAnimation.visible = true;
+        bigScore.visible = true;
+        bigScore.text = Math.floor(score / 100) * 100;
         setTimeout(() => {
-          scoreAnimation.visible = false
-          bigScore.visible = false
-        }, 1200)
+          scoreAnimation.visible = false;
+          bigScore.visible = false;
+        }, 1200);
       }
       scoreRate += 300;
-
     }
 
-    if(score>=goldScore && !goldAnimation) {
+    if (score >= goldScore && !goldAnimation) {
       goldAnimation = new AnimatedSprite(
         new Array(11).fill(0).map((_item, i) => {
           return resources[`gold${i + 1}`].texture;
         })
       );
-      goldAnimation.width = badgeAnimationSize.width; 
-      goldAnimation.height = badgeAnimationSize.height; 
-      goldAnimation.x = badgeAnimationSize.x; 
+      goldAnimation.width = badgeAnimationSize.width;
+      goldAnimation.height = badgeAnimationSize.height;
+      goldAnimation.x = badgeAnimationSize.x;
       goldAnimation.y = badgeAnimationSize.y;
       goldAnimation.loop = true;
       goldAnimation.gotoAndPlay(0);
@@ -899,47 +916,46 @@ function render(app, resources) {
       setTimeout(() => {
         goldAnimation.visible = false;
         // gameScene.removeChildAt(1)
-      }, 1200)
+      }, 1200);
     }
-    if(score>=silverScore && !silverAnimation) {
+    if (score >= silverScore && !silverAnimation) {
       silverAnimation = new AnimatedSprite(
         new Array(11).fill(0).map((_item, i) => {
           return resources[`silver${i + 1}`].texture;
         })
       );
-      silverAnimation.width = badgeAnimationSize.width; 
-      silverAnimation.height = badgeAnimationSize.height; 
-      silverAnimation.x = badgeAnimationSize.x; 
+      silverAnimation.width = badgeAnimationSize.width;
+      silverAnimation.height = badgeAnimationSize.height;
+      silverAnimation.x = badgeAnimationSize.x;
       silverAnimation.y = badgeAnimationSize.y;
       silverAnimation.loop = true;
       silverAnimation.gotoAndPlay(0);
       gameScene.addChildAt(silverAnimation, 1);
       setTimeout(() => {
-        silverAnimation.visible = false
-      }, 1200)
+        silverAnimation.visible = false;
+      }, 1200);
     }
 
-    if(score>=cuScore && !cuAnimation) {
+    if (score >= cuScore && !cuAnimation) {
       cuAnimation = new AnimatedSprite(
         new Array(11).fill(0).map((_item, i) => {
           return resources[`cu${i + 1}`].texture;
         })
       );
-      cuAnimation.width = badgeAnimationSize.width; 
-      cuAnimation.height = badgeAnimationSize.height; 
-      cuAnimation.x = badgeAnimationSize.x; 
+      cuAnimation.width = badgeAnimationSize.width;
+      cuAnimation.height = badgeAnimationSize.height;
+      cuAnimation.x = badgeAnimationSize.x;
       cuAnimation.y = badgeAnimationSize.y;
       cuAnimation.loop = true;
       cuAnimation.gotoAndPlay(0);
       gameScene.addChildAt(cuAnimation, 1);
       setTimeout(() => {
-        cuAnimation.visible = false
+        cuAnimation.visible = false;
         // gameScene.removeChildAt(1)
-
-      }, 1200)
+      }, 1200);
     }
   }
-  
+
   //移除已经行驶到画布外围的敌方车辆
   function removeEmCar() {
     for (var i = 0; i < blobs.length; i++) {
@@ -948,8 +964,12 @@ function render(app, resources) {
         //从数组删除
         blobs.splice(i, 1);
         //从场景删除: gameScene 调用 addChild 后记得更改这里的值
-        let badgeAnimationCount = [goldAnimation, silverAnimation, cuAnimation].filter(item => item);
-        gameScene.removeChildAt(i + 2 +badgeAnimationCount.length);
+        let badgeAnimationCount = [
+          goldAnimation,
+          silverAnimation,
+          cuAnimation,
+        ].filter((item) => item);
+        gameScene.removeChildAt(i + 2 + badgeAnimationCount.length);
         // console.log('children', gameScene.children)
       }
     }
@@ -1046,7 +1066,7 @@ function render(app, resources) {
         id = r2.texture.textureCacheIds[0];
       }
 
-      if(updateLast) {
+      if (updateLast) {
         shouldAddScore = !(r2.ts === lastHit.ts && lastHit.url === id);
 
         lastHit = {
@@ -1054,9 +1074,7 @@ function render(app, resources) {
           ts: r2.ts,
           blob: r2,
         };
-
       }
-
     }
 
     //是否碰撞
@@ -1070,39 +1088,43 @@ function render(app, resources) {
       goldBadge.visible = true;
       if (keyValue !== "gold") {
         localStorage.setItem("keyValue", "gold");
-        genEndGame(false)
-      }else {
-        genEndGame(true)
+        genEndGame(false);
+      } else {
+        genEndGame(true);
       }
-    } else if (score >= 1800 && score <= 3600) {
+    } else if (score >= 1800 && score < 3600) {
       if (keyValue !== "gold") {
         localStorage.setItem("keyValue", "silver");
-        genEndGame(false)
-      }else {
-        genEndGame(true)
+        genEndGame(false);
+      } else {
+        genEndGame(true);
       }
       silverBadge.visible = true;
-    } else {
+    } else if (score >= 900 && score < 1800) {
       if (!["gold", "silver"].includes(keyValue)) {
         localStorage.setItem("keyValue", "cu");
-        genEndGame(false)
-      }else {
-        genEndGame(true)
+        genEndGame(false);
+      } else {
+        genEndGame(true);
       }
       cuBadge.visible = true;
+    } else {
+      noget.visible = true;
+      gameOverScene.visible = true;
+      genEndGame(true)
+
     }
-    gameOverScene.visible = true;
   }
-   function genEndGame(isAlready=false) {
+  function genEndGame(isAlready = false) {
     // console.log('触发对应的规则', isAlready)
-    if(isAlready) {
+    if (isAlready) {
       // 已经获取到对应的勋章了
-      let backBtn = new Sprite(resources.backBtn.texture)
-      backBtn.width = 150/375*canvasWidth; 
-      backBtn.height = 60/667*canvasHeight;
+      let backBtn = new Sprite(resources.backBtn.texture);
+      backBtn.width = (150 / 375) * canvasWidth;
+      backBtn.height = (60 / 667) * canvasHeight;
       backBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
       // backBtn.y = gameOverBg.height - 1.1*backBtn.height;
-      backBtn.y = gameOverBg.height  * 0.85
+      backBtn.y = gameOverBg.height * 0.85;
 
       backBtn.on("touchend", () => {
         sound.play();
@@ -1115,23 +1137,22 @@ function render(app, resources) {
       });
       backBtn.interactive = true;
 
-    //  let style = new TextStyle({
-    //   wordWrap: true,
-    //   align: "center",
-    //   fill: "white",
-    //   fontSize: 12,
-    // });
-    // let tip = new Text(`你已领取或获得了更高的奖牌`, style);
-    // tip.width = 158;
+      //  let style = new TextStyle({
+      //   wordWrap: true,
+      //   align: "center",
+      //   fill: "white",
+      //   fontSize: 12,
+      // });
+      // let tip = new Text(`你已领取或获得了更高的奖牌`, style);
+      // tip.width = 158;
 
-    // tip.y = gameOverBg.height  * 0.8;
-    // tip.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2;
-    // //字体中心点用于居中
-    // tip.anchor.set(0.5, 0.5);
-    // gameOverScene.addChild(tip)
-    gameOverScene.addChild(backBtn);
-
-    }else{
+      // tip.y = gameOverBg.height  * 0.8;
+      // tip.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2;
+      // //字体中心点用于居中
+      // tip.anchor.set(0.5, 0.5);
+      // gameOverScene.addChild(tip)
+      gameOverScene.addChild(backBtn);
+    } else {
       // 未获取直接渲染跳转逻辑
       let prizeBtn = new Sprite(resources.prizeBtn.texture);
       prizeBtn.y = (1569 / 811) * (canvasWidth - canvasWidth * 0.13 * 2) * 0.78;
