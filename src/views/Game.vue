@@ -40,13 +40,29 @@
 
         <div style="margin: 0 auto" class="grid team-list">
         <img
-          :src="selected === 0 ? 'public/team/choose-blue.png': 'public/team/blue.png'"
+          v-if="selected === 0"
+          src="public/team/choose-blue.png"
           alt="蓝队"
           class="team-role"
           @click="selected = 0"
         />
         <img
-          :src="selected === 1 ? 'public/team/choose-white.png': 'public/team/white.png'"
+          v-else
+          src="public/team/blue.png"
+          alt="蓝队"
+          class="team-role"
+          @click="selected = 0"
+        />
+        <img
+          v-if="selected === 1"
+          src="public/team/choose-white.png"
+          alt="白队"
+          class="team-role"
+          @click="selected = 1"
+        />
+         <img
+          v-else
+          src="public/team/white.png"
           alt="白队"
           class="team-role"
           @click="selected = 1"
