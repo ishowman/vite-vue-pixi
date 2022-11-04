@@ -20,15 +20,31 @@
         <p class="text-center">支持的队伍</p>
       </div>
 
-      <div style="margin: 0 auto" class="grid team-list">
+     <div style="margin: 0 auto" class="grid team-list">
         <img
-          :src="selected === 0 ? '/team/choose-blue.png': '/team/blue.png'"
+          v-if="selected === 0"
+          src="public/team/choose-blue.png"
           alt="蓝队"
           class="team-role"
           @click="selected = 0"
         />
         <img
-          :src="selected === 1 ? '/team/choose-white.png': '/team/white.png'"
+          v-else
+          src="public/team/blue.png"
+          alt="蓝队"
+          class="team-role"
+          @click="selected = 0"
+        />
+        <img
+          v-if="selected === 1"
+          src="public/team/choose-white.png"
+          alt="白队"
+          class="team-role"
+          @click="selected = 1"
+        />
+         <img
+          v-else
+          src="public/team/white.png"
           alt="白队"
           class="team-role"
           @click="selected = 1"
