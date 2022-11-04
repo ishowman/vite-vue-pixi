@@ -66,7 +66,7 @@ function startGame() {
   }
   if (inputName.value) {
     sound.play();
-    router.replace({ name: "Game" });
+    router.replace({ name: "Rule" });
   }
 }
 function toPrize() {
