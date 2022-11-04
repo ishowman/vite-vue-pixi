@@ -6,10 +6,10 @@
 
       <img src="public/rules/square.png" alt="" style="width: 100%" />
       <img
-        src="public/rules/btn-back.png"
+        src="public/select-teams.png"
         alt=""
         class="btn-back"
-        @click="toHome"
+        @click="toGame"
       />
 
       <ul class="rule-text scroll-view" style="padding-left: 20px">
@@ -89,8 +89,8 @@ const sound = new Howl({
 
 const router = useRouter();
 
-function toHome() {
-  router.replace({ name: 'Home' });
+function toGame() {
+  router.replace({ name: 'Game' });
   sound.play()
 
 }
