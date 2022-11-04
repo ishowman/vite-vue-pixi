@@ -18,11 +18,11 @@
       <img class="input-name-bg" :src="inputNameBg" />
 
       <div class="input-name-title">请填写你的姓名</div>
-      <input type="text" class="input-name-input" />
+      <input type="text" class="input-name-input" v-model="inputName"/>
       <img
         :src="submit"
         class="input-submit"
-        @click="sound.play(),router.replace({ name: 'Game' })"
+        @click="startGame"
       />
       <div class="mask" v-if="modelShow"></div>
     </div>
@@ -44,6 +44,7 @@ import input from "@/assets/index/input.png";
 import submit from "@/assets/index/submit.png";
 const router = useRouter();
 let modelShow = ref(false);
+let inputName = ref('')
 const sound = new Howl({
   src: playBgm,
 });
@@ -58,7 +59,13 @@ function play() {
   // router.replace({ name: 'Game' });
   modelShow.value = true;
 }
-
+function startGame() {
+  
+  if(inputName.value){
+    sound.play();
+    router.replace({ name: 'Game' })
+  }
+}
 function toPrize() {
   router.push({
     name: "Prize",
