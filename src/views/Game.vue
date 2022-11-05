@@ -74,7 +74,7 @@
 
 <script setup>
 import * as PIXI from "pixi.js-legacy";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
 import { useRouter } from "vue-router";
 
 import { Howl } from "howler";
@@ -771,7 +771,6 @@ function render(app, resources) {
         hitTestRectangle(blob, blobs[i], { x: 0, y: 200, updateLast: false })
       ) {
         return true;
-        break;
       }
     }
   }
@@ -834,7 +833,6 @@ function render(app, resources) {
         score += 5;
       } else if (["prize"].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.onComplete = () => {
-          // console.log(`prize hitted`)
           lastHit.blob.visible = false;
         };
 
@@ -842,7 +840,7 @@ function render(app, resources) {
 
         scoreBgm.play();
         score += 20;
-      } else if (["stone"].includes(lastHit.url) && shouldAddScore) {
+      } else if (["stone", `enemy`].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.visible = false;
 
         // mycarSprite.texture = resources["img/boom.png"].texture;
@@ -853,17 +851,7 @@ function render(app, resources) {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-      } else if ([`enemy`].includes(lastHit.url) && shouldAddScore) {
-        lastHit.blob.visible = false;
-
-        runningHorse.alpha = 0.3;
-
-        hpBgm.play();
-
-        hp--;
-        speed = initalSpeed;
-        bgSpeed = 1;
-      }
+      } 
       if (hp === 2) {
         heart3.visible = false;
       }
@@ -1121,8 +1109,12 @@ function render(app, resources) {
     } else {
       noget.visible = true;
       genEndGame(true)
-
     }
+
+    nextTick(() => {
+      state = () => {}
+    })
+
   }
   function genEndGame(isAlready = false) {
     // console.log('触发对应的规则', isAlready)
@@ -1130,7 +1122,7 @@ function render(app, resources) {
       // 已经获取到对应的勋章了
       let backBtn = new Sprite(resources.backBtn.texture);
       backBtn.width = (150 / 375) * canvasWidth;
-      backBtn.height = (60 / 667) * canvasHeight;
+      backBtn.height =  backBtn.width/375 * 143;
       backBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
       // backBtn.y = gameOverBg.height - 1.1*backBtn.height;
       backBtn.y = gameOverBg.height * 0.85;
