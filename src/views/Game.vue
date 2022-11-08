@@ -78,7 +78,7 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
 import { useRouter } from "vue-router";
 
 import { Howl } from "howler";
-import { randomInt } from '@/utils'
+import { randomInt } from "@/utils";
 
 // import preBg from '@/assets/index/bg.png';
 import bgUrl from "@/assets/img/bg.jpg";
@@ -97,7 +97,7 @@ import ready from "@/assets/audios/ready.mp3";
 import end from "@/assets/audios/end.mp3";
 import score from "@/assets/audios/score.mp3";
 import hp from "@/assets/audios/hp.mp3";
-import getScore from '@/assets/audios/get-score.mp3';
+import getScore from "@/assets/audios/get-score.mp3";
 const router = useRouter();
 const percent = ref(0);
 const readyBgm = new Howl({
@@ -113,8 +113,8 @@ const hpBgm = new Howl({
   src: hp,
 });
 const getScoreBm = new Howl({
-  src: getScore
-})
+  src: getScore,
+});
 const game = ref("");
 
 const showLoadingMask = ref(true);
@@ -196,8 +196,8 @@ onMounted(() => {
 
   badgeAnimationSize = {
     width: 0.96 * canvasWidth,
-    height: 0.96 * canvasWidth/600*340,
-    x: (canvasWidth - 0.96 * canvasWidth)/2,
+    height: ((0.96 * canvasWidth) / 600) * 340,
+    x: (canvasWidth - 0.96 * canvasWidth) / 2,
     y: (85 / 667) * canvasHeight,
   };
 
@@ -391,8 +391,14 @@ function render(app, resources) {
       align: "center",
       fontWeight: 600,
     });
-    bigScore.x = badgeAnimationSize.x + badgeAnimationSize.width / 2 +10/375*canvasWidth;
-    bigScore.y = badgeAnimationSize.y + badgeAnimationSize.height / 2 - 2/667*canvasHeight;
+    bigScore.x =
+      badgeAnimationSize.x +
+      badgeAnimationSize.width / 2 +
+      (10 / 375) * canvasWidth;
+    bigScore.y =
+      badgeAnimationSize.y +
+      badgeAnimationSize.height / 2 -
+      (2 / 667) * canvasHeight;
     bigScore.anchor.set(0.5, 0.5);
     bigScore.zIndex = 100;
     bigScore.visible = false;
@@ -634,7 +640,7 @@ function render(app, resources) {
 
     noget.x = badgeX;
     noget.visible = false;
-    gameOverScene.addChild(noget)
+    gameOverScene.addChild(noget);
     setTimeout(() => {
       tipArrow.visible = false;
       tipText.visible = false;
@@ -654,7 +660,7 @@ function render(app, resources) {
     //设置敌人
     //根据最大 blob 数生成：理论上 1 人 2 石 3 奖 4 金币
     const blobsArr = [
-    "coin",
+      "coin",
 
       "coin",
       "stone",
@@ -668,7 +674,6 @@ function render(app, resources) {
       "enemy",
       "coin",
       "prize",
-
     ];
     for (let i = 0; i < numberOfBlobs - blobs.length; i++) {
       const randomBlob =
@@ -851,7 +856,7 @@ function render(app, resources) {
         hp--;
         speed = initalSpeed;
         bgSpeed = 1;
-      } 
+      }
       if (hp === 2) {
         heart3.visible = false;
       }
@@ -884,7 +889,7 @@ function render(app, resources) {
         (score >= silverScore && score <= silverScore + 20) ||
         (score >= goldScore && score <= goldScore + 20);
       if (!shouldNotShow) {
-        getScoreBm.play()
+        getScoreBm.play();
         scoreAnimation.visible = true;
         bigScore.visible = true;
         bigScore.text = Math.floor(score / 100) * 100;
@@ -909,7 +914,7 @@ function render(app, resources) {
       goldAnimation.loop = true;
       goldAnimation.gotoAndPlay(0);
       gameScene.addChildAt(goldAnimation, 1);
-      getScoreBm.play()
+      getScoreBm.play();
 
       setTimeout(() => {
         goldAnimation.visible = false;
@@ -929,8 +934,8 @@ function render(app, resources) {
       silverAnimation.loop = true;
       silverAnimation.gotoAndPlay(0);
       gameScene.addChildAt(silverAnimation, 1);
-      getScoreBm.play()
-        
+      getScoreBm.play();
+
       setTimeout(() => {
         silverAnimation.visible = false;
       }, 1200);
@@ -949,7 +954,7 @@ function render(app, resources) {
       cuAnimation.loop = true;
       cuAnimation.gotoAndPlay(0);
       gameScene.addChildAt(cuAnimation, 1);
-      getScoreBm.play()
+      getScoreBm.play();
       setTimeout(() => {
         cuAnimation.visible = false;
         // gameScene.removeChildAt(1)
@@ -1086,35 +1091,29 @@ function render(app, resources) {
       goldBadge.visible = true;
       if (keyValue !== "gold") {
         localStorage.setItem("keyValue", "gold");
-        genEndGame(false);
-      } else {
-        genEndGame(true);
       }
+      genEndGame(false);
     } else if (score >= 1800 && score < 3600) {
       if (keyValue !== "gold") {
         localStorage.setItem("keyValue", "silver");
-        genEndGame(false);
-      } else {
-        genEndGame(true);
       }
+      genEndGame(false);
       silverBadge.visible = true;
     } else if (score >= 900 && score < 1800) {
       if (!["gold", "silver"].includes(keyValue)) {
         localStorage.setItem("keyValue", "cu");
-        genEndGame(false);
-      } else {
-        genEndGame(true);
       }
+      genEndGame(false);
+
       cuBadge.visible = true;
     } else {
       noget.visible = true;
-      genEndGame(true)
+      genEndGame(true);
     }
 
     nextTick(() => {
-      state = () => {}
-    })
-
+      state = () => {};
+    });
   }
   function genEndGame(isAlready = false) {
     // console.log('触发对应的规则', isAlready)
@@ -1122,7 +1121,7 @@ function render(app, resources) {
       // 已经获取到对应的勋章了
       let backBtn = new Sprite(resources.backBtn.texture);
       backBtn.width = (150 / 375) * canvasWidth;
-      backBtn.height =  backBtn.width/375 * 143;
+      backBtn.height = (backBtn.width / 375) * 143;
       backBtn.x = (canvasWidth - canvasWidth * 0.13 * 2) / 2 - 80;
       // backBtn.y = gameOverBg.height - 1.1*backBtn.height;
       backBtn.y = gameOverBg.height * 0.85;
@@ -1176,7 +1175,6 @@ function render(app, resources) {
     }
 
     gameOverScene.visible = true;
-
   }
 }
 </script>
