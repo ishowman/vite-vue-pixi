@@ -56,35 +56,30 @@
 
         <!-- todo 图标 金银铜 此处需要变量改变显示的金银 -->
         <img
-          src="/poster/btn-award.png"
-          :style="{
-            position: 'absolute',
-            bottom: 'calc(5.43% + 30px)',
-            width: sc.w * 0.3829 + 'px',
-            height: sc.h * 0.0731 + 'px',
-            left: sc.w * 0.11 + 'px',
-          }"
-          @click="
-            router.push({
-              name: 'Prize',
-              query: { random: new Date().getTime() },
-            })
-          "
-        />
-        <img
-          src="/poster/btn-share.png"
-          :style="{
-            position: 'absolute',
-            bottom: 'calc(5.43% + 30px)',
-            right: sc.w * 0.1248 + 'px',
-            width: sc.w * 0.3829 + 'px',
-            height: sc.h * 0.0731 + 'px',
-            zIndex: 9,
-          }"
-          @click="modalStatus = true"
-        />
-      </div>
+        src="/poster/btn-award.png"
+        :style="{
+          position: 'absolute',
+          bottom: 'calc(5.43% + 30px)',
+          width: sc.w * 0.3829 + 'px',
+          height: sc.h * 0.0731 + 'px',
+          left: sc.w * 0.11 + 'px',
+        }"
+        @click="router.replace({name: 'Prize', query: { random: new Date().getTime()}})"
+      />
+      <img
+        src="/poster/btn-share.png"
+        :style="{
+          position: 'absolute',
+          bottom: 'calc(5.43% + 30px)',
+          right: sc.w * 0.1248 + 'px',
+          width: sc.w * 0.3829 + 'px',
+          height: sc.h * 0.0731 + 'px',
+          zIndex: 9
+        }"
+        @click="modalStatus = true"
+      />
     </div>
+  </div>
 
     <div
       v-if="modalStatus"

@@ -70,7 +70,7 @@ function startGame() {
   }
 }
 function toPrize() {
-  router.push({
+  router.replace({
     name: "Prize",
     query: { random: new Date().getMilliseconds() },
   });

@@ -530,7 +530,7 @@ function render(app, resources) {
     });
 
     // runningHorse.on("tap", (event) => {
-    //   console.log(666)
+    //   play()
     // });
 
     gameScene.addChild(runningHorse);
@@ -827,6 +827,9 @@ function render(app, resources) {
       }
     }
     //如果发生碰撞且在无敌时间之外
+    // 碰撞后道具消失，本来 explorerHit 也应该由 true 变成 false，但实际上如果一直没改变位置，仍然会被判定为碰撞且为 true
+    // console.log(explorerHit, runningHorse.invl, lastHit, shouldAddScore)
+    // 出现过碰撞一次石头，但 shouldAddScore 连续打印出为 true
     if (explorerHit && runningHorse.invl === 0) {
       if (["coin"].includes(lastHit.url) && shouldAddScore) {
         lastHit.blob.onComplete = () => {
@@ -872,6 +875,9 @@ function render(app, resources) {
       }, 500);
 
       hitRecords.push(lastHit);
+      // runningHorse.invl = 3; //设置无敌时间
+      shouldAddScore = false;
+
       //判断是否血量归零
       if (hp < 1) {
         //抛出游戏结束
@@ -880,7 +886,6 @@ function render(app, resources) {
         scoreText.text = score;
         runningHorse.interactive = false;
       }
-      runningHorse.invl = 3; //设置无敌时间
     }
 
     if (score >= scoreRate + 300) {
@@ -1040,16 +1045,19 @@ function render(app, resources) {
     combinedHalfWidths = r1.halfWidth + r2.halfWidth;
     combinedHalfHeights = r1.halfHeight + r2.halfHeight;
 
+    if(!r2.visible) return false;
+
     //检查x轴
     if (Math.abs(vx) < combinedHalfWidths + x) {
       //再检查y轴
       if (Math.abs(vy) < combinedHalfHeights + y) {
         //如果是则判断为碰撞
         hit = true;
-      } else {
-        //否则为没碰撞
-        hit = false;
-      }
+      } 
+      // else {
+      //   //否则为没碰撞
+      //   hit = false;
+      // }
     } else {
       //x轴没有碰撞
       hit = false;
@@ -1070,6 +1078,9 @@ function render(app, resources) {
       }
 
       if (updateLast) {
+        // console.log(`r2`, r2)
+        // console.log(`lastHit`, lastHit)
+        // console.log(`id`, id)
         shouldAddScore = !(r2.ts === lastHit.ts && lastHit.url === id);
 
         lastHit = {
