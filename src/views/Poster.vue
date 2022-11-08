@@ -53,7 +53,7 @@
           height: sc.h * 0.0731 + 'px',
           left: sc.w * 0.11 + 'px',
         }"
-        @click="router.push({name: 'Prize', query: { random: new Date().getTime()}})"
+        @click="router.replace({name: 'Prize', query: { random: new Date().getTime()}})"
       />
       <img
         src="/poster/btn-share.png"
