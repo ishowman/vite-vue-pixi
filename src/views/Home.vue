@@ -85,9 +85,17 @@ function toRule() {
 #home {
   background-image: url("@/assets/index/bg.png");
   background-size: 100% 100%;
+  /* background-size: cover; */
   background-repeat: no-repeat;
   position: relative;
 }
+
+/* @media (min-aspect-ratio: 375/667) {
+  #home {
+    background-position-y: -5px;
+  }
+} */
+
 #full-page{
   position: fixed;
   left:0;

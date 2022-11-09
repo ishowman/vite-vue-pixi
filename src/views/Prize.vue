@@ -141,10 +141,17 @@ function getPrize(key) {
 <style scoped>
 #prize {
   background-image: url('public/rules/bg.jpg');
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   position: relative;
 }
+
+@media (min-aspect-ratio: 375/667) {
+  #prize {
+    background-position-y: -10px;
+  }
+}
+
 .square {
   position: absolute;
   top: 19%;
