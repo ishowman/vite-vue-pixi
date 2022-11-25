@@ -20,7 +20,7 @@
           </template>
           <p class="text-ellipsis">冠军奖品</p>
           <!-- <button @click="hidePrizes = true">兑换</button> -->
-          <img src="public/myAward/btn-get.png" @click="prizeName = 'gold'" style="width:50px;"/>
+          <img src="public/myAward/btn-get.png" @click="prizeName = 'gold', modalStatus = true" style="width:50px;"/>
         </game-prize>
         <game-prize class="mb-12" v-if="hasSilver">
           <template #pic>
@@ -28,7 +28,7 @@
           </template>
 
           <p class="text-ellipsis">亚军奖品</p>
-          <img src="public/myAward/btn-get.png" @click="prizeName = 'silver'"  style="width:50px;"/>
+          <img src="public/myAward/btn-get.png" @click="prizeName = 'silver', modalStatus = true"  style="width:50px;"/>
         </game-prize>
 
         <game-prize class="mb-12" v-if="hasCu">
@@ -37,7 +37,7 @@
           </template>
 
           <p class="text-ellipsis">季军奖品</p>
-          <img src="public/myAward/btn-get.png"  style="width:50px;" @click="prizeName = 'cu'" />
+          <img src="public/myAward/btn-get.png"  style="width:50px;" @click="prizeName = 'cu', modalStatus = true" />
         </game-prize>
 
         </template>
