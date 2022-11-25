@@ -20,7 +20,7 @@
           </template>
           <p class="text-ellipsis">金牌奖品</p>
           <!-- <button @click="hidePrizes = true">兑换</button> -->
-          <img src="public/myAward/btn-get.png" @click="getPrize('gold')" style="width:50px;"/>
+          <img src="public/myAward/btn-get.png" @click="prizeName = 'gold'" style="width:50px;"/>
         </game-prize>
         <game-prize class="mb-12" v-if="hasSilver">
           <template #pic>
@@ -28,7 +28,7 @@
           </template>
 
           <p class="text-ellipsis">银牌奖品</p>
-          <img src="public/myAward/btn-get.png" @click="getPrize('silver')"  style="width:50px;"/>
+          <img src="public/myAward/btn-get.png" @click="prizeName = 'silver'"  style="width:50px;"/>
         </game-prize>
 
         <game-prize class="mb-12" v-if="hasCu">
@@ -37,7 +37,7 @@
           </template>
 
           <p class="text-ellipsis">铜牌奖品</p>
-          <img src="public/myAward/btn-get.png"  style="width:50px;" @click="getPrize('cu')" />
+          <img src="public/myAward/btn-get.png"  style="width:50px;" @click="prizeName = 'cu'" />
         </game-prize>
 
         </template>
@@ -85,6 +85,60 @@
         具体请前往比华利保罗线下门店进行咨询
       </p>
     </div>
+    <!-- model -->
+    <div
+      v-if="modalStatus"
+      :style="{
+        width: sc.w + 'px',
+        height: sc.h + 'px',
+        background: 'rgba(0,0,0, 0.77)',
+        position: 'fixed',
+        left: 0,
+        top: 0,
+        zIndex: 99999
+      }"
+      @click="modalStatus = false"
+    >
+        <!-- 一张图 -->
+        <img src="public/myAward/msg.png" 
+        :style="{
+             position: 'absolute',
+             left: 0,
+             right: 0,
+             margin: 'auto',
+             width: sc.w * 0.7974 + 'px',
+             height: sc.h * 0.241 + 'px',
+             top: sc.h * 0.3735 + 'px'
+        }" />
+        <!-- 两张图 -->
+       <div :style="{
+          display: 'flex',
+          justifyContent: 'center',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          margin: 'auto',
+          width: sc.w + 'px',
+          height: sc.h + 'px',
+          top: sc.h * 0.6483 +  'px',
+        }"> 
+          <img src="public/myAward/cancel.png" 
+            :style="{
+              marginRight: sc.w * 0.0325 + 'px',
+              width: sc.w * 0.2778 + 'px',
+              height: sc.h * 0.0496 + 'px',
+            }"
+            @click="modalStatus = false"
+          />
+          <img src="public/myAward/btn-sure.png" 
+            :style="{
+              width: sc.w * 0.2778 + 'px',
+              height: sc.h * 0.0496 + 'px',
+            }"
+            @click="getPrize"
+          />
+        </div> 
+    </div>
   </div>
 </template>
 <script setup>
@@ -104,8 +158,12 @@ const hasGold = ref(false);
 const hasSilver = ref(false);
 const hasCu = ref(false);
 const getAlreadyGet = ref(false)
-
-
+const prizeName = ref('')
+const modalStatus = ref(true);
+const sc = ref({
+  w: window.innerWidth,
+  h: window.innerHeight,
+});
 function toHome() {
   router.replace({ name: 'Home' });
   sound.play()
@@ -118,23 +176,20 @@ watch(()=> router.currentRoute.value.path, ()=>{
   hasSilver.value = getKeyValue=== 'silver';
   hasCu.value = getKeyValue === 'cu';
 },{immediate: true})
-function getPrize(key) {
+function getPrize() {
   sound.play()
   hidePrizes.value = true;
-  if(key === 'gold') {
+  if(prizeName.value === 'gold') {
     hasGold.value = false;
-
   }
-  else if(key === 'silver') {
+  else if(prizeName.value === 'silver') {
     hasSilver.value = false;
-
   }
 
-  else if(key === 'cu') {
+  else if(prizeName.value === 'cu') {
     hasCu.value = false;
-
   }
-  localStorage.setItem('getAlreadyGet', 0);
+    localStorage.setItem('getAlreadyGet', 0);
 
 }
 </script>
