@@ -1270,9 +1270,16 @@ function render(app, resources) {
   right: 0;
   z-index: 998;
   background-image: url("public/rules/bg.jpg");
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat;
 }
+
+@media (min-aspect-ratio: 375/667) {
+  .select-team {
+    background-position-y: -10px;
+  }
+}
+
 
 .square {
   position: absolute;
@@ -1289,7 +1296,7 @@ function render(app, resources) {
 }
 .title {
   position: absolute;
-  top: -14%;
+  top: -13.5%;
   left: 0%;
 }
 .team-list {
