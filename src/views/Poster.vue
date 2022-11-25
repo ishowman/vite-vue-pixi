@@ -169,27 +169,27 @@ const sc = ref({
 const KEY = ref("silver");
 const JJ_MAP = ref({
   gold: {
-    name: "金牌奖品",
+    name: "冠军奖品",
     bg: "/poster/金.png",
     img: "/poster/jin.png",
     poster: "/poster/金.jpg",
-    tip: "您已领取过此金牌"
+    tip: "您已领取过此冠军"
 
   },
   silver: {
-    name: "银牌奖品",
+    name: "亚军奖品",
     bg: "/poster/银.png",
     img: "/poster/yin.png",
     poster: "/poster/银.jpg",
-    tip: "您已领取过此银牌"
+    tip: "您已领取过此亚军"
 
   },
   cu: {
-    name: "铜牌奖品",
+    name: "季军奖品",
     bg: "/poster/铜.png",
     img: "/poster/tong.png",
     poster: "/poster/铜.jpg",
-    tip: "您已领取过此铜牌"
+    tip: "您已领取过此季军"
   },
   empty: {
     name: "暂无奖品",
