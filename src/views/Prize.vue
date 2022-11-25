@@ -159,7 +159,7 @@ const hasSilver = ref(false);
 const hasCu = ref(false);
 const getAlreadyGet = ref(false)
 const prizeName = ref('')
-const modalStatus = ref(true);
+const modalStatus = ref(false);
 const sc = ref({
   w: window.innerWidth,
   h: window.innerHeight,
