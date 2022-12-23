@@ -121,33 +121,14 @@ const showLoadingMask = ref(true);
 const showCountdown = ref(false);
 const showTeams = ref(true);
 const selected = ref(2);
-let loaded = ref(false);
 let app, canvasWidth, canvasHeight;
 const enemyCount = 10;
 const horseCourt = 20;
 const blobCount = ref(0);
-const timerId = ref(0);
 const cuScore = 900;
 const silverScore = 1800;
 const goldScore = 3600;
-timerId.value = setInterval(() => {
-  percent.value += 4;
-  if (percent.value >= 96) {
-    percent.value = 96;
-  }
-  if (loaded.value) {
-    percent.value = 100;
-    clearInterval(timerId.value);
-    timerId.value = setTimeout(() => {
-      showLoadingMask.value = false;
-    }, 100);
-  }
-}, 100);
 onBeforeUnmount(() => {
-  if (timerId.value) {
-    clearInterval(timerId.value);
-    clearTimeout(timerId.value);
-  }
   if (app) {
     app.destroy(true);
   }
@@ -272,9 +253,16 @@ onMounted(() => {
 
   app.loader.load((_loader, _resources) => {
     resources = _resources;
-    loaded.value = true;
-    // setup(app, _resources);
   });
+
+  app.loader.onProgress.add(({progress}) => {
+      percent.value = progress.toFixed(0);
+
+      if(percent.value === '100') {
+        console.log(`loaded`)
+        showLoadingMask.value = false;
+      }
+    })
 });
 
 function render(app, resources) {
